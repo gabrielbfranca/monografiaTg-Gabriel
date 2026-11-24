@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Classe do documento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Opções:
+%  - Graduação: bacharelado|engenharia|licenciatura
+%  - Pós-graduação: [qualificacao], mestrado|doutorado, ppca|ppginf
+
+% \documentclass[engenharia]{UnB-CIC}%
+\documentclass[bacharelado]{UnB-CIC}%
+
+\usepackage{pdfpages}% incluir PDFs, usado no apêndice
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{placeins}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{hyperref}
+
+% Definição personalizada da sintaxe Gherkin para BDD
+\lstdefinelanguage{Gherkin}{
+    morekeywords={Feature, Scenario, Given, When, Then, And, But},
+    sensitive=false,
+    morecomment=[l]{\#},
+    morestring=[b]",
+}
+
+\lstset{
+    language=Gherkin,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{green!60!black},
+    showstringspaces=false,
+    tabsize=2,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Informações do Trabalho
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\orientador{\prof \dr Genaina Nunes Rodrigues}{CIC/UnB}%
+\coordenador{\prof \dr Prof. Marcelo Grandi Mandelli}{CIC/UnB}%
+\diamesano{24}{dezembro}{2026}%
+
+\membrobanca{\prof \dr Donald Knuth}{Stanford University}%
+\membrobanca{\dr Leslie Lamport}{Microsoft Research}%
+
+\autor{Gabriel B.}{França}%
+
+\titulo{Uma Abordagem Orientada em Ground Truth Comportamental para Migração de Sistemas Robóticos: Um Estudo de Caso de ROS 1 para ROS 2}%
+
+\palavraschave{LaTeX, metodologia científica, trabalho de conclusão de curso}%
+\keywords{LaTeX, scientific method, thesis}%
+
+\newcommand{\unbcic}{\texttt{UnB-CIC}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Texto
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}%
+    \capitulo{1_Introducao}{Introdução}%
+    \capitulo{2_fundamentacao}{Fundamentação teórica}%
+    \capitulo{3_caracterizacao}{Caracterização do estudo de caso}%
+    \capitulo{4_metodologia}{Metodologia}%
+    \capitulo{5_resultados}{Resultados}%
+    \capitulo{6_avaliacao}{Avaliação e discussão}%
+    \capitulo{7_conclusao}{Conclusão}%
+    \capitulo{8_Apresentacao}{Apresentações}%
+
+    %\apendice{Apendice_Fichamento}{Fichamento de Artigo Científico}%
+    %\anexo{Anexo1}{Documentação Original \unbcic\ (parcial)}%
+\end{document}%

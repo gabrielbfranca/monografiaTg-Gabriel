@@ -1,0 +1,29 @@
+
+\section{Considerações Finais}
+
+A migração de sistemas robóticos legados envolve desafios relacionados à compreensão da implementação existente, à identificação dos comportamentos que devem ser preservados e à avaliação das transformações realizadas na plataforma de destino. Nesse contexto, este trabalho propôs uma abordagem de migração orientada por \textit{Ground Truth} Comportamental, organizada em duas fases que integram a recuperação do conhecimento sobre o sistema legado, a especificação e verificação de comportamentos, a identificação de suas realizações na implementação e a transformação e validação do sistema migrado.
+
+A abordagem foi examinada por meio de um estudo de caso parcialmente retrospectivo da migração da \textit{Body Sensor Network} (BSN) do ROS~1 para o ROS~2. A análise permitiu reconstruir e relacionar atividades do processo de migração a partir das especificações BDD, dos artefatos de implementação e das evidências de execução disponíveis. Em relação à aplicabilidade da abordagem (RQ1), os resultados demonstraram a possibilidade de realizar ou reconstruir suas atividades no contexto investigado, embora não permitam avaliar sua aplicação prospectiva ou sua influência sobre as decisões da migração original.
+
+Quanto à preservação comportamental (RQ2), a comparação dos cenários BDD, de seus oráculos e das evidências de execução permitiu identificar correspondências entre comportamentos selecionados nas duas implementações. Os resultados sustentaram evidências de preservação na recepção de leituras, na classificação de risco e na disponibilização do estado de saúde do paciente. Entretanto, a análise também identificou limitações nos critérios de verificação, especialmente quanto à persistência das leituras fisiológicas e a determinados comportamentos da adaptação. Esses resultados evidenciam a importância de considerar o alcance dos oráculos antes de interpretar a aprovação dos testes como demonstração de preservação comportamental.
+
+Em relação à caracterização das transformações (RQ3), a associação entre contratos comportamentais, responsabilidades de implementação e métricas estruturais permitiu examinar três mudanças principais: a adoção de mecanismos de gerenciamento de ciclo de vida, a ampliação do monitoramento e a reorganização das responsabilidades de processamento e comunicação. A análise identificou uma separação mais explícita de responsabilidades na implementação ROS~2, mas as diferenças de decomposição e de medição não permitiram demonstrar uma melhoria quantitativa global da modularidade.
+
+De modo geral, o estudo demonstrou a possibilidade de sistematizar retrospectivamente a migração da BSN por meio da integração entre especificações comportamentais, evidências de implementação e registros de execução. As conclusões permanecem restritas às atividades e aos comportamentos investigados, sem estabelecer a preservação integral do sistema ou a eficácia da abordagem em outros contextos.
+\section{Contribuições do Trabalho}
+
+A principal contribuição deste trabalho é a proposição de uma abordagem sistemática para migração de sistemas robóticos orientada por uma \textit{Ground Truth} comportamental do sistema legado. A abordagem adapta os princípios de recuperação de \textit{ground truth} para uma perspectiva orientada por requisitos e cenários BDD, integrando a compreensão do sistema, a identificação das realizações comportamentais e a análise das transformações de migração.
+
+Como contribuição do estudo de caso, foi realizada a sistematização retrospectiva das evidências da migração da BSN, relacionando contratos
+comportamentais às entidades e responsabilidades da implementação ROS~1 e às transformações identificadas no ROS~2. Essa análise foi organizada por meio de mapeamentos entre cenários e entidades de implementação e de um registro das transformações selecionadas, utilizando artefatos recuperados de trabalhos anteriores e análises desenvolvidas neste estudo.
+
+Adicionalmente, a investigação dos oráculos e das evidências de execução permitiu delimitar o alcance da validação comportamental dos contratos selecionados. A análise estrutural complementou essa investigação ao caracterizar mudanças na organização das responsabilidades dos componentes, distinguindo as transformações observadas de conclusões mais amplas sobre preservação comportamental e qualidade estrutural.
+
+\section{Trabalhos Futuros}
+
+
+Para trabalhos futuros, propõe-se a aplicação da abordagem em novos processos de migração, permitindo investigar sua utilização durante as decisões de transformação e estabelecer critérios para avaliar sistematicamente os resultados de suas atividades e artefatos. A aplicação em outros sistemas robóticos também permitiria examinar sua adequação a diferentes arquiteturas, requisitos e níveis de documentação.
+
+
+Outra possibilidade de investigação consiste em aprofundar a identificação das realizações comportamentais e o planejamento das transformações por meio de técnicas de localização de funcionalidades e Análise de Impacto de Mudanças (\textit{Change Impact Analysis} -- CIA). A caracterização dos métodos associados aos cenários BDD poderia ser refinada a partir da comparação entre execuções, conforme os princípios de \textit{Software Reconnaissance} \cite{WildeScully1995}. Com base nessas associações, técnicas de CIA poderiam ser utilizadas para estimar os elementos potencialmente afetados pelas transformações e avaliar a precisão e a revocação dessas estimativas em relação às modificações efetivamente realizadas \cite{Li2013CIA}. Adicionalmente, a investigação de técnicas de refatoração e de testes direcionados aos elementos impactados poderia apoiar uma avaliação mais sistemática da preservação comportamental durante as transformações \cite{Mongiovi2014,AlOmar2021}.
+
