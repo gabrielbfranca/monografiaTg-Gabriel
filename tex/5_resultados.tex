@@ -42,7 +42,7 @@ Em suma, a visão estática contribui com evidências sobre a estrutura de imple
 \section{Especificação Comportamental na BSN}
 \label{sec:resultados-especificacao-bsn}
 
-A  Especificação Comportamental da BSN foi reconstruída a partir das propriedades do sistema descritas por Rodrigues et al.~\cite{Rodrigues_2018} dos cenários BDD disponíveis para a implementação legada em ROS~1 do aprimoramento e da documentação de sua organização e rastreabilidade apresentada por Viana~\cite{Viana}. O objetivo desta análise é identificar os comportamentos selecionados e apresentar como suas expectativas foram expressas em cenários Gherkin. A análise considera os artefatos do repositório \texttt{richardjlv/bsn\_} \cite{BSN_ROS1_BDD}. 
+A  Especificação Comportamental da BSN foi reconstruída a partir das propriedades do sistema descritas por Rodrigues et al.~\cite{Rodrigues_2018} dos cenários BDD disponíveis para a implementação legada em ROS~1 do aprimoramento e da documentação de sua organização e rastreabilidade no repositório de BSN\_TRACES~\cite{Viana}. O objetivo desta análise é identificar os comportamentos selecionados e apresentar como suas expectativas foram expressas em cenários Gherkin. A análise considera os artefatos do repositório \texttt{richardjlv/bsn\_} \cite{BSN_ROS1_BDD}. 
 
 \paragraph{Origem e delimitação dos comportamentos:}
 
@@ -97,7 +97,7 @@ correspondência direta com os cenários BDD relativos
 
 \par\smallskip
 {\footnotesize
-mapeamento das propriedade de \cite{Rodrigues_2018} feita por \cite{Viana}.
+mapeamento das propriedade de \cite{Rodrigues_2018}.
 }
 
 \end{table}
@@ -108,7 +108,7 @@ No caso de \texttt{BSN-C01}, a recepção de uma leitura constitui um contrato c
 
 \paragraph{Cenários BDD recuperados.}
 
-O levantamento apresentado por Viana~\cite{Viana} organiza a suíte em oito famílias de arquivos \texttt{.feature} e cataloga 24 definições de cenários, identificadas documentalmente como \texttt{BDD01}--\texttt{BDD24} e quinze critérios complementares, \texttt{BSN-C01}--\texttt{BSN-C15}, dos antecedentes recuperados da literatura.
+O levantamento apresentado no repositório~\cite{Viana} organiza a suíte em oito famílias de arquivos \texttt{.feature} e cataloga 24 definições de cenários, identificadas documentalmente como \texttt{BDD01}--\texttt{BDD24} e quinze critérios complementares, \texttt{BSN-C01}--\texttt{BSN-C15}, dos antecedentes recuperados da literatura.
 
 O requisito temporal de emergência está representado no arquivo \texttt{BSN-\allowbreak P03.feature}. O arquivo \texttt{check\_\allowbreak bsn.feature} reúne cenários de recepção e classificação de leituras, o \texttt{data\_\allowbreak persistance.feature} aborda persistência e \texttt{health\_\allowbreak status.feature} especifica o estado de saúde do paciente. Outros arquivos \texttt{.feature} registram contratos de monitoramento, adaptação e comunicação. Em conjunto, esses artefatos documentam expectativas comportamentais para a BSN legada.
 
@@ -161,8 +161,7 @@ Nesse exemplo, a variável é identificada por seu papel no domínio (\textit{se
 
 \paragraph{Síntese dos resultados da etapa.}
 
-No recorte da BSN legada, os produtos identificáveis da Especificação Comportamental são os cenários Gherkin e a correspondência documental entre os critérios de aceitação, suas fontes e os identificadores da suíte. Os exemplos apresentados mostram a tradução de uma propriedade temporal em um cenário BDD e a explicitação de um contrato de recepção entre componentes. O levantamento e aprimoramento de Viana fornece evidências de organização desses artefatos. 
-
+No recorte da BSN legada, os produtos identificáveis da Especificação Comportamental são os cenários Gherkin e a correspondência documental entre os critérios de aceitação, suas fontes e os identificadores da suíte. Os exemplos apresentados mostram a tradução de uma propriedade temporal em um cenário BDD e a explicitação de um contrato de recepção entre componentes.
 
 \begin{comment}
 \section{Estabelecimento da \textit{Ground Truth} Comportamental na BSN}
@@ -412,7 +411,7 @@ Embora a migração original da BSN não tenha seguido sistematicamente esse pro
 \section{Resultados da Identificação das Realizações dos Comportamentos}
 \label{sec:resultados-identificacao-realizacoes}
 
-A aplicação desta etapa teve como objetivo a delimitação das responsabilidades da BSN relevantes à mudança do contexto ROS~1 para ROS~2. A investigação combinou (i)~cenários BDD preservados na implementação legada, (ii)~relações de comunicação e entidades identificadas no código C++, e (iii)~relatórios de cobertura de oito campanhas executadas disponibilizadas no repositório \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces/blob/main/INDICE_FEATURES_ROS1.md}}. O resultado consistiu em uma relação entre comportamentos, entidades de implementação e responsabilidades, seguido da delimitação das responsabilidades relevantes para o planejamento das transformações de migração. A sistematização desse material é retrospectiva não replica fielmente as técnicas de \textit{FeatureTrace} ou de \textit{Software Reconnaissance} durante a migração original.
+A aplicação desta etapa teve como objetivo a delimitação das responsabilidades da BSN relevantes à mudança do contexto ROS~1 para ROS~2. A investigação combinou (i)~cenários BDD preservados na implementação legada, (ii)~relações de comunicação e entidades identificadas no código C++, e (iii)~relatórios de cobertura de oito campanhas executadas disponibilizado no repositório \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces/blob/main/INDICE_FEATURES_ROS1.md}}. O resultado consistiu em uma relação entre comportamentos, entidades de implementação e responsabilidades, seguido da delimitação das responsabilidades relevantes para o planejamento das transformações de migração. A sistematização desse material é retrospectiva não replica fielmente as técnicas de \textit{FeatureTrace} ou de \textit{Software Reconnaissance} durante a migração original.
 
 \subsection{Comportamentos e interfaces selecionadas}
 \label{subsec:res-identificacao-contratos}
@@ -512,7 +511,7 @@ de reconfiguração \\
 \end{tabularx}
 \end{table}
 
-\subsection{Participação dos métodos nas campanhas BDD}
+\subsection{Participação dos métodos nas nos grupos de testes BDD}
 \label{subsec:res-identificacao-caracterizacao}
 
 Os relatórios HTML de cobertura LLVM preservam contagens de execução por linha de código. Para os cinco arquivos examinados (\path{Component.cpp}, \path{Sensor.cpp}, \path{G3T1_3.cpp}, \path{CentralHub.cpp} e \path{G4T1.cpp}), foram verificadas as linhas de entrada de onze métodos selecionados. Considerou-se que um método participou de uma campanha quando a linha correspondente apresentou contagem de execução. Cada campanha corresponde à execução isolada de uma família de cenários BDD, como \texttt{check\_bsn}, relacionada à transmissão de leituras e à classificação de risco, \texttt{health\_status}, à disponibilização do estado de saúde do paciente, e \texttt{managing\_system}, ao monitoramento e à adaptação do sistema. A identificação dos métodos exercitados foi realizada mediante a inspeção dos relatórios HTML de cobertura LLVM de cada campanha, que registram as contagens de execução por linha de código. A Tabela~\ref{tab:res-metodos-campanhas} apresenta os resultados dessa investigação.
@@ -521,19 +520,19 @@ Os relatórios HTML de cobertura LLVM preservam contagens de execução por linh
 \begin{table}[htbp]
 \centering
 \caption{Participação de métodos da implementação ROS~1
-em oito campanhas de testes BDD}
+em oito grupos de testes de testes BDD}
 \label{tab:res-metodos-campanhas}
 \scriptsize
 \begin{tabularx}{\linewidth}{@{}X c p{0.34\linewidth}@{}}
 \toprule
 \textbf{Método} &
-\textbf{Campanhas} &
+\textbf{Grupos de Teste} &
 \textbf{Leitura da participação} \\
 \midrule
 
 \texttt{Component::setUp()}
 & 8/8
-& Inicialização comum às oito campanhas analisadas \\
+& Inicialização comum às oito campanhas analisados \\
 
 \texttt{CentralHub::run()}
 & 8/8
@@ -571,7 +570,7 @@ diferentes campanhas \\
 
 \texttt{Sensor::reconfigure()}
 & 2/8
-& Reconfiguração observada nas campanhas
+& Reconfiguração observada na campanha
 \texttt{bsn\_p03} e \texttt{managing\_system} \\
 
 \texttt{CentralHub::reconfigure()}
@@ -586,7 +585,7 @@ diferentes campanhas \\
 \begin{minipage}{\linewidth}
 \footnotesize
 \textbf{Fonte:} repositório
-\texttt{bsn\_traces}, referentes a oito campanhas
+\texttt{bsn\_traces}, referentes a oito grupos de testes
 executadas em 26/10/2026 sobre a revisão
 \texttt{a46f155} da implementação ROS~1. O indicador $k/8$ representa o número de campanhas com execução observada do método, não o número
 de cenários BDD individuais ou de chamadas realizadas.
@@ -763,7 +762,7 @@ O registro sintetiza as transformações reconstruídas, enquanto as análises T
 
 Esta seção reúne os resultados do Estabelecimento da \textit{Ground Truth} Comportamental e da Validação Comportamental. A primeira etapa estabelece uma referência a partir dos critérios BDD, dos testes e das observações do ROS~1 enquanto a segunda confronta essa referência com a implementação migrada em ROS~2. A apresentação conjunta permite explicitar, para os mesmos comportamentos selecionados, o alcance dos oráculos e as evidências disponíveis nas duas plataformas.
 
-A reconstrução utiliza os resultados documentados por Viana~\cite{Viana}, os testes do legado e da implementação migrada\footnote{\url{https://github.com/richardjlv/bsn_} e \url{https://github.com/richardjlv/bsn2}.} e os registros de campanhas e ensaios complementares arquivados em \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces}.}.
+A reconstrução utiliza os resultados os resultados preservados no repositório~\cite{Viana}, os testes do legado e da implementação migrada\footnote{\url{https://github.com/richardjlv/bsn_} e \url{https://github.com/richardjlv/bsn2}.} e os registros de campanhas e testes complementares arquivados em \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces}.}.
 
 \subsection{Preparação dos testes e delimitação dos comportamentos}
 \label{subsec:gt-validacao-preparacao}
@@ -882,7 +881,7 @@ adaptação da frequência.
 \footnotesize
 \textbf{Fonte:} Elaboração própria com base nos
 cenários BDD da BSN e na rastreabilidade
-documentada por Viana~\cite{Viana}.
+no repositório~\cite{Viana}.
 \end{minipage}
 \end{table}
 
@@ -963,7 +962,7 @@ dos estados de confiabilidade nas execuções. \\
 \end{tabularx}
 \par\smallskip
 {\footnotesize\textbf{Fonte:} elaboração própria a partir da inspeção dos
-testes e da análise documental de Viana~\cite{Viana}.}
+testes e da análise de oráculos~\cite{Viana}.}
 \end{table}
 \FloatBarrier
 
@@ -973,7 +972,7 @@ A comparação evidencia que a correspondência entre cenários das duas impleme
 \subsection{Confronto das evidências de execução}
 \label{subsec:gt-validacao-execucoes}
 
-Os resultados de execução dos cenários selecionados foram confrontados nas duas implementações com base nas campanhas e reexecuções documentadas por Viana~\cite{Viana}. A Tabela~\ref{tab:gt-validacao-campanhas} apresenta os resultados gerais, distinguindo as campanhas completas das revalidações parciais, enquanto a Tabela~\ref{tab:gt-validacao-amostra} detalha os casos da amostra.
+Os resultados de execução dos cenários selecionados foram confrontados nas duas implementações com base nas campanhas e reexecuções documentadas no repositório~\cite{Viana}. A Tabela~\ref{tab:gt-validacao-campanhas} apresenta os resultados gerais, distinguindo as campanhas completas das revalidações parciais, enquanto a Tabela~\ref{tab:gt-validacao-amostra} detalha os casos da amostra.
 
 \begin{table}[htbp]
 \centering
@@ -991,8 +990,8 @@ ROS~2, revalidação selecionada (02/11/2026) & 11 & 10 & 1 & 0 \\
 \bottomrule
 \end{tabularx}
 \par\smallskip
-{\footnotesize\textbf{Fonte:} Viana~\cite{Viana} e relatórios internos
-JUnit/XML preservados em \texttt{bsn\_traces}. A última linha não deve ser
+{\footnotesize\textbf{Fonte:}  relatórios internos
+JUnit/XML preservados em \texttt{bsn\_traces}~\cite{Viana}. A última linha não deve ser
 somada às anteriores; resultados de executores externos do \texttt{rostest}
 não foram contabilizados como novos casos.}
 \end{table}
@@ -1040,30 +1039,29 @@ BDD20 / BSN-C11 &
 \end{tabularx}
 \par\smallskip
 {\footnotesize\textbf{Fonte:} elaboração própria a partir dos
-resultados por caso, rastros e revalidações documentados por
-Viana~\cite{Viana} e preservados em \texttt{bsn\_traces}.}
+resultados por caso, rastros e revalidações no repositório ~\cite{Viana} \texttt{bsn\_traces}.}
 \end{table}
 \FloatBarrier
 
 Em BDD06--BDD07, o resultado \texttt{XFAIL} não fornece o mesmo tipo de evidência nas duas plataformas: no legado, a falha esperada foi registrada no passo de verificação, enquanto na coleta ROS~2 de 25/10 ocorreu durante a preparação da falha simulada. Assim, as duas marcações não confirmam a ocorrência de um mesmo defeito de armazenamento.
 
-As execuções com oráculo comum de estado de saúde estão identificadas, respectivamente, como \path{ros1_20261026T222148Z_health_status_t2w8_ul0} e \path{ros2_20261026T221156Z_uowmc6al} no registro de Viana~\cite{Viana}. A identificação das campanhas é necessária porque os relatórios mais antigos de \texttt{health\_status} utilizavam critérios diferentes.
+As execuções com oráculo comum de estado de saúde estão identificadas, respectivamente, como \path{ros1_20261026T222148Z_health_status_t2w8_ul0} e \path{ros2_20261026T221156Z_uowmc6al} no repositório~\cite{Viana}. A identificação das campanhas é necessária porque os relatórios mais antigos de \texttt{health\_status} utilizavam critérios diferentes.
 
 
 \subsection{Evidências Complementares aos Testes BDD}
 \label{subsec:gt-validacao-complementar}
 
-Além das campanhas BDD, Viana~\cite{Viana} documenta ensaios complementares que permitem aprofundar a verificação de comportamentos selecionados. Esses ensaios utilizam entradas controladas ou testes direcionados a responsabilidades específicas, complementando as observações dos cenários BDD sem constituir novas execuções desses mesmos cenários.
+Além das campanhas BDD, o repositório~\cite{Viana} documenta testes complementares que permitem aprofundar a verificação de comportamentos selecionados. Esses testes utilizam entradas controladas ou testes direcionados a responsabilidades específicas, complementando as observações dos cenários BDD sem constituir novas execuções desses mesmos cenários.
 
-Como verificação complementar do processamento do CentralHub, um ensaio utilizou mensagens sintéticas com riscos e identificadores conhecidos. Nas duas implementações, foram aprovadas nove fases de verificação, com a sequência esperada de estados de saúde 20, 90 e 20, repetida três vezes. Diferentemente de BDD03, esse ensaio verifica as respostas do CentralHub a mensagens diretamente injetadas, sem exercitar a aquisição original das leituras pelos sensores.
+Como verificação complementar do processamento do CentralHub, um testes utilizou mensagens sintéticas com riscos e identificadores conhecidos. Nas duas implementações, foram aprovadas nove fases de verificação, com a sequência esperada de estados de saúde 20, 90 e 20, repetida três vezes. Diferentemente de BDD03, esse testes verifica as respostas do CentralHub a mensagens diretamente injetadas, sem exercitar a aquisição original das leituras pelos sensores.
 
-Na classificação de risco (BDD04), quatro casos foram executados diretamente nas classes responsáveis pela classificação nas implementações C++ e Python, obtendo aprovação em ambas. O defeito B7, documentado por Viana~\cite{Viana}, consistia na utilização incorreta dos intervalos fisiológicos para determinar a categoria de risco, em vez das faixas percentuais correspondentes. Os mesmos casos reprovaram quando esse defeito foi reintroduzido em uma cópia da classe C++. Esse resultado demonstra a capacidade dos testes complementares de detectar o defeito investigado, ampliando a verificação da classificação para além da observação de risco alto realizada pelo cenário BDD04.
+Na classificação de risco (BDD04), quatro casos foram executados diretamente nas classes responsáveis pela classificação nas implementações C++ e Python, obtendo aprovação em ambas. O defeito B7, documentado no repositório, consistia na utilização incorreta dos intervalos fisiológicos para determinar a categoria de risco, em vez das faixas percentuais correspondentes. Os mesmos casos reprovaram quando esse defeito foi reintroduzido em uma cópia da classe C++. Esse resultado demonstra a capacidade dos testes complementares de detectar o defeito investigado, ampliando a verificação da classificação para além da observação de risco alto realizada pelo cenário BDD04.
 
-Quanto à persistência (BDD06), um ensaio controlado verificou a gravação e a recuperação de 30 registros no tópico \texttt{Status} em cada implementação, inclusive após o encerramento dos processos. Esse resultado complementa o BDD06, cuja asserção observa o encaminhamento dos registros.
+Quanto à persistência (BDD06), um testes controlado verificou a gravação e a recuperação de 30 registros no tópico \texttt{Status} em cada implementação, inclusive após o encerramento dos processos. Esse resultado complementa o BDD06, cuja asserção observa o encaminhamento dos registros.
 
 
 
-Por fim, na adaptação (BDD20), Viana~\cite{Viana} documentou ensaios controlados com valores de confiabilidade fornecidos aos controladores das duas implementações. Inicialmente, foram identificadas diferenças nas condições de erro nulo e de erro dentro da margem de adaptação. Após uma correção no controlador ROS~1, os quatro casos controlados foram aprovados nas duas versões, incluindo a ausência de comandos nessas condições.
+Por fim, na adaptação (BDD20), no repositório foi~\cite{Viana} documentado testes controlados com valores de confiabilidade fornecidos aos controladores das duas implementações. Inicialmente, foram identificadas diferenças nas condições de erro nulo e de erro dentro da margem de adaptação. Após uma correção no controlador ROS~1, os quatro casos controlados foram aprovados nas duas versões, incluindo a ausência de comandos nessas condições.
 
 Esse resultado sustenta a correspondência das decisões dos controladores para os valores ensaiados, mas não comprova a recuperação da malha completa nem a alteração efetiva da frequência dos sensores.
 
@@ -1072,7 +1070,7 @@ Esse resultado sustenta a correspondência das decisões dos controladores para 
 \subsection{Síntese da referência e do alcance da validação}
 \label{subsec:gt-validacao-sintese}
 
-O Estabelecimento da \textit{Ground Truth} Comportamental resultou em uma referência delimitada pelos cenários BDD, pelas asserções e pelos resultados de execução no ROS~1. O confronto com o ROS~2 permitiu identificar correspondências para os critérios efetivamente verificados, além de discrepâncias e limitações dos oráculos e das condições de execução, especialmente na persistência e na adaptação. Os ensaios complementares ampliaram a investigação de responsabilidades específicas.
+O Estabelecimento da \textit{Ground Truth} Comportamental resultou em uma referência delimitada pelos cenários BDD, pelas asserções e pelos resultados de execução no ROS~1. O confronto com o ROS~2 permitiu identificar correspondências para os critérios efetivamente verificados, além de discrepâncias e limitações dos oráculos e das condições de execução, especialmente na persistência e na adaptação. Os testes complementares ampliaram a investigação de responsabilidades específicas.
 
 
 \begin{comment}

@@ -1,6 +1,6 @@
 \label{sec:avaliacao-discussao}
 
-A avaliação da metodologia proposta é conduzida a partir do estudo de caso da BSN de ROS 1 para ROS 2 considerando os resultados apresentados no capítulo anterior e as evidências documentadas por Viana~\cite{Viana}. A análise busca examinar as possibilidades e limitações de aplicação da abordagem, a capacidade das evidências recuperadas de sustentar conclusões sobre a preservação comportamental e a rastreabilidade dos procedimentos e resultados.
+A avaliação da metodologia proposta é conduzida a partir do estudo de caso da BSN de ROS 1 para ROS 2 considerando os resultados apresentados no capítulo anterior e as evidências documentadas no repositório ~\cite{Viana}. A análise busca examinar as possibilidades e limitações de aplicação da abordagem, a capacidade das evidências recuperadas de sustentar conclusões sobre a preservação comportamental e a rastreabilidade dos procedimentos e resultados.
 
 Nesse contexto, foram definidas as seguintes questões de pesquisa:
 
@@ -43,7 +43,7 @@ Entretanto, a etapa apresenta limitações quanto à avaliação da suficiência
 
 A identificação dos comportamentos relevantes para a migração pode partir de diferentes fontes. Na abordagem proposta, a identificação de requisitos e critérios de aceitação fornece a base para especificar os comportamentos esperados por meio de cenários BDD, posteriormente executados no sistema legado.
 
-No estudo de caso, a disponibilidade de trabalhos acadêmicos anteriores sobre a BSN forneceu uma base para a recuperação das propriedades comportamentais. Conforme apresentado na Seção \ref{sec:aplicacao-ground-truth-bsn}, essas propriedades foram relacionadas aos cenários BDD organizados e posteriormente documentados por Viana~\cite{Viana}. Os resultados demonstram a possibilidade de expressar tanto propriedades do sistema quanto contratos de comunicação entre componentes por meio de cenários Gherkin. Essas especificações forneceram os critérios de aceitação utilizados na etapa seguinte de Estabelecimento da Ground Truth Comportamental.
+No estudo de caso, a disponibilidade de trabalhos acadêmicos anteriores sobre a BSN forneceu uma base para a recuperação das propriedades comportamentais. Conforme apresentado na Seção \ref{sec:aplicacao-ground-truth-bsn}, essas propriedades foram relacionadas aos cenários BDD organizados e posteriormente documentados no repositório~\cite{Viana}. Os resultados demonstram a possibilidade de expressar tanto propriedades do sistema quanto contratos de comunicação entre componentes por meio de cenários Gherkin. Essas especificações forneceram os critérios de aceitação utilizados na etapa seguinte de Estabelecimento da Ground Truth Comportamental.
 
 Entretanto, a aplicação dessa etapa depende da disponibilidade e da interpretação de fontes que permitam identificar os comportamentos esperados. No caso da BSN, os trabalhos acadêmicos anteriores facilitaram essa identificação, mas essa condição não está necessariamente presente em outros sistemas. Nessas situações, a especificação pode exigir maior investigação da documentação e da implementação legada, apoiada pela Compreensão de Programas e pelo conhecimento do \textit{Certifier}.
 
@@ -107,7 +107,7 @@ Assim, em resposta à RQ1, os resultados sustentam a viabilidade da abordagem co
 
 \section{RQ2 -- Preservação Comportamental}
 \label{sec:avaliacao-rq2}
-A análise da RQ2 considera os cenários BDD examinados na Seção~\ref{sec:resultados-validacao-bsn}, as correspondências entre seus oráculos e os ensaios complementares documentados por Viana~\cite{Viana}. Então essa avaliação concentra-se no alcance das conclusões comportamentais sustentadas pelos resultados disponíveis.
+A análise da RQ2 considera os cenários BDD examinados na Seção~\ref{sec:resultados-validacao-bsn}, as correspondências entre seus oráculos e os testes complementares documentados no repositório~\cite{Viana}. Então essa avaliação concentra-se no alcance das conclusões comportamentais sustentadas pelos resultados disponíveis.
 
 \paragraph{Correspondência entre os contratos:}
 
@@ -119,7 +119,7 @@ Entretanto, a aprovação de cenários correspondentes não demonstra necessaria
 
 \paragraph{Alcance das evidências de preservação.}
 
-A Tabela~\ref{tab:avaliacao-rq2-contratos} sintetiza as conclusões sustentadas pelas evidências apresentadas na Seção~\ref{sec:resultados-validacao-bsn} e pelos ensaios complementares documentados por Viana~\cite{Viana}.
+A Tabela~\ref{tab:avaliacao-rq2-contratos} sintetiza as conclusões sustentadas pelas evidências apresentadas na Seção~\ref{sec:resultados-validacao-bsn} e pelos testes complementares documentados no repositório~\cite{Viana}.
 
 \begin{table}[htbp]
 \centering
@@ -135,7 +135,7 @@ BDD03 / BSN-C01 & Aprovações de recepção de leituras nas duas versões, incl
 
 \addlinespace
 
-BDD04 / BSN-P09 & Aprovação da observação de risco alto nas duas versões. Ensaios complementares aprovaram quatro casos de teste nesse contexto nas classes atuais e detectaram o defeito B7. & Há evidência de preservação para a classificação e os valores selecionados, sem verificação exaustiva de todas as faixas e configurações. \\
+BDD04 / BSN-P09 & Aprovação da observação de risco alto nas duas versões. Testes complementares aprovaram quatro casos de teste nesse contexto nas classes atuais e detectaram o defeito B7. & Há evidência de preservação para a classificação e os valores selecionados, sem verificação exaustiva de todas as faixas e configurações. \\
 
 \addlinespace
 
@@ -147,7 +147,7 @@ BDD08--BDD09 / BSN-P10 & Aprovação dos cenários positivo e negativo nas duas 
 
 \addlinespace
 
-BDD20 / BSN-C11 & Falhas esperadas nos cenários BDD. Ensaios controlados posteriores aprovaram quatro condições do controlador ROS~1 corrigido e do ROS~2. & Há correspondência nas decisões do controlador para os vetores controlados, mas a recuperação integrada e a frequência efetivamente aplicada não foram demonstradas no cenário em si. \\
+BDD20 / BSN-C11 & Falhas esperadas nos cenários BDD. Testes controlados posteriores aprovaram quatro condições do controlador ROS~1 corrigido e do ROS~2. & Há correspondência nas decisões do controlador para os vetores controlados, mas a recuperação integrada e a frequência efetivamente aplicada não foram demonstradas no cenário em si. \\
 
 \bottomrule
 \end{tabularx}
@@ -155,7 +155,7 @@ BDD20 / BSN-C11 & Falhas esperadas nos cenários BDD. Ensaios controlados poster
 
 \paragraph{Contribuição das evidências complementares.}
 
-Os ensaios complementares ampliaram a investigação de determinados comportamentos ao introduzir entradas controladas e verificações específicas de componentes. O ensaio controlado do CentralHub permitiu verificar respostas a mensagens sintéticas com valores conhecidos.
+Os testes complementares ampliaram a investigação de determinados comportamentos ao introduzir entradas controladas e verificações específicas de componentes. O teste controlado do CentralHub permitiu verificar respostas a mensagens sintéticas com valores conhecidos.
 
 Esses resultados fortalecem a interpretação de comportamentos específicos, mas suas conclusões permanecem restritas às fronteiras e aos estímulos efetivamente exercitados. As métricas de cobertura também auxiliam na caracterização da abrangência estrutural das campanhas indicada na tabela \ref{tab:rq2-cobertura}
 
@@ -182,13 +182,13 @@ ROS~2 -- União (01/10) & 2.724/3.147 & 86,56\% & 674/888 & 75,90\% \\
 \par\smallskip
 \begin{minipage}{\textwidth}
 \footnotesize
-Fonte: Viana~\cite{Viana}, Tabela 4.4. Os resultados correspondem às campanhas e aos recortes de código de produção documentados pelo autor.
+Fonte: repositório ~\cite{Viana}, Tabela 4.4. Os resultados correspondem às campanhas e aos recortes de código de produção documentados pelo autor.
 \end{minipage}
 \end{table}
 
 Esses resultados evidenciam a complementaridade das verificações na implementação migrada. Os testes BDD não apenas reutilizaram caminhos exercitados pelos testes de pacotes, mas também alcançaram regiões adicionais do código. Essa contribuição amplia a abrangência das evidências de execução disponíveis para a investigação dos comportamentos selecionados.
 
-Embora a cobertura não demonstre isoladamente a satisfação dos contratos comportamentais, sua análise complementa os resultados dos oráculos e dos ensaios controlados apresentados anteriormente e indica a abrangência dos testes comportamentais em BDD
+Embora a cobertura não demonstre isoladamente a satisfação dos contratos comportamentais, sua análise complementa os resultados dos oráculos e dos testes controlados apresentados anteriormente e indica a abrangência dos testes comportamentais em BDD
 
 \paragraph{Limitações da avaliação.}
 
@@ -198,9 +198,9 @@ Além disso, as correções realizadas no sistema legado exigem distinguir o com
 
 \paragraph{Síntese da RQ2.}
 
-Em resposta à RQ2, as evidências recuperadas permitiram avaliar a preservação dos contratos comportamentais selecionados da BSN, identificando correspondências, discrepâncias e limitações dos critérios de verificação. As aprovações dos cenários BDD e os ensaios complementares sustentam evidências de preservação na recepção de leituras, na classificação de risco, no processamento do CentralHub e na disponibilização do estado de saúde. Entretanto, a persistência de leituras fisiológicas e determinados comportamentos da adaptação permanecem insuficientemente demonstrados.
+Em resposta à RQ2, as evidências recuperadas permitiram avaliar a preservação dos contratos comportamentais selecionados da BSN, identificando correspondências, discrepâncias e limitações dos critérios de verificação. As aprovações dos cenários BDD e os testes complementares sustentam evidências de preservação na recepção de leituras, na classificação de risco, no processamento do CentralHub e na disponibilização do estado de saúde. Entretanto, a persistência de leituras fisiológicas e determinados comportamentos da adaptação permanecem insuficientemente demonstrados.
 
-Assim, a abordagem possibilitou avaliar a preservação comportamental a partir da correspondência entre contratos, oráculos e evidências de execução, complementada por ensaios controlados e métricas de cobertura. Os resultados sustentam conclusões delimitadas sobre os comportamentos investigados.
+Assim, a abordagem possibilitou avaliar a preservação comportamental a partir da correspondência entre contratos, oráculos e evidências de execução, complementada por testes controlados e métricas de cobertura. Os resultados sustentam conclusões delimitadas sobre os comportamentos investigados.
 
 
 \section{RQ3 -- Caracterização das Transformações de Migração}
