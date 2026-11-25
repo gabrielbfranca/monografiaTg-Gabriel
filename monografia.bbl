@@ -1,0 +1,443 @@
+\begin{thebibliography}{10}
+  \providebibliographyfont{name}{}%
+  \providebibliographyfont{lastname}{}%
+  \providebibliographyfont{title}{\emph}%
+  \providebibliographyfont{jtitle}{\btxtitlefont}%
+  \providebibliographyfont{etal}{\emph}%
+  \providebibliographyfont{journal}{}%
+  \providebibliographyfont{volume}{}%
+  \providebibliographyfont{ISBN}{\MakeUppercase}%
+  \providebibliographyfont{ISSN}{\MakeUppercase}%
+  \providebibliographyfont{url}{\url}%
+  \providebibliographyfont{numeral}{}%
+  \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {ros2}
+\btxnamefont {\btxlastnamefont {Macenski}, Steven}, \btxnamefont {Tully
+  \btxlastnamefont {Foote}}, \btxnamefont {Brian \btxlastnamefont {Gerkey}},
+  \btxnamefont {Chris \btxlastnamefont {Lalancette}}\btxandcomma {} \btxandlong
+  {}\ \btxnamefont {William \btxlastnamefont {Woodall}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {Robot operating system 2: Design,
+  architecture, and uses in the wild}{Robot Operating System 2: Design,
+  architecture, and uses in the wild}}.
+\newblock \btxjournalfont {Science Robotics}, 7(66):eabm6074, 2022.
+\newblock {\latintext
+  \btxurlfont{https://www.science.org/doi/abs/10.1126/scirobotics.abm6074}}.
+
+\btxselectlanguage {english}
+\bibitem {Gil2021BodySN}
+\btxnamefont {\btxlastnamefont {Gil}, Eric\btxfnamespacelong Bernd},
+  \btxnamefont {Ricardo\btxfnamespacelong Diniz \btxlastnamefont {Caldas}},
+  \btxnamefont {Arthur \btxlastnamefont {Rodrigues}}, \btxnamefont
+  {Gabriel\btxfnamespacelong Levi\btxfnamespacelong Gomes da~\btxlastnamefont
+  {Silva}}, \btxnamefont {Gena{\'i}na\btxfnamespacelong Nunes \btxlastnamefont
+  {Rodrigues}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Patrizio
+  \btxlastnamefont {Pelliccione}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Body sensor network: A self-adaptive system exemplar in
+  the healthcare domain}{Body Sensor Network: A Self-Adaptive System Exemplar
+  in the Healthcare Domain}}.
+\newblock \btxjournalfont {2021 International Symposium on Software Engineering
+  for Adaptive and Self-Managing Systems (SEAMS)}, \btxpageslong {}\ 224--230,
+  2021.
+\newblock {\latintext
+  \btxurlfont{https://api.semanticscholar.org/CorpusID:232404277}}.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {ros1}
+\btxnamefont {\btxlastnamefont {Quigley}, Morgan}, \btxnamefont {Ken
+  \btxlastnamefont {Conley}}, \btxnamefont {Brian \btxlastnamefont {Gerkey}},
+  \btxnamefont {Josh \btxlastnamefont {Faust}}, \btxnamefont {Tully
+  \btxlastnamefont {Foote}}, \btxnamefont {Jeremy \btxlastnamefont {Leibs}},
+  \btxnamefont {Rob \btxlastnamefont {Wheeler}}\btxandcomma {} \btxandlong {}\
+  \btxnamefont {Andrew\btxfnamespacelong Y. \btxlastnamefont
+  {Ng}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Ros: an open-source
+  robot operating system}{ROS: an open-source Robot Operating System}}.
+\newblock \Btxinlong {}\ \btxtitlefont {ICRA Workshop on Open Source Software},
+  \btxvolumelong {}~\btxvolumefont {3}, \btxpagelong {}~5, 2009.
+
+\bibitem {malavolta2020}
+\btxnamefont {\btxlastnamefont {Malavolta}, Ivano}, \btxnamefont {Grace
+  \btxlastnamefont {Lewis}}, \btxnamefont {Bradley \btxlastnamefont {Schmerl}},
+  \btxnamefont {Patricia \btxlastnamefont {Lago}}\btxandcomma {} \btxandlong
+  {}\ \btxnamefont {David \btxlastnamefont {Garlan}}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {How do you architect your robots? state of
+  the practice and guidelines for ros-based systems}{How do you architect your
+  robots? State of the practice and guidelines for ROS-based systems}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the ACM/IEEE 42nd
+  International Conference on Software Engineering: Software Engineering in
+  Practice}, \btxpageslong {}\ 31--40, 2020.
+
+\bibitem {caldas2024runtime}
+\btxnamefont {\btxlastnamefont {Caldas}, Ricardo}, \btxnamefont
+  {Juan\btxfnamespacelong Antonio\btxfnamespacelong Pi{\~n}era \btxlastnamefont
+  {Garc{\'\i}a}}, \btxnamefont {Matei \btxlastnamefont {Schiopu}}, \btxnamefont
+  {Patrizio \btxlastnamefont {Pelliccione}}, \btxnamefont {Gena{\'\i}na
+  \btxlastnamefont {Rodrigues}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Thorsten \btxlastnamefont {Berger}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Runtime verification and field-based testing for ros-based
+  robotic systems}{Runtime Verification and Field-based Testing for ROS-based
+  Robotic Systems}}.
+\newblock \btxjournalfont {IEEE Transactions on Software Engineering}, 2024.
+
+\bibitem {santos2021high}
+\btxnamefont {\btxlastnamefont {Santos}, Andr{\'e}}, \btxnamefont {Alcino
+  \btxlastnamefont {Cunha}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Nuno
+  \btxlastnamefont {Macedo}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase
+  {The high-assurance ros framework}{The high-assurance ROS framework}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2021 IEEE/ACM 3rd International
+  Workshop on Robotics Software Engineering (RoSE)}, \btxpageslong {}\ 37--40.
+  IEEE, 2021.
+
+\bibitem {dds_spec}
+\btxnamefont {\btxlastnamefont {{Object Management Group}}}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {Data distribution service (dds)
+  specification, version 1.4}{Data Distribution Service (DDS) Specification,
+  Version 1.4}}.
+\newblock \Btxtechreplong {}\ formal/2015-04-10, Object Management Group, 2015.
+\newblock {\latintext \btxurlfont{https://www.omg.org/spec/DDS/1.4}}.
+
+\bibitem {GarciaKMD12}
+\btxnamefont {\btxlastnamefont {Garcia}, Joshua}, \btxnamefont {Ivo
+  \btxlastnamefont {Krka}}, \btxnamefont {Nenad \btxlastnamefont
+  {Medvidovic}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Chris
+  \btxlastnamefont {Douglas}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase
+  {A framework for obtaining the ground-truth in architectural recovery}{A
+  Framework for Obtaining the Ground-Truth in Architectural Recovery}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2012 Joint Working {IEEE/IFIP}
+  Conference on Software Architecture and European Conference on Software
+  Architecture ({WICSA/ECSA} 2012), Helsinki, Finland, August 20--24, 2012},
+  \btxpageslong {}\ 292--296. \btxpublisherfont {IEEE}, 2012.
+\newblock {\latintext \btxurlfont{https://doi.org/10.1109/WICSA-ECSA.212.48}}.
+
+\bibitem {TARCILArecreq}
+\btxnamefont {\btxlastnamefont {Silva}, Maínne\btxfnamespacelong
+  Tarcila\btxfnamespacelong Profeta\btxfnamespacelong e}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {Processos de recuperação de requisitos de
+  sistemas legados}{Processos de recuperação de requisitos de sistemas
+  legados}}.
+\newblock Monografia de MBA em Tecnologia de Software, Escola Politécnica da
+  Universidade de São Paulo, 2011.
+\newblock {\latintext
+  \btxurlfont{https://pecepoli.com.br/m_files/00042018_000064_monografia01.pdf}},
+  Orientador: Kechi Hirama.
+
+\bibitem {von}
+\btxnamefont {\btxlastnamefont {Mayrhauser}, Anneliese~von} \btxandlong {}\
+  \btxnamefont {A.\btxfnamespacelong Marie \btxlastnamefont
+  {Vans}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Program
+  comprehension during software maintenance and evolution}{Program
+  Comprehension During Software Maintenance and Evolution}}.
+\newblock \btxjournalfont {Computer}, 28(8):44–55,
+  \btxprintmonthyear{.}{8}{1995}{long}\ifbtxprintISSN {,
+  \mbox{\btxISSN~\btxISSNfont {0018-9162}}}.
+\newblock {\latintext \btxurlfont{https://doi.org/10.1109/2.402076}}.
+
+\bibitem {Siegmund}
+\btxnamefont {\btxlastnamefont {Siegmund}, Janet}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Program comprehension: Past, present, and future}{Program
+  Comprehension: Past, Present, and Future}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2016 IEEE 23rd International Conference
+  on Software Analysis, Evolution, and Reengineering (SANER)}, \btxvolumelong
+  {}~\btxvolumefont {5}, \btxpageslong {}\ 13--20, 2016.
+
+\bibitem {Shahin2014}
+\btxnamefont {\btxlastnamefont {Shahin}, Mojtaba}, \btxnamefont {Peng
+  \btxlastnamefont {Liang}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Muhammad\btxfnamespacelong Ali \btxlastnamefont {Babar}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {A systematic review of software
+  architecture visualization techniques}{A systematic review of software
+  architecture visualization techniques}}.
+\newblock \btxjournalfont {Journal of Systems and Software}, 94:161--185,
+  2014\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0164-1212}}}.
+\newblock {\latintext
+  \btxurlfont{https://www.sciencedirect.com/science/article/pii/S0164121214000831}}.
+
+\bibitem {Farooq2023BDD}
+\btxnamefont {\btxlastnamefont {Farooq}, Muhammad\btxfnamespacelong Shoaib},
+  \btxnamefont {Uzma \btxlastnamefont {Omer}}, \btxnamefont {Amna
+  \btxlastnamefont {Ramzan}}, \btxnamefont {Mansoor\btxfnamespacelong Ahmad
+  \btxlastnamefont {Rasheed}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Zabihullah \btxlastnamefont {Atal}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Behavior driven development: A systematic literature
+  review}{Behavior Driven Development: A Systematic Literature Review}}.
+\newblock \btxjournalfont {IEEE Access}, 11:88008--88024, 2023.
+
+\bibitem {Binamungu}
+\btxnamefont {\btxlastnamefont {Binamungu}, Leonard\btxfnamespacelong Peter},
+  \btxnamefont {Suzanne\btxfnamespacelong M. \btxlastnamefont
+  {Embury}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Nikolaos
+  \btxlastnamefont {Konstantinou}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Characterising the quality of behaviour driven development
+  specifications}{Characterising the Quality of Behaviour Driven Development
+  Specifications}}.
+\newblock \Btxinlong {}\ \btxnamefont {\btxlastnamefont {Stray}, Viktoria},
+  \btxnamefont {Rashina \btxlastnamefont {Hoda}}, \btxnamefont {Maria
+  \btxlastnamefont {Paasivaara}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Philippe \btxlastnamefont {Kruchten}}\ (\btxeditorslong {}): \btxtitlefont
+  {Agile Processes in Software Engineering and Extreme Programming},
+  \btxpageslong {}\ 87--102, Cham, 2020. \btxpublisherfont {Springer
+  International Publishing}\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont
+  {978-3-030-49392-9}}}.
+
+\bibitem {BDDStudy}
+\btxnamefont {\btxlastnamefont {Nguyen}, Minh}, \btxnamefont {Nico
+  \btxlastnamefont {Hochgeschwender}}\btxandcomma {} \btxandlong {}\
+  \btxnamefont {Sebastian \btxlastnamefont {Wrede}}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {An analysis of behaviour-driven requirement
+  specification for robotic competitions}{An Analysis of Behaviour-Driven
+  Requirement Specification for Robotic Competitions}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2023 IEEE/ACM 5th International
+  Workshop on Robotics Software Engineering (RoSE)}, \btxpageslong {}\ 17--24,
+  2023.
+
+\bibitem {Nguyen2025BDD}
+\btxnamefont {\btxlastnamefont {Nguyen}, Minh}, \btxnamefont {Sebastian
+  \btxlastnamefont {Wrede}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Nico
+  \btxlastnamefont {Hochgeschwender}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Automated behaviour-driven acceptance testing of robotic
+  systems}{Automated Behaviour-Driven Acceptance Testing of Robotic Systems}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2025 IEEE/RSJ International Conference
+  on Intelligent Robots and Systems (IROS)}, \btxpageslong {}\ 1327--1333,
+  2025.
+
+\bibitem {Feathers2004}
+\btxnamefont {\btxlastnamefont {Feathers}, Michael\btxfnamespacelong
+  C.}\btxauthorcolon\ \btxtitlefont {Working Effectively with Legacy Code}.
+\newblock \btxpublisherfont {Prentice Hall}, 2004\ifbtxprintISBN {,
+  \mbox{\btxISBN~\btxISBNfont {9780131177055}}}.
+
+\bibitem {Barr2015}
+\btxnamefont {\btxlastnamefont {Barr}, Earl\btxfnamespacelong T.}, \btxnamefont
+  {Mark \btxlastnamefont {Harman}}, \btxnamefont {Phil \btxlastnamefont
+  {McMinn}}, \btxnamefont {Muzammil \btxlastnamefont {Shahbaz}}\btxandcomma {}
+  \btxandlong {}\ \btxnamefont {Shin \btxlastnamefont {Yoo}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {The oracle problem in software testing: A
+  survey}{The Oracle Problem in Software Testing: A Survey}}.
+\newblock \btxjournalfont {IEEE Transactions on Software Engineering},
+  41(5):507--525, 2015.
+
+\bibitem {BragagnoloMigration}
+\btxnamefont {\btxlastnamefont {Bragagnolo}, Santiago}, \btxnamefont {Nicolas
+  \btxlastnamefont {Anquetil}}, \btxnamefont {Stéphane \btxlastnamefont
+  {Ducasse}}, \btxnamefont {Abderrahmane \btxlastnamefont {Seriai}}\btxandcomma
+  {} \btxandlong {}\ \btxnamefont {Mustapha \btxlastnamefont
+  {Derras}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Software
+  migration: A theoretical framework (a grounded theory approach on systematic
+  literature review)}{Software Migration: A Theoretical Framework (A Grounded
+  Theory approach on Systematic Literature Review)}}.
+\newblock \btxprintmonthyear{.}{01}{2021}{long}.
+
+\bibitem {Foehr2017}
+\btxnamefont {\btxlastnamefont {Foehr}, Matthias}, \btxnamefont {Jan
+  \btxlastnamefont {Vollmar}}, \btxnamefont {Ambra \btxlastnamefont
+  {Cal{\`a}}}, \btxnamefont {Paulo \btxlastnamefont {Leit{\~a}o}}, \btxnamefont
+  {Stamatis \btxlastnamefont {Karnouskos}}\btxandcomma {} \btxandlong {}\
+  \btxnamefont {Armando\btxfnamespacelong Walter \btxlastnamefont
+  {Colombo}}\btxauthorcolon\ \btxtitlefont {Engineering of Next Generation
+  Cyber-Physical Automation System Architectures}, \btxpageslong {}\ 185--206.
+\newblock \btxpublisherfont {Springer International Publishing}, Cham,
+  2017\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {978-3-319-56345-9}}}.
+\newblock {\latintext
+  \btxurlfont{https://doi.org/10.1007/978-3-319-56345-9_8}}.
+
+\bibitem {BUCHGEHER2022276}
+\btxnamefont {\btxlastnamefont {Buchgeher}, Georg}, \btxnamefont {Bernhard
+  \btxlastnamefont {Dorninger}}, \btxnamefont {Claus \btxlastnamefont
+  {Klammer}}, \btxnamefont {Andrea \btxlastnamefont {Walchshofer}}\btxandcomma
+  {} \btxandlong {}\ \btxnamefont {Albin \btxlastnamefont
+  {Kern}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Migrating
+  cyber-physical systems to opc ua}{Migrating Cyber-Physical Systems to OPC
+  UA}}.
+\newblock \btxjournalfont {Procedia Computer Science}, 200:276--283,
+  2022\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {1877-0509}}}.
+\newblock {\latintext
+  \btxurlfont{https://www.sciencedirect.com/science/article/pii/S1877050922002356}},
+  3rd International Conference on Industry 4.0 and Smart Manufacturing.
+
+\bibitem {AlOmar2021}
+\btxnamefont {\btxlastnamefont {AlOmar}, Eman\btxfnamespacelong Abdullah},
+  \btxnamefont {Mohamed\btxfnamespacelong Wiem \btxlastnamefont {Mkaouer}},
+  \btxnamefont {Christian \btxlastnamefont {Newman}}\btxandcomma {} \btxandlong
+  {}\ \btxnamefont {Ali \btxlastnamefont {Ouni}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {On preserving the behavior in software refactoring: A
+  systematic mapping study}{On Preserving the Behavior in Software Refactoring:
+  A Systematic Mapping Study}}, 2021.
+\newblock {\latintext \btxurlfont{https://arxiv.org/abs/2106.13900}}.
+
+\bibitem {WildeScully1995}
+\btxnamefont {\btxlastnamefont {Wilde}, Norman} \btxandlong {}\ \btxnamefont
+  {Michael\btxfnamespacelong C. \btxlastnamefont {Scully}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {Software reconnaissance: Mapping program
+  features to code}{Software Reconnaissance: Mapping Program Features to
+  Code}}.
+\newblock \btxjournalfont {Journal of Software Maintenance: Research and
+  Practice}, 7(1):49--62, 1995.
+
+\bibitem {Barbosa2020FeatureTrace}
+\btxnamefont {\btxlastnamefont {Fazzolino}, Rafael} \btxandlong {}\
+  \btxnamefont {Genaína \btxlastnamefont {Rodrigues}}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {Feature-trace: Generating operational
+  profile and supporting testing prioritization from bdd
+  features}{Feature-Trace: Generating Operational Profile and Supporting
+  Testing Prioritization from BDD Features}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Anais do XXXIII Simpósio Brasileiro de
+  Engenharia de Software}, Porto Alegre, RS, Brasil, 2019. \btxpublisherfont
+  {SBC}.
+\newblock {\latintext
+  \btxurlfont{https://sol.sbc.org.br/index.php/sbes/article/view/9261}}.
+
+\bibitem {Walker2000}
+\btxnamefont {\btxlastnamefont {Walker}, Robert\btxfnamespacelong J.},
+  \btxnamefont {Gail\btxfnamespacelong C. \btxlastnamefont {Murphy}},
+  \btxnamefont {Jeffrey \btxlastnamefont {Steinbok}}\btxandcomma {} \btxandlong
+  {}\ \btxnamefont {Martin\btxfnamespacelong P. \btxlastnamefont
+  {Robillard}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Efficient
+  mapping of software system traces to architectural views}{Efficient Mapping
+  of Software System Traces to Architectural Views}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the 2000 Conference of
+  the Centre for Advanced Studies on Collaborative Research (CASCON)},
+  \btxpageslong {}\ 31--40, 2000.
+\newblock {\latintext
+  \btxurlfont{https://www.cs.ubc.ca/labs/se/papers/2000/cascon00-mapping-traces.html}}.
+
+\bibitem {McKeeman1998}
+\btxnamefont {\btxlastnamefont {McKeeman}, William\btxfnamespacelong
+  M.}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Differential testing
+  for software}{Differential Testing for Software}}.
+\newblock \btxjournalfont {Digital Technical Journal}, 10(1):100--107, 1998.
+\newblock {\latintext
+  \btxurlfont{https://vmssoftware.com/docs/dtj-v10-01-1998.pdf}}.
+
+\bibitem {caldasMestrado}
+\btxnamefont {\btxlastnamefont {Caldas}, Ricardo}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {An architecture to support control
+  theoretical-based verification of goal-oriented adaptation engines}{An
+  architecture to support control theoretical-based verification of
+  goal-oriented adaptation engines}}.
+\newblock \btxjournalfont {universidade de Brasilia}, 2019.
+
+\bibitem {Santos2024AAT4IRS}
+\btxnamefont {\btxlastnamefont {Santos}, Marcela\btxfnamespacelong G.~dos},
+  \btxnamefont {Sylvain \btxlastnamefont {Hall{\'e}}}, \btxnamefont {Fabio
+  \btxlastnamefont {Petrillo}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Yann\btxfnamespacelong Ga{\"e}l \btxlastnamefont
+  {Gu{\'e}h{\'e}neuc}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {{AAT4IRS}: Automated acceptance testing for industrial robotic
+  systems}{{AAT4IRS}: Automated Acceptance Testing for Industrial Robotic
+  Systems}}.
+\newblock \btxjournalfont {Frontiers in Robotics and AI}, 11:1346580, 2024.
+
+\bibitem {BarbosaFeatureTrace}
+\btxnamefont {\btxlastnamefont {Barbosa}, Rafael}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Feature-trace : an approach to generate operational
+  profile and to support regression testing from bdd features}{Feature-Trace :
+  an approach to generate operational profile and to support regression testing
+  from BDD features}}.
+\newblock 2020.
+\newblock {\latintext
+  \btxurlfont{https://api.semanticscholar.org/CorpusID:226164532}}.
+
+\bibitem {McCabe1976}
+\btxnamefont {\btxlastnamefont {McCabe}, Thomas\btxfnamespacelong
+  J.}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {A complexity measure}{A
+  Complexity Measure}}.
+\newblock \btxjournalfont {IEEE Transactions on Software Engineering},
+  SE-2(4):308--320, 1976.
+
+\bibitem {ChidamberKemerer1994}
+\btxnamefont {\btxlastnamefont {Chidamber}, Shyam\btxfnamespacelong R.}
+  \btxandlong {}\ \btxnamefont {Chris\btxfnamespacelong F. \btxlastnamefont
+  {Kemerer}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {A metrics suite
+  for object oriented design}{A Metrics Suite for Object Oriented Design}}.
+\newblock \btxjournalfont {IEEE Transactions on Software Engineering},
+  20(6):476--493, 1994.
+
+\bibitem {Khodabandehloo2021}
+\btxnamefont {\btxlastnamefont {Khodabandehloo}, Hamid}, \btxnamefont {Banani
+  \btxlastnamefont {Roy}}, \btxnamefont {Manishankar \btxlastnamefont
+  {Mondal}}, \btxnamefont {Chanchal\btxfnamespacelong K. \btxlastnamefont
+  {Roy}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Kevin\btxfnamespacelong
+  A. \btxlastnamefont {Schneider}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {A testing approach while re-engineering legacy systems: An
+  industrial case study}{A Testing Approach While Re-engineering Legacy
+  Systems: An Industrial Case Study}}.
+\newblock \Btxinlong {}\ \btxtitlefont {2021 IEEE International Conference on
+  Software Analysis, Evolution and Reengineering (SANER)}, \btxpageslong {}\
+  600--604. \btxpublisherfont {IEEE}, 2021.
+
+\bibitem {Insa2018}
+\btxnamefont {\btxlastnamefont {Insa}, David}, \btxnamefont {Sergio
+  \btxlastnamefont {P{\'e}rez}}, \btxnamefont {Josep \btxlastnamefont
+  {Silva}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Salvador
+  \btxlastnamefont {Tamarit}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {Behaviour preservation across code versions in erlang}{Behaviour
+  Preservation across Code Versions in Erlang}}.
+\newblock \btxjournalfont {Scientific Programming}, 2018:9251762, 2018.
+
+\bibitem {tgsamuelcouto}
+\btxnamefont {\btxlastnamefont {Couto}, Samuel\btxfnamespacelong
+  Andrade~do}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Monitoramento de
+  propriedades em tempo real: Um estudo de caso na body sensor
+  network}{Monitoramento de Propriedades em Tempo Real: Um Estudo de Caso na
+  Body Sensor Network}}.
+\newblock Undergraduate thesis, Department of Computer Science, University of
+  Brasilia, 2021.
+\newblock {\latintext \btxurlfont{https://bdm.unb.br/handle/10483/33490}},
+  Bachelor's degree in Computer Science.
+
+\bibitem {Rodrigues_2018}
+\btxnamefont {\btxlastnamefont {Rodrigues}, Arthur}, \btxnamefont
+  {Ricardo\btxfnamespacelong Diniz \btxlastnamefont {Caldas}}, \btxnamefont
+  {Genaína\btxfnamespacelong Nunes \btxlastnamefont {Rodrigues}}, \btxnamefont
+  {Thomas \btxlastnamefont {Vogel}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Patrizio \btxlastnamefont {Pelliccione}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {A learning approach to enhance assurances for real-time
+  self-adaptive systems}{A learning approach to enhance assurances for
+  real-time self-adaptive systems}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the 13th International
+  Conference on Software Engineering for Adaptive and Self-Managing Systems},
+  ICSE ’18, \btxpagelong {}\ 206–216. \btxpublisherfont {ACM},
+  \btxprintmonthyear{.}{5}{2018}{long}.
+\newblock {\latintext \btxurlfont{http://dx.doi.org/10.1145/3194133.3194147}}.
+
+\bibitem {Viana}
+\btxnamefont {\btxlastnamefont {Viana}, Richard}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {estudo de regressão}{estudo de regressão}}.
+\newblock Undergraduate thesis, Department of Computer Science, University of
+  Brasilia, 2021.
+\newblock {\latintext \btxurlfont{https://bdm.unb.br/handle/10483/33490}},
+  Bachelor's degree in Computer Science.
+
+\bibitem {BSN_ROS1_BDD}
+\btxnamefont {\btxlastnamefont {VIANA}, Richard\btxfnamespacelong
+  Junio\btxfnamespacelong Lima\btxfnamespacelong et\btxfnamespacelong
+  al.}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Sa-bsn: cenários bdd
+  da implementação ros 1}{SA-BSN: cenários BDD da implementação ROS 1}}.
+\newblock Repositório de código-fonte no GitHub, 2026.
+\newblock {\latintext \btxurlfont{https://github.com/richardjlv/bsn_}}, Branch
+  pytest-bdd. Commit a414186b8dae12547d89dde49f0bd5c357240bd2. Acesso em: 29
+  out. 2026.
+
+\bibitem {Li2013CIA}
+\btxnamefont {\btxlastnamefont {Li}, Bixin}, \btxnamefont {Xiaobing
+  \btxlastnamefont {Sun}}, \btxnamefont {Hareton \btxlastnamefont
+  {Leung}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Sai \btxlastnamefont
+  {Zhang}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {A survey of
+  code-based change impact analysis techniques}{A survey of code-based change
+  impact analysis techniques}}.
+\newblock \btxjournalfont {Software Testing, Verification and Reliability},
+  23(8):613--646, 2013.
+\newblock {\latintext
+  \btxurlfont{https://onlinelibrary.wiley.com/doi/abs/10.1002/stvr.1475}}.
+
+\bibitem {Mongiovi2014}
+\btxnamefont {\btxlastnamefont {Mongiovi}, Melina}, \btxnamefont {Rohit
+  \btxlastnamefont {Gheyi}}, \btxnamefont {Gustavo \btxlastnamefont {Soares}},
+  \btxnamefont {Leopoldo \btxlastnamefont {Teixeira}}\btxandcomma {}
+  \btxandlong {}\ \btxnamefont {Paulo \btxlastnamefont {Borba}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {Making refactoring safer through impact
+  analysis}{Making Refactoring Safer through Impact Analysis}}.
+\newblock \btxjournalfont {Science of Computer Programming}, 93:39--64, 2014.
+
+\end{thebibliography}

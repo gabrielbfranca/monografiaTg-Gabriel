@@ -1,0 +1,30 @@
+\babel@toc {american}{}\relax 
+\babel@toc {american}{}\relax 
+\babel@toc {brazil}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces figura do artigo \cite {ros2} mostrando as interfaces do ROS}}{5}{figure.2.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitetura da BSN \cite {Gil2021BodySN}}}{13}{figure.3.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces pipeline da metodologia}}{16}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces procedimento da especificação}}{19}{figure.4.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces call graph do sensor}}{28}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces call graph do CentralHub}}{29}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces visão dinâmica da BSN}}{30}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Mapeamento estrutural da realização de BDD03/BSN-C01 no ROS~1. A sequência deriva da inspeção das interfaces e do código; não representa um rastro individual de chamadas de métodos C++.}}{35}{figure.5.4}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Organização do processamento e das responsabilidades de \texttt {Sensor} no ROS~2.}}{40}{figure.5.5}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Organização do processamento e das responsabilidades de \texttt {CentralHub} no ROS~2.}}{41}{figure.5.6}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Instrumentação de BDD03 no ROS~1 reconstruída a partir dos artefatos de teste.}}{43}{figure.5.7}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\babel@toc {american}{}\relax 
+\babel@toc {american}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {american}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {american}{}\relax 
+\babel@toc {american}{}\relax 
+\babel@toc {brazil}{}\relax 
