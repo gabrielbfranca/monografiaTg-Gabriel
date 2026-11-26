@@ -102,13 +102,9 @@ mapeamento das propriedade de \cite{Rodrigues_2018}.
 
 \end{table}
 
-
-
-No caso de \texttt{BSN-C01}, a recepção de uma leitura constitui um contrato complementar de observar a chegada do valor ao CentralHub não equivale a especificar todo o processamento abrangido pela propriedade P7. O registro dessa distinção permite evitar a atribuição de uma propriedade mais ampla a um cenário que expressa apenas parte dela.
-
 \paragraph{Cenários BDD recuperados.}
 
-O levantamento apresentado no repositório~\cite{Viana} organiza a suíte em oito famílias de arquivos \texttt{.feature} e cataloga 24 definições de cenários, identificadas documentalmente como \texttt{BDD01}--\texttt{BDD24} e quinze critérios complementares, \texttt{BSN-C01}--\texttt{BSN-C15}, dos antecedentes recuperados da literatura.
+O levantamento apresentado no repositório~\cite{Viana} organiza a suíte em oito famílias de arquivos \texttt{.feature} e cataloga 24 definições de cenários, identificadas documentalmente como \texttt{BDD01}--\texttt{BDD24} e quinze critérios complementares, \texttt{BSN-C01}--\texttt{BSN-C15}.
 
 O requisito temporal de emergência está representado no arquivo \texttt{BSN-\allowbreak P03.feature}. O arquivo \texttt{check\_\allowbreak bsn.feature} reúne cenários de recepção e classificação de leituras, o \texttt{data\_\allowbreak persistance.feature} aborda persistência e \texttt{health\_\allowbreak status.feature} especifica o estado de saúde do paciente. Outros arquivos \texttt{.feature} registram contratos de monitoramento, adaptação e comunicação. Em conjunto, esses artefatos documentam expectativas comportamentais para a BSN legada.
 
@@ -157,7 +153,7 @@ Scenario Outline: The central hub receives the vital sign reading reported by a 
         | the glucometer  |
 \end{lstlisting}
 
-Nesse exemplo, a variável é identificada por seu papel no domínio (\textit{sensor}) e o comportamento esperado é a correspondência entre a leitura reportada e o valor recebido pelo CentralHub. A representação explica a obrigação da interação, sem especificar chamadas de métodos ou decisões internas da implementação. Esse tipo de cenário ilustra a possibilidade, prevista na metodologia, de formular critérios comportamentais pertinentes às responsabilidades de componentes do sistema.
+Nesse exemplo, a variável é identificada por seu papel no domínio (\textit{sensor}) e o comportamento esperado é a correspondência entre a leitura reportada e o valor recebido pelo CentralHub. Esse tipo de cenário ilustra a possibilidade, prevista na metodologia, de formular critérios comportamentais pertinentes às responsabilidades de componentes do sistema.
 
 \paragraph{Síntese dos resultados da etapa.}
 
@@ -437,7 +433,7 @@ BDD17--18 / BSN-C08--C09 e BDD23 / BSN-C14 & O sistema deve emitir comandos de a
 \end{tabularx}
 \end{table}
 
-O cenário BDD03 foi selecionado para exemplificar a identificação das entidades envolvidas na transmissão de dados entre o Sensor e o CentralHub. A identificação das interfaces foi auxiliada pela inspeção das definições de passos do cenário, que utilizam os tópicos do sensor e do \textit{target-system} para observar o comportamento especificado. Outros cenários são complementares por possuírem relação semelhante ao BDD03
+O cenário BDD03 foi selecionado para exemplificar a identificação das entidades envolvidas na transmissão de dados entre o Sensor e o CentralHub. A identificação das interfaces foi auxiliada pela inspeção das definições de passos do cenário, que utilizam os tópicos do sensor e do \textit{target-system} para observar o comportamento especificado.
 
 \subsection{Localização das realizações no ROS~1}
 \label{subsec:res-identificacao-localizacao}
@@ -511,7 +507,7 @@ de reconfiguração \\
 \end{tabularx}
 \end{table}
 
-\subsection{Participação dos métodos nas nos grupos de testes BDD}
+\subsection{Participação dos métodos nos grupos de testes BDD}
 \label{subsec:res-identificacao-caracterizacao}
 
 Os relatórios HTML de cobertura LLVM preservam contagens de execução por linha de código. Para os cinco arquivos examinados (\path{Component.cpp}, \path{Sensor.cpp}, \path{G3T1_3.cpp}, \path{CentralHub.cpp} e \path{G4T1.cpp}), foram verificadas as linhas de entrada de onze métodos selecionados. Considerou-se que um método participou de uma campanha quando a linha correspondente apresentou contagem de execução. Cada campanha corresponde à execução isolada de uma família de cenários BDD, como \texttt{check\_bsn}, relacionada à transmissão de leituras e à classificação de risco, \texttt{health\_status}, à disponibilização do estado de saúde do paciente, e \texttt{managing\_system}, ao monitoramento e à adaptação do sistema. A identificação dos métodos exercitados foi realizada mediante a inspeção dos relatórios HTML de cobertura LLVM de cada campanha, que registram as contagens de execução por linha de código. A Tabela~\ref{tab:res-metodos-campanhas} apresenta os resultados dessa investigação.
@@ -584,13 +580,9 @@ diferentes campanhas \\
 \par\smallskip
 \begin{minipage}{\linewidth}
 \footnotesize
-\textbf{Fonte:} repositório
-\texttt{bsn\_traces}, referentes a oito grupos de testes
-executadas em 26/10/2026 sobre a revisão
-\texttt{a46f155} da implementação ROS~1. O indicador $k/8$ representa o número de campanhas com execução observada do método, não o número
-de cenários BDD individuais ou de chamadas realizadas.
-As interpretações das responsabilidades foram
-complementadas pela inspeção do código-fonte.
+
+\textbf{Fonte:} relatórios de cobertura de oito execuções dos testes BDD no ROS~1 no repositório \texttt{bsn\_traces}~\cite{BSN_TRACES}. O indicador $k/8$ representa o número de execuções em que o método foi observado, e não a quantidade de cenários BDD individuais ou de chamadas realizadas. A identificação das responsabilidades foi complementada pela inspeção do código-fonte.
+
 \end{minipage}
 
 \end{table}
@@ -598,12 +590,13 @@ complementadas pela inspeção do código-fonte.
 
 Os resultados indicam uma participação recorrente dos métodos associados à inicialização, coleta, processamento e transferência de dados, em contraste com a participação mais restrita das operações de reconfiguração.
 
-A análise teve como referência o princípio de comparação das entidades de código exercitadas em diferentes execuções de testes conhecida como \textit{Software Reconnaissance}. Entretanto, a análise foi realizada no nível das campanhas BDD, sem aplicar as classificações de entidades propostas pelos autores devido a limitações de granularidade. O arquivo \texttt{trace.jsonl} registra eventos dos testes BDD, enquanto os relatórios de cobertura LLVM permitem identificar a participação dos métodos C++ nas campanhas. Essas evidências não estabelecem associações individuais entre cenários e métodos, nem demonstram a responsabilidade exclusiva dos elementos executados por determinada funcionalidade. Por isso, a caracterização das responsabilidades é complementada pela inspeção do código-fonte, apresentada na seção seguinte.
+A análise teve como referência o princípio de comparação das entidades de código exercitadas em diferentes execuções de testes conhecida como \textit{Software Reconnaissance}. Entretanto, a análise foi realizada no nível das campanhas BDD, sem aplicar as classificações de entidades propostas pelos autores devido a limitações de granularidade. O arquivo \texttt{trace.jsonl} registra eventos dos testes BDD, enquanto os relatórios de cobertura LLVM permitem identificar a participação dos métodos C++ nas campanhas.
 
 \subsection{Delimitação das responsabilidades para o planejamento}
 \label{subsec:res-identificacao-delimitacao}
 
-A análise de cobertura das campanhas BDD foi complementada pela inspeção do código-fonte para identificar as responsabilidades das entidades de implementação e suas dependências do ROS~1. A seleção das responsabilidades considerou os comportamentos investigados, as diferenças entre as plataformas e, dado o caráter retrospectivo do estudo, as transformações realizadas durante a migração. A Tabela~\ref{tab:res-escopo-identificado} apresenta a delimitação resultante.
+A partir do mapeamento dos cenários BDD às entidades de implementação e da inspeção do código-fonte, foram delimitadas as responsabilidades relevantes para a análise das transformações de migração. A seleção considerou os comportamentos investigados, as dependências da implementação ROS~1 e, dado o caráter retrospectivo do estudo, as transformações identificadas no ROS~2. A Tabela~\ref{tab:res-escopo-identificado} apresenta as responsabilidades selecionadas e sua relação com as transformações T1--T3 especificadas na etapa seguinte.
+
 
 
 
@@ -614,20 +607,41 @@ A análise de cobertura das campanhas BDD foi complementada pela inspeção do c
 \scriptsize
 \begin{tabularx}{\linewidth}{@{}p{0.22\linewidth}p{0.34\linewidth}X@{}}
 \toprule
-\textbf{Responsabilidade} & \textbf{Entidades e mecanismos identificados no ROS~1} & \textbf{Delimitação do escopo de investigação} \\
+\textbf{Responsabilidade} &
+\textbf{Entidades e mecanismos identificados no ROS~1} &
+\textbf{Relação com as transformações analisadas} \\
 \midrule
-Avaliar e classificar risco & \path{SensorConfiguration::evaluateNumber()} e \path{G3T1_3::label()}; cálculo por faixas e percentuais. & Investigar a reorganização das responsabilidades de avaliação de risco, considerando a preservação da lógica de domínio. \\
-Controlar a execução e o estado operacional dos nós & \texttt{Sensor::body()}, \texttt{CentralHub::body()}, \texttt{isActive()}, \texttt{turnOn()/turnOff()} e verificações do estado da bateria. & Investigar as diferenças nos mecanismos de execução, ativação e desativação dos nós. \\
-Comunicar dados e estados & \path{G3T1_3::transfer()}, \texttt{G4T1::collect()} e interfaces de publicação e subscrição. & Investigar a adaptação das interfaces de comunicação. \\
-Coletar e encaminhar informações de monitoramento & \path{Probe::collectEvent()}, \path{collectStatus()} e \path{collectEnergyStatus()}. & Investigar as alterações nos mecanismos de monitoramento. \\
-Receber comandos de reconfiguração & \path{Sensor::reconfigure()} e \path{CentralHub::reconfigure()}. & Investigar a relação entre os comandos recebidos e a reconfiguração dos componentes. \\
+
+Avaliar e classificar risco &
+\path{SensorConfiguration::evaluateNumber()} e
+\path{G3T1_3::label()}; cálculo por faixas e percentuais. &
+T3 -- Reorganização das operações de avaliação e classificação de risco. \\
+
+Controlar a execução e o estado operacional dos nós &
+\texttt{Sensor::body()},
+\texttt{CentralHub::body()},
+\texttt{isActive()},
+\texttt{turnOn()/turnOff()} e verificações do estado da bateria. &
+T1 -- Adaptação dos mecanismos de execução e controle de atividade ao gerenciamento de ciclo de vida do ROS~2. \\
+
+Comunicar dados e estados &
+\path{G3T1_3::transfer()},
+\texttt{G4T1::collect()} e interfaces de publicação e subscrição. &
+T3 -- Adaptação da comunicação e redistribuição das operações de recepção e publicação. \\
+
+Coletar e encaminhar informações de monitoramento &
+\path{Probe::collectEvent()},
+\path{collectStatus()} e
+\path{collectEnergyStatus()}. &
+T2 -- Preservação do encaminhamento de informações e ampliação das responsabilidades de monitoramento. \\
+
+
 \bottomrule
 \end{tabularx}
 \end{table}
 
-A avaliação de risco e o controle da execução dos nós exemplificam essa distinção. Enquanto a primeira envolve uma lógica de domínio que deve permanecer compatível com os comportamentos especificados, a segunda depende dos mecanismos de execução disponíveis na plataforma.
+As responsabilidades selecionadas apresentam diferentes relações com as transformações. A avaliação de risco envolve lógica funcional associada ao domínio da aplicação, enquanto o controle da execução, a comunicação e o monitoramento utilizam mecanismos vinculados à implementação ROS~1. Essas características são consideradas na análise das transformações T1--T3, apresentada na seção seguinte.
 
-Os resultados dessa etapa consistem no mapeamento entre cenários BDD e entidades de implementação, na análise da participação dos métodos nas campanhas BDD e na delimitação das responsabilidades para o planejamento das transformações de migração.
 
 
 \section{Reconstrução das Transformações de Migração
@@ -635,18 +649,21 @@ e Implementação em ROS~2}
 \label{sec:resultados-planejamento-transformacoes}
 
 
- A partir das responsabilidades identificadas no ROS~1, foram examinadas as transformações presentes na implementação ROS~2 da BSN \footnote{\url{https://github.com/rdinizcal/bsn2/tree/data-persistance-testing}}. A análise considerou as diferenças entre os ambientes, a reorganização das responsabilidades e comportamentos especificados pelos BDDs associada as mudanças.
 
-Foram selecionadas três transformações para exemplificar a caracterização: (T1) gerenciamento de ciclo de vida, (T2) ampliação do monitoramento e (T3) adaptação da comunicação e reorganização funcional. Esses casos permitem examinar adaptações ao \textit{system context}, refatorações internas e ampliações funcionais.
+A partir das responsabilidades delimitadas na Seção~\ref{subsec:res-identificacao-delimitacao}, foram examinadas suas realizações na implementação ROS~2 da BSN\footnote{\url{https://github.com/rdinizcal/bsn2/tree/data-persistance-testing}}. A reconstrução retrospectiva buscou identificar como essas responsabilidades foram mantidas, adaptadas, reorganizadas ou ampliadas diante das diferenças entre as plataformas.
+
+Foram selecionadas três transformações relacionadas às responsabilidades identificadas no ROS~1: (T1) gerenciamento do ciclo de vida dos nós, (T2) ampliação do monitoramento e (T3) adaptação da comunicação e reorganização funcional. As transformações abrangem adaptações ao \textit{system context}, reorganizações internas e evolução funcional, permitindo caracterizar diferentes mudanças realizadas na implementação migrada.
+
 
 \subsection{Transformações identificadas}
 \label{subsec:res-planejamento-transformacoes}
 
 \paragraph{T1 -- Gerenciamento de ciclo de vida.}
+No ROS~1, \texttt{Sensor::body()} e \texttt{CentralHub::body()} utilizam verificações internas de atividade e bateria para controlar a execução de suas operações. No ROS~2, \texttt{Sensor} e \texttt{CentralHub} especializam \texttt{RosComponent}, classe derivada de \texttt{LifecycleNode}, e implementam callbacks como \texttt{on\_configure()}, \texttt{on\_activate()} e \texttt{on\_deactivate()}. O componente \texttt{LifecycleManager} complementa essa infraestrutura ao gerenciar as transições de estado e considerar as condições operacionais dos nós.
 
-No ROS~1, \texttt{Sensor::body()} e \texttt{CentralHub::body()} utilizam verificações internas de atividade e bateria para determinar a execução de suas operações. No ROS~2, \texttt{Sensor} e \texttt{CentralHub} herdam de \texttt{LifecycleNode} e implementam callbacks como \texttt{on\_configure()}, \texttt{on\_activate()} e \texttt{on\_deactivate()}. O componente \texttt{LifecycleManager} auxilia no gerenciamento das transições, considerando também as condições operacionais dos nós.
 
-Essa transformação representa uma adaptação ao modelo de ciclo de vida do ROS~2, acompanhada por uma refatoração. Os contratos relacionados à disponibilidade de \texttt{Sensor} e \texttt{CentralHub} permanecem relevantes, mas as transições introduzidas pelo ROS~2 exigem verificações específicas. A implementação ROS~2 contém também testes direcionados às operações de ciclo de vida.
+Essa transformação representa uma adaptação ao modelo de ciclo de vida do ROS~2, acompanhada por uma refatoração das funcionalidades e é caracterizada como uma adaptação tecnológica do controle de atividade dos componentes ao modelo de ciclo de vida do ROS~2.
+
 
 
 
@@ -654,11 +671,10 @@ Essa transformação representa uma adaptação ao modelo de ciclo de vida do RO
 
 No ROS~1, \texttt{Probe} recebe eventos, estados e informações de energia e os encaminha ao sistema de registro. No ROS~2, \texttt{SystemMonitor} mantém essa responsabilidade e incorpora o acompanhamento do estado operacional dos nós, registrando informações sobre sua ativação, desativação, operações realizadas e estado de recarga.
 
-O recebimento de mensagens de estado e de eventos também permite monitorar a comunicação dos nós por meio de \textit{heartbeats}. A implementação incorpora ainda solicitações de consulta ao estado de ciclo de vida dos nós pelo serviço \texttt{GetState}.
+O recebimento de mensagens de estado e de eventos também permite monitorar a comunicação dos nós por meio de \textit{heartbeats}. A implementação incorpora ainda solicitações de consulta ao estado de ciclo de vida dos nós pelo serviço \texttt{GetState}. Quando um nó considerado ativo permanece sem comunicação por um intervalo superior ao limite estabelecido, o monitor prevê a emissão de um aviso. Os estados monitorados também são publicados periodicamente no tópico \texttt{log\_status}.
 
-Quando um nó considerado ativo permanece sem comunicação por um intervalo superior ao limite estabelecido, o monitor prevê a emissão de um aviso. Os estados monitorados também são publicados periodicamente no tópico \texttt{log\_status}.
+A transformação T2 caracteriza uma evolução funcional da responsabilidade de monitoramento. O encaminhamento das informações permanece associado ao comportamento existente no ROS~1, enquanto a supervisão da atividade dos nós e a detecção da ausência de \textit{heartbeats} constituem funcionalidades adicionais identificadas no ROS~2.
 
-Essa transformação representa uma ampliação funcional, e não uma exigência inerente à migração para ROS~2.
 
 
 \paragraph{T3 -- Adaptação da comunicação e
@@ -693,10 +709,10 @@ A avaliação de risco também foi reorganizada. No legado, \texttt{SensorConfig
 
 A Tabela~\ref{tab:res-migration-record} consolida as transformações identificadas na comparação retrospectiva das implementações. O registro relaciona as responsabilidades do ROS~1, os tratamentos identificados no ROS~2 e os cenários em BDD associados a cada transformação.
 
+
 \begin{table}[htbp]
 \centering
-\caption{Registro retrospectivo das
-transformações de migração da BSN}
+\caption{Registro retrospectivo das transformações de migração da BSN}
 \label{tab:res-migration-record}
 \scriptsize
 
@@ -710,49 +726,66 @@ X@{}}
 \textbf{ID} &
 \textbf{Responsabilidade no ROS~1} &
 \textbf{Transformação identificada no ROS~2} &
-\textbf{Cenário associado} \\
+\textbf{Contratos BDD associados} \\
 
 \midrule
 
 T1 &
-Controle da atividade de \texttt{Sensor}
-e \texttt{CentralHub}, considerando
-estado interno e bateria. &
-Adaptação tecnológica com reorganização
-interna: adoção de \texttt{LifecycleNode},
-callbacks e \texttt{LifecycleManager}. &
-BDD03, BDD05 e BDD09;
-verificação adicional das transições
-de ciclo de vida e da retomada operacional. \\
+Controle da atividade de \texttt{Sensor} e
+\texttt{CentralHub}, considerando o estado
+operacional e a bateria. &
+Adaptação tecnológica: utilização de
+\texttt{RosComponent}, derivada de
+\texttt{LifecycleNode}, e de
+\texttt{LifecycleManager} para o
+gerenciamento do ciclo de vida dos nós. &
+BDD05, relacionado à indisponibilidade
+do \texttt{CentralHub}; BDD03 e BDD09,
+associados a comportamentos que dependem
+da operação dos componentes. \\
 
 \addlinespace
 
 T2 &
-Coleta e encaminhamento de eventos, estados e informações de energia por \texttt{Probe}. &
-Ampliação funcional: \texttt{SystemMonitor} preserva o encaminhamento de mensagens e incorpora o acompanhamento do estado operacional dos nós e a detecção da ausência de \textit{heartbeats}. &
-BDD15; testes complementares de acompanhamento dos estados dos nós, publicação das informações monitoradas e detecção da ausência de \textit{heartbeats} no ROS~2. \\
+Coleta e encaminhamento de eventos,
+estados e informações de energia por
+\texttt{Probe}. &
+Ampliação funcional: \texttt{SystemMonitor}
+mantém o encaminhamento das informações
+e incorpora a supervisão da atividade
+dos nós e a detecção da ausência de
+\textit{heartbeats}. &
+BDD15, relacionado ao encaminhamento
+de informações de monitoramento.
+A supervisão por \textit{heartbeats}
+constitui comportamento adicional
+no ROS~2. \\
 
 \addlinespace
 
 T3 &
-Coleta, processamento e publicação
+Coleta, processamento e comunicação
 de leituras, além da avaliação
 de risco dos sensores. &
-Porte e reorganização interna:
-\texttt{DataProcessor},
+Adaptação tecnológica e reorganização
+interna: redistribuição das operações
+entre \texttt{DataProcessor},
 \texttt{SensorDataHandler},
 \texttt{PublisherManager},
 \texttt{RiskManager} e
 \texttt{RiskEvaluator}. &
-BDD03 e BDD04;
-preservação da transmissão das
-leituras e da avaliação de risco. \\
+BDD03, relacionado à transmissão
+e recepção de leituras; BDD04,
+relacionado à classificação de risco
+observável na saída do sistema. \\
+
 \bottomrule
 \end{tabularx}
-
 \end{table}
 
-O registro sintetiza as transformações reconstruídas, enquanto as análises T1--T3 documentam as evidências e justificativas correspondentes. Por se tratar de um estudo retrospectivo, essas classificações não representam necessariamente decisões de planejamento registradas pelos desenvolvedores.
+
+
+A Tabela~\ref{tab:res-migration-record} constitui o \textit{Migration Transformation Record} reconstruído para a BSN, relacionando as responsabilidades identificadas no ROS~1 às transformações observadas no ROS~2 e aos contratos comportamentais associados.
 
 
 \section{Estabelecimento da \textit{Ground Truth} e Validação Comportamental da BSN}
@@ -760,8 +793,7 @@ O registro sintetiza as transformações reconstruídas, enquanto as análises T
 \label{sec:aplicacao-ground-truth-bsn}
 \label{sec:resultados-validacao-bsn}
 
-Esta seção reúne os resultados do Estabelecimento da \textit{Ground Truth} Comportamental e da Validação Comportamental. A primeira etapa estabelece uma referência a partir dos critérios BDD, dos testes e das observações do ROS~1 enquanto a segunda confronta essa referência com a implementação migrada em ROS~2. A apresentação conjunta permite explicitar, para os mesmos comportamentos selecionados, o alcance dos oráculos e as evidências disponíveis nas duas plataformas.
-
+Esta seção reúne os resultados do Estabelecimento da \textit{Ground Truth} Comportamental e da Validação Comportamental. A primeira etapa estabelece uma referência a partir dos critérios BDD, dos testes e das observações do ROS~1 enquanto a segunda confronta essa referência com a implementação migrada em ROS~2
 A reconstrução utiliza os resultados os resultados preservados no repositório~\cite{Viana}, os testes do legado e da implementação migrada\footnote{\url{https://github.com/richardjlv/bsn_} e \url{https://github.com/richardjlv/bsn2}.} e os registros de campanhas e testes complementares arquivados em \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces}.}.
 
 \subsection{Preparação dos testes e delimitação dos comportamentos}
@@ -1045,7 +1077,7 @@ resultados por caso, rastros e revalidações no repositório ~\cite{Viana} \tex
 
 Em BDD06--BDD07, o resultado \texttt{XFAIL} não fornece o mesmo tipo de evidência nas duas plataformas: no legado, a falha esperada foi registrada no passo de verificação, enquanto na coleta ROS~2 de 25/10 ocorreu durante a preparação da falha simulada. Assim, as duas marcações não confirmam a ocorrência de um mesmo defeito de armazenamento.
 
-As execuções com oráculo comum de estado de saúde estão identificadas, respectivamente, como \path{ros1_20261026T222148Z_health_status_t2w8_ul0} e \path{ros2_20261026T221156Z_uowmc6al} no repositório~\cite{Viana}. A identificação das campanhas é necessária porque os relatórios mais antigos de \texttt{health\_status} utilizavam critérios diferentes.
+As execuções com oráculo comum de estado de saúde estão identificadas, respectivamente, como \path{ros1_20261026T222148Z\_health_status_t2w8_ul0} e \path{ros2_20261026T221156Z\_uowmc6al} no repositório~\cite{Viana}. A identificação das campanhas é necessária porque os relatórios mais antigos de \texttt{health\_status} utilizavam critérios diferentes.
 
 
 \subsection{Evidências Complementares aos Testes BDD}

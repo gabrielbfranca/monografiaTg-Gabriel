@@ -1,5 +1,8 @@
 \label{sec:avaliacao-discussao}
 
+Este capítulo discute os resultados apresentados no Capítulo~5 desenvolvendo questões de pesquisa definidas na Introdução e dos critérios de avaliação descritos na Seção~\ref{sec:delineamento-avaliacao}. 
+
+\begin{comment}
 A avaliação da metodologia proposta é conduzida a partir do estudo de caso da BSN de ROS 1 para ROS 2 considerando os resultados apresentados no capítulo anterior e as evidências documentadas no repositório ~\cite{Viana}. A análise busca examinar as possibilidades e limitações de aplicação da abordagem, a capacidade das evidências recuperadas de sustentar conclusões sobre a preservação comportamental e a rastreabilidade dos procedimentos e resultados.
 
 Nesse contexto, foram definidas as seguintes questões de pesquisa:
@@ -18,24 +21,17 @@ Nesse contexto, foram definidas as seguintes questões de pesquisa:
 \end{itemize}
 
 A avaliação, portanto,  Busca-se identificar as contribuições e limitações observadas na BSN e discutir as condições necessárias para sua utilização em outros contextos.
-
+\end{comment}
+\begin{comment}
 \section{RQ1 -- Viabilidade e Aplicabilidade}
 \label{sec:avaliacao-rq1}
 
-A ideia do RQ1 é analisar a viabilidade da abordagem metodológica a partir dos resultados obtidos ou recuperados retrospectivamente. Nesse sentido, é importante formular alguns critérios de avaliação de cada etapa:
-\begin{itemize}
-    \item \textbf{C1 -- Exequibilidade das atividades:} Quais atividades puderam ser realizadas ou reconstruídas a partir das evidências disponíveis?
-
-    \item \textbf{C2 -- Utilidade dos artefatos e resultados:} Quais contribuições dos artefatos produzidos ou recuperados podem ser identificadas para a realização das etapas posteriores?
-
-    \item \textbf{C3 -- Limitações identificadas:} Quais dificuldades, dependências e limitações foram identificadas durante a aplicação das etapas?
-\end{itemize}
 
 \paragraph{Compreensão de Programas.}
 
 No estudo de caso, a viabilidade dessa etapa foi examinada a partir da recuperação e utilização das visões estáticas e dinâmicas da BSN produzidas por Couto, apresentadas na Seção \ref{sec:compreensao-res}. As visões estáticas, obtidas com Doxygen e GraphViz, permitiram examinar relações entre métodos e componentes, incluindo as chamadas de métodos associadas à execução de Sensor e CentralHub, apresentadas nas Figuras \ref{fig:sensor} e \ref{fig:bodyhub}. A visão dinâmica, obtida com rqt\_graph e apresentada na Figura \ref{fig:graviz}, complementou essas informações ao representar as relações de comunicação entre os nós ROS.
 
-A contribuição dessas informações para a abordagem pode ser observada nas etapas posteriores. O conhecimento estrutural e de execução da BSN forneceu contexto para a interpretação dos requisitos na Especificação Comportamental e para a investigação das entidades de implementação associadas aos cenários BDD na Identificação das Realizações dos Comportamentos. Essas informações também apoiaram a análise das responsabilidades relevantes ao planejamento das transformações de migração.
+O conhecimento estrutural e de execução da BSN forneceu contexto para a interpretação dos requisitos na Especificação Comportamental e para a investigação das entidades de implementação associadas aos cenários BDD na Identificação das Realizações dos Comportamentos. Essas informações também apoiaram a análise das responsabilidades relevantes ao planejamento das transformações de migração.
 
 Entretanto, a etapa apresenta limitações quanto à avaliação da suficiência do conhecimento adquirido. A metodologia não estabelece critérios objetivos para determinar quando a compreensão do sistema é suficiente para prosseguir às atividades seguintes.
 
@@ -64,7 +60,7 @@ A implementação dos testes também evidencia a necessidade de adaptar a infrae
 
 Essa etapa foi sistematizada retrospectivamente, a partir da análise da implementação legada e das transformações identificadas na migração para ROS~2. Conforme apresentado na Seção \ref{sec:identificacao-realizacoes-comportamentos}, foi possível relacionar os cenários BDD selecionados às interfaces, entidades de implementação e responsabilidades do ROS~1. O mapeamento de BDD03, por exemplo, permitiu reconstruir o caminho funcional entre os sensores e o CentralHub por meio da inspeção do código-fonte e das interfaces de comunicação.
 
-A contribuição dessa etapa está na possibilidade de organizar as relações entre comportamentos especificados e responsabilidades da implementação, fornecendo uma base para etapa de análise das transformações de migração. Nesse contexto, a utilização de evidências de execução dos testes BDD complementou a inspeção estática, permitindo identificar métodos exercitados nas campanhas analisadas. Essa combinação contribuiu para a delimitação das responsabilidades examinadas posteriormente no planejamento das transformações.
+O mapeamento relacionou os comportamentos especificados às responsabilidades da implementação legada, permitindo delimitar as responsabilidades examinadas na análise das transformações de migração. Nesse contexto, a utilização de evidências de execução dos testes BDD complementou a inspeção estática, permitindo identificar métodos exercitados nas campanhas analisadas. Essa combinação contribuiu para a delimitação das responsabilidades examinadas posteriormente no planejamento das transformações.
 
 Assim, os resultados demonstram a viabilidade de estabelecer associações entre comportamentos e entidades da implementação legada, ainda que com diferentes níveis de evidência. A aplicação retrospectiva permitiu caracterizar as responsabilidades relevantes às transformações investigadas, mas não demonstra que esse procedimento tenha orientado as decisões da migração original dado a caracteríristica retrospectiva do resultado.
 
@@ -104,105 +100,173 @@ Entretanto, a aplicação também evidenciou dependências e limitações. A dis
 
 
 Assim, em resposta à RQ1, os resultados sustentam a viabilidade da abordagem como um procedimento de sistematização e análise da migração da BSN, integrando especificações comportamentais, evidências de implementação e registros de execução. Sua aplicação prospectiva, entretanto, permanece não demonstrada. A utilização em outros sistemas robóticos dependerá da disponibilidade de informações sobre a implementação legada, da possibilidade de executar e observar os comportamentos selecionados e da adequação dos mecanismos de rastreamento e validação às características do sistema.
+\end{comment}
+
+\section{RQ1 -- Aplicabilidade e Limitações}
+\label{sec:avaliacao-rq1}
+
+A RQ1 examina a aplicabilidade da abordagem proposta a partir da reconstrução retrospectiva parcial da migração da BSN. A avaliação considera a viabilidade das atividades (C1), a utilidade dos artefatos e resultados para as etapas posteriores (C2) e as limitações identificadas (C3), conforme os critérios estabelecidos na Seção~\ref{sec:delineamento-avaliacao}.
+
+\paragraph{C1 -- Viabilidade das atividades.}
+
+Os resultados do Capítulo~5 mostram que foi possível recuperar e reconstruir evidências correspondentes às atividades da abordagem. A Compreensão de Programas foi apoiada pelas visões estáticas e dinâmicas produzidas em trabalhos anteriores sobre a BSN, enquanto a Especificação Comportamental utilizou propriedades documentadas e cenários BDD disponíveis no legado. O Estabelecimento da \textit{Ground Truth} Comportamental foi examinado a partir da implementação e execução dos testes no ROS~1, considerando seus critérios de aceitação e os resultados observados.
+
+Na fase de migração, a Identificação das Realizações dos Comportamentos foi sistematizada retrospectivamente por meio da inspeção do código-fonte, das interfaces de comunicação e pela análise da participação de métodos nas execuções dos testes BDD. Essas informações permitiram relacionar cenários BDD com entidades e responsabilidades da implementação legada. A partir desse mapeamento, foram caracterizadas as transformações T1--T3, apresentadas na Seção~\ref{sec:resultados-planejamento-transformacoes}. A implementação existente no ROS~2 forneceu as evidências das mudanças realizadas, enquanto a Validação Comportamental foi examinada pela comparação dos testes, oráculos e resultados disponíveis nas duas versões.
+
+Entretanto, a viabilidade observada não corresponde à execução prospectiva de todas as atividades conforme a abordagem proposta a identificação das realizações e a caracterização das transformações foram sistematizadas posteriormente. Assim, os resultados demonstram a possibilidade de reconstruir e relacionar essas atividades no estudo de caso, mas não que tenham orientado a migração original.
+
+\paragraph{C2 -- Utilidade dos artefatos e resultados.}
+
+A principal contribuição observada está nas relações estabelecidas entre os resultados das diferentes etapas. O conhecimento recuperado na Compreensão de Programas forneceu informações sobre a organização e as interfaces da BSN, utilizadas na interpretação dos comportamentos e na identificação de suas realizações. Os cenários BDD, por sua vez, estabeleceram contratos comportamentais que serviram tanto à construção da referência no ROS~1 quanto à delimitação das responsabilidades examinadas na implementação.
+
+O cenário BDD03 exemplifica essa relação. A especificação da recepção de leituras permitiu orientar a identificação das entidades envolvidas na comunicação entre sensores e \texttt{CentralHub}. O mapeamento resultante relacionou esse contrato às responsabilidades de transmissão e recepção, posteriormente examinadas na transformação T3. Na análise comportamental, o mesmo contrato forneceu uma referência para comparar os oráculos e os resultados de execução nas duas implementações.
+
+
+De modo semelhante, a identificação da responsabilidade de monitoramento associada a \texttt{Probe} permitiu caracterizar sua transformação em \texttt{SystemMonitor}, que mantém o encaminhamento de informações existente no legado e incorpora funcionalidades adicionais de supervisão no ROS~2. As correspondências entre responsabilidades e transformações foram consolidadas no registro apresentado na Tabela~\ref{tab:res-migration-record}.
+
+Esses resultados mostram que os artefatos recuperados e os mapeamentos reconstruídos podem ser utilizados conjuntamente para relacionar contratos comportamentais, responsabilidades de implementação e transformações de migração. No estudo retrospectivo, essa utilidade foi observada na organização e interpretação das evidências.
+
+\paragraph{C3 -- Limitações identificadas.}
+
+A aplicação da abordagem depende da disponibilidade de informações sobre o sistema legado. Na BSN, os trabalhos anteriores forneceram documentação e especificações comportamentais que facilitaram a reconstrução. Entretanto, não foram estabelecidos critérios objetivos para determinar a suficiência do conhecimento recuperado ou a abrangência dos contratos selecionados.
+
+A identificação das realizações também apresentou limitações. Embora a inspeção do código-fonte e das interfaces tenha permitido estabelecer relações entre comportamentos e entidades, os relatórios de cobertura registram a participação dos métodos em execuções de grupos de testes BDD. Essas evidências não determinam, isoladamente, quais métodos realizam cada cenário individual.
+
+Na análise comportamental, a predominância de oráculos baseados nas interfaces ROS permitiu examinar comportamentos observáveis nas duas implementações, mas não assegurou a correspondência causal entre entradas fornecidas e os resultados observados. Essas limitações restringem as conclusões de preservação comportamental, discutidas na RQ2.
+
+Por fim, o caráter retrospectivo impediu a recuperação completa das decisões que orientaram a migração original. Além disso, a ausência de indicadores para avaliar sistematicamente a aplicação do processo limita sua mensurabilidade. 
+
+\paragraph{Síntese da RQ1.}
+
+Em suma, o estudo de caso demonstrou a possibilidade de sistematizar retrospectivamente a migração da BSN por meio das atividades propostas. A abordagem permitiu relacionar especificações comportamentais, evidências da implementação legada, responsabilidades selecionadas, transformações identificadas no ROS~2 e resultados de validação. Essa integração constitui sua principal contribuição observada para a análise do processo de migração.
+
+Entretanto, os resultados sustentam a aplicabilidade da abordagem como procedimento de reconstrução e análise no caso investigado, sem demonstrar sua eficácia na condução prospectiva de uma migração. Sua aplicação em outros sistemas dependerá das evidências disponíveis, da observabilidade dos comportamentos selecionados e da possibilidade de identificar e relacionar suas realizações nas implementações.
+
+
+
+
 
 \section{RQ2 -- Preservação Comportamental}
 \label{sec:avaliacao-rq2}
-A análise da RQ2 considera os cenários BDD examinados na Seção~\ref{sec:resultados-validacao-bsn}, as correspondências entre seus oráculos e os testes complementares documentados no repositório~\cite{Viana}. Então essa avaliação concentra-se no alcance das conclusões comportamentais sustentadas pelos resultados disponíveis.
 
-\paragraph{Correspondência entre os contratos:}
+A RQ2 examina quais evidências recuperadas permitem avaliar a preservação dos contratos comportamentais selecionados durante a migração da BSN. A análise considera a correspondência entre os contratos, os oráculos implementados e os resultados de execução apresentados na Seção~\ref{sec:resultados-validacao-bsn}, incluindo as verificações complementares.
 
-A comparação das implementações ROS~1 e ROS~2 exige considerar não apenas os resultados dos testes, mas também a correspondência entre suas condições iniciais, estímulos, fronteiras de observação e critérios de aceitação.
+\paragraph{Correspondência entre os contratos.}
 
-Os cenários BDD selecionados apresentam correspondências documentadas entre as duas implementações, embora suas infraestruturas e mecanismos de observação tenham sido adaptados. A manutenção das especificações BDD permitiu utilizar contratos comuns como referência para a comparação.
-
-Entretanto, a aprovação de cenários correspondentes não demonstra necessariamente a equivalência dos comportamentos observados. As asserções podem verificar apenas parte do contrato especificado, enquanto diferenças de preparação e execução podem produzir resultados que não sejam diretamente comparáveis. Nesse contexto, foi analisado a correspondência do comportamento a partir dos oráculos.
+A comparação dos cenários BDD entre ROS~1 e ROS~2 mostrou que contratos correspondentes nem sempre são verificados da mesma forma. Nos cenários BDD08 e BDD09, por exemplo, a revisão dos oráculos permitiu utilizar critérios de asserção comuns nas duas implementações, embora as condições de execução e as sequências observadas não tenham sido necessariamente equivalentes. Já nos cenários BDD06 e BDD07, as falhas esperadas ocorreram em etapas diferentes da execução, impedindo interpretá-las como evidências de um mesmo comportamento. Assim, a comparação exigiu examinar as propriedades efetivamente verificadas pelos oráculos, e não apenas os resultados de aprovação ou falha dos testes.
 
 \paragraph{Alcance das evidências de preservação.}
 
-A Tabela~\ref{tab:avaliacao-rq2-contratos} sintetiza as conclusões sustentadas pelas evidências apresentadas na Seção~\ref{sec:resultados-validacao-bsn} e pelos testes complementares documentados no repositório~\cite{Viana}.
+A Tabela~\ref{tab:avaliacao-rq2-contratos} sintetiza as evidências disponíveis e as conclusões sustentadas para os contratos selecionados.
 
 \begin{table}[htbp]
 \centering
 \caption{Alcance das evidências de preservação comportamental na amostra selecionada}
 \label{tab:avaliacao-rq2-contratos}
 \small
-\begin{tabularx}{\textwidth}{@{} p{0.20\textwidth} X X@{}}
+\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}XX@{}}
 \toprule
-\textbf{Contrato} & \textbf{Evidência disponível} & \textbf{Conclusão sustentada} \\
+\textbf{Contrato} &
+\textbf{Evidência disponível} &
+\textbf{Conclusão sustentada} \\
 \midrule
 
-BDD03 / BSN-C01 & Aprovações de recepção de leituras nas duas versões, incluindo revalidação no ROS~2. Os oráculos comparam valores capturados nas interfaces de comunicação. & Há evidência de preservação da recepção de valores, sem identificação causal inequívoca de cada leitura. \\
+BDD03 / BSN-C01 &
+Aprovação dos testes de recepção de leituras nas duas versões, incluindo revalidação no ROS~2. Os oráculos comparam valores capturados nos tópicos dos sensores e do \texttt{CentralHub}. &
+Há evidência de preservação da recepção de valores nas condições examinadas, sem associação inequívoca entre cada leitura publicada e recebida. \\
 
 \addlinespace
 
-BDD04 / BSN-P09 & Aprovação da observação de risco alto nas duas versões. Testes complementares aprovaram quatro casos de teste nesse contexto nas classes atuais e detectaram o defeito B7. & Há evidência de preservação para a classificação e os valores selecionados, sem verificação exaustiva de todas as faixas e configurações. \\
+BDD04 / BSN-P09 &
+Aprovação da observação de risco alto nas duas versões. Quatro testes complementares verificaram a classificação de valores selecionados, com detecção do defeito B7 reintroduzido em uma cópia da implementação C++. &
+Há evidência de correspondência na observação de risco alto e na classificação dos valores examinados, sem demonstração de equivalência integral do processamento de risco. \\
 
 \addlinespace
 
-BDD06--BDD07 / BSN-P08 & Aprovação nominal após revalidação, falhas esperadas nos cenários negativos e recuperação de 30 envios de status nas duas implementações. & O encaminhamento e a persistência do lote de registros foram observados, mas a persistência das leituras fisiológicas permanece não demonstrada. \\
+BDD06 / BSN-P08;
+BDD07 / BSN-C03 &
+Aprovação nominal após revalidação e falhas esperadas nos cenários negativos, com diferenças nas etapas em que ocorreram. Testes controlados recuperaram 30 registros de \texttt{Status} em cada implementação. &
+O encaminhamento e a persistência dos registros de \texttt{Status} foram observados, mas a persistência das leituras fisiológicas permanece não demonstrada. \\
 
 \addlinespace
 
-BDD08--BDD09 / BSN-P10 & Aprovação dos cenários positivo e negativo nas duas versões, com critérios de asserção alinhados. & Há evidência de atendimento aos critérios selecionados de estado de saúde, sem demonstração de identidade das sequências produzidas. \\
+BDD08 / BSN-P10;
+BDD09 / BSN-C04 &
+Aprovação dos cenários positivo e negativo nas duas implementações, após o alinhamento dos critérios de asserção. &
+Há evidência de atendimento aos critérios selecionados de disponibilização do estado de saúde, sem demonstração de equivalência das sequências produzidas. \\
 
 \addlinespace
 
-BDD20 / BSN-C11 & Falhas esperadas nos cenários BDD. Testes controlados posteriores aprovaram quatro condições do controlador ROS~1 corrigido e do ROS~2. & Há correspondência nas decisões do controlador para os vetores controlados, mas a recuperação integrada e a frequência efetivamente aplicada não foram demonstradas no cenário em si. \\
+BDD20 / BSN-C11 &
+Falhas esperadas nos cenários BDD. Quatro testes controlados foram aprovados nas duas versões após uma correção no controlador ROS~1. &
+Há correspondência nas decisões dos controladores para os valores examinados, considerando a versão corrigida do ROS~1. A recuperação integrada e a frequência efetivamente aplicada não foram demonstradas. \\
 
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{Contribuição das evidências complementares.}
+\paragraph{Evidências complementares e cobertura estrutural.}
 
-Os testes complementares ampliaram a investigação de determinados comportamentos ao introduzir entradas controladas e verificações específicas de componentes. O teste controlado do CentralHub permitiu verificar respostas a mensagens sintéticas com valores conhecidos.
+Os testes complementares ampliaram a investigação de responsabilidades específicas que não eram suficientemente verificadas pelos cenários BDD. Entre os resultados, destacam-se as verificações controladas da classificação de risco, do processamento do \texttt{CentralHub}, da persistência de registros e das decisões dos controladores de adaptação. Entretanto, suas conclusões permanecem restritas às condições e aos valores examinados.
 
-Esses resultados fortalecem a interpretação de comportamentos específicos, mas suas conclusões permanecem restritas às fronteiras e aos estímulos efetivamente exercitados. As métricas de cobertura também auxiliam na caracterização da abrangência estrutural das campanhas indicada na tabela \ref{tab:rq2-cobertura}
+Além dessas verificações, os relatórios de cobertura permitem examinar a abrangência estrutural das execuções de teste disponíveis. A Tabela~\ref{tab:rq2-cobertura} apresenta os resultados gerais do ROS~1 e os recortes de testes de pacotes, BDD e sua união no ROS~2.
 
 \begin{table}[htbp]
 \centering
-\caption{Cobertura estrutural das campanhas de testes da BSN}
+\caption{Cobertura estrutural das execuções de testes da BSN}
 \label{tab:rq2-cobertura}
 \small
-\begin{tabularx}{\textwidth}{@{} X r r r r@{}}
+\begin{tabularx}{\textwidth}{@{}Xrrrr@{}}
 \toprule
-\textbf{Campanha} & \textbf{Linhas} & \textbf{Cob. linhas} & \textbf{Ramos} & \textbf{Cob. ramos} \\
+\textbf{Execução} &
+\textbf{Linhas} &
+\textbf{Cob. linhas} &
+\textbf{Ramos} &
+\textbf{Cob. ramos} \\
 \midrule
 
-ROS~1 -- Geral (26/10) & 3.443/4.263 & 80,76\% & -- & -- \\
+ROS~1 -- Geral (26/10) &
+3.443/4.263 & 80,76\% & -- & -- \\
 
-ROS~2 -- Pacotes (01/10) & 2.549/3.147 & 81,00\% & 596/888 & 67,12\% \\
+ROS~2 -- Pacotes (01/10) &
+2.549/3.147 & 81,00\% & 596/888 & 67,12\% \\
 
-ROS~2 -- BDD (01/10) & 2.368/3.147 & 75,25\% & 530/888 & 59,68\% \\
+ROS~2 -- BDD (01/10) &
+2.368/3.147 & 75,25\% & 530/888 & 59,68\% \\
 
-ROS~2 -- União (01/10) & 2.724/3.147 & 86,56\% & 674/888 & 75,90\% \\
+ROS~2 -- União (01/10) &
+2.724/3.147 & 86,56\% & 674/888 & 75,90\% \\
 
 \bottomrule
 \end{tabularx}
+
 \par\smallskip
 \begin{minipage}{\textwidth}
 \footnotesize
-Fonte: repositório ~\cite{Viana}, Tabela 4.4. Os resultados correspondem às campanhas e aos recortes de código de produção documentados pelo autor.
+Fonte: relatórios de cobertura preservados no repositório
+\texttt{bsn\_traces}
+(\url{https://github.com/richardjlv/bsn_traces/tree/main/cobertura_geral}).
+Os resultados correspondem às execuções e aos recortes de código de produção documentados no repositório.
 \end{minipage}
 \end{table}
 
-Esses resultados evidenciam a complementaridade das verificações na implementação migrada. Os testes BDD não apenas reutilizaram caminhos exercitados pelos testes de pacotes, mas também alcançaram regiões adicionais do código. Essa contribuição amplia a abrangência das evidências de execução disponíveis para a investigação dos comportamentos selecionados.
+No ROS~2, a união dos testes de pacotes e BDD apresentou cobertura superior à obtida por cada conjunto isoladamente, indicando que as duas suítes exercitaram regiões parcialmente distintas da implementação. Esses resultados consideram conjuntos de testes mais abrangentes do que a amostra de cenários BDD selecionada neste estudo e evidenciam a contribuição da suíte BDD para a cobertura estrutural da implementação migrada.
 
-Embora a cobertura não demonstre isoladamente a satisfação dos contratos comportamentais, sua análise complementa os resultados dos oráculos e dos testes controlados apresentados anteriormente e indica a abrangência dos testes comportamentais em BDD
 
-\paragraph{Limitações da avaliação.}
+\paragraph{Limitações da comparação.}
 
-A principal limitação da avaliação está na correspondência entre os contratos comportamentais especificados e as propriedades efetivamente verificadas pelos oráculos. A observação pelas interfaces ROS permite comparar resultados independentemente da organização interna dos componentes, mas nem sempre estabelece uma relação inequívoca entre estímulos e respostas. Embora os rastros BDD e os relatórios de cobertura complementem essa análise ao identificar passos executados e regiões do código exercitadas, a interpretação dos resultados também depende da comparabilidade das condições de preparação, das versões analisadas e das fronteiras de observação.
+As evidências apresentadas possuem diferentes alcances, conforme as propriedades verificadas pelos oráculos e as condições de execução. A observação pelas interfaces ROS permitiu comparar os resultados dos componentes, mas nem sempre estabelecer uma correspondência inequívoca entre as leituras produzidas pelos sensores e os valores recebidos pelo \texttt{CentralHub}.
 
-Além disso, as correções realizadas no sistema legado exigem distinguir o comportamento historicamente observado daquele obtido nas versões posteriormente corrigidas. Essa distinção é necessária para interpretar as correspondências identificadas sem atribuir à implementação original resultados decorrentes de intervenções posteriores.
+Além disso, algumas correspondências foram estabelecidas a partir de revalidações ou versões corrigidas, exigindo distinguir os resultados históricos daqueles obtidos posteriormente. Essas diferenças impedem interpretar a aprovação de testes correspondentes como demonstração de equivalência comportamental integral entre as implementações.
 
 \paragraph{Síntese da RQ2.}
 
-Em resposta à RQ2, as evidências recuperadas permitiram avaliar a preservação dos contratos comportamentais selecionados da BSN, identificando correspondências, discrepâncias e limitações dos critérios de verificação. As aprovações dos cenários BDD e os testes complementares sustentam evidências de preservação na recepção de leituras, na classificação de risco, no processamento do CentralHub e na disponibilização do estado de saúde. Entretanto, a persistência de leituras fisiológicas e determinados comportamentos da adaptação permanecem insuficientemente demonstrados.
+Em resposta à RQ2, as evidências recuperadas permitiram identificar correspondências comportamentais entre ROS~1 e ROS~2 para os critérios efetivamente verificados. Os resultados sustentam evidências de preservação na recepção de leituras, na observação e classificação de risco para valores selecionados e na disponibilização do estado de saúde. Os testes complementares também forneceram evidências sobre o processamento do \texttt{CentralHub}, a persistência de registros de estado e as decisões dos controladores sob entradas controladas.
 
-Assim, a abordagem possibilitou avaliar a preservação comportamental a partir da correspondência entre contratos, oráculos e evidências de execução, complementada por testes controlados e métricas de cobertura. Os resultados sustentam conclusões delimitadas sobre os comportamentos investigados.
+Entretanto, a persistência das leituras fisiológicas, a recuperação integrada da adaptação e a equivalência integral dos comportamentos permanecem não demonstradas. Assim, a avaliação permitiu estabelecer conclusões delimitadas sobre a preservação dos contratos selecionados, considerando o alcance dos oráculos e das evidências disponíveis.
 
 
+\begin{comment}
 \section{RQ3 -- Caracterização das Transformações de Migração}
 \label{sec:avaliacao-rq3}
 
@@ -294,13 +358,10 @@ As Tabelas~\ref{tab:rq3-metricas-target-system-ros1} e~\ref{tab:rq3-metricas-tar
 Em T1, a implementação ROS~1 distribui responsabilidades de execução e controle de atividade entre a classe-base \textit{Component}, \textit{Sensor} e \textit{CentralHub}. No ROS~2, a classe \textit{RosComponent} herda de \textit{LifecycleNode}. O gerenciamento é complementado por
 \textit{LifecycleManager}, utilizada por Sensor e CentralHub para operações de configuração e ativação. A adoção desses mecanismos torna mais explícitas as transições de estado e permite reutilizar a infraestrutura entre componentes. O WMC de 57 e a CC máxima de 7 de \textit{LifecycleManager} caracterizam sua complexidade interna, mas não indicam redução da complexidade total dessas responsabilidades, pois não existe correspondência direta com uma única classe do ROS~1.
 
-\begin{comment}
-\footnote{Classe-base do ROS~1: \url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/src/archlib/src/target_system/Component.cpp}. Infraestrutura ROS~2: \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/shared_components/shared_components/core/ros_component.py} e \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/shared_components/shared_components/lifecycle_manager.py}.}
-\end{comment}
+
 
 Em T2, \texttt{Probe} apresenta WMC de 8 e CC máxima de 1, enquanto \texttt{SystemMonitor} apresenta WMC de 33 e CC máxima de 8. O executável \texttt{collector} do ROS~1 instancia diretamente \texttt{Probe}; entretanto, o WMC dessa classe não inclui os métodos herdados de \texttt{ROSComponent}, responsáveis por parte de sua infraestrutura de execução. No ROS~2, \texttt{SystemMonitor} mantém a recepção e o encaminhamento de mensagens e incorpora o gerenciamento dos estados dos nós. A ampliação funcional é constatável no código, mas a diferença entre as métricas não deve ser interpretada como um aumento de complexidade de funcionalidades rigorosamente equivalentes.
-\begin{comment}\footnote{Execução herdada por \texttt{Probe}: \url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/src/archlib/src/ROSComponent.cpp}. Acompanhamento de estados e \textit{heartbeats} no ROS~2: \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/system_monitor/system_monitor/node_monitor.py}.}
-\end{comment}
+
 Em T3, a distribuição das responsabilidades apresenta alterações mais evidentes. No ROS~1, \texttt{G3T1\_3} e \texttt{G4T1} apresentam WMC de 17 e 51, e CC máxima de 4 e 14, respectivamente. No ROS~2, as operações selecionadas são realizadas por classes especializadas, como \texttt{DataProcessor} (WMC 18; CC máxima 6), \texttt{RiskManager} (13; 4), \texttt{RiskEvaluator} (25; 7), \texttt{SensorDataHandler} (10; 7) e \texttt{DataFusionEngine} (22; 13). Essa decomposição permite identificar separadamente responsabilidades de coleta, avaliação de risco, recepção e fusão de dados, constituindo uma melhoria qualitativa na explicitação das responsabilidades. 
 
 Nas classes homônimas, o WMC de \texttt{Sensor} passa de 31 para 29, enquanto o de \texttt{CentralHub} passa de 21 para 31; a CC máxima permanece em 7 nas duas classes e versões. Essas diferenças não representam a variação de complexidade das funcionalidades completas, pois parte do trabalho foi delegada a classes auxiliares. Pela mesma razão, somar indiscriminadamente o WMC das classes selecionadas não produziria uma comparação de unidades funcionais equivalentes. O caso complementar de \texttt{ParamAdapter} (WMC de 10 e 15; CC máxima de 3 e 5) registra uma mudança estrutural na responsabilidade de reconfiguração, sem constituir uma quarta transformação formalmente reconstruída na Tabela~\ref{tab:res-migration-record}.
@@ -308,19 +369,13 @@ Nas classes homônimas, o WMC de \texttt{Sensor} passa de 31 para 29, enquanto o
 \paragraph{Mudanças na organização do projeto.}
 
 A inspeção das implementações ajuda a interpretar os resultados quantitativos. No ROS~1, a classe \texttt{Sensor} define, em \texttt{body()}, a sequência de coleta, processamento e transmissão, cujos métodos virtuais são implementados por subclasses como \texttt{G3T1\_3}. Esse mecanismo corresponde ao padrão \textit{Template Method} para a realização dessas operações. No ROS~2, a classe \texttt{Sensor} preserva a coordenação da sequência, mas delega as operações de coleta, processamento e transferência a \texttt{DataProcessor}, enquanto a avaliação de risco e a publicação são atribuídas a outros colaboradores. Da mesma forma, \texttt{CentralHub} delega recepção e fusão a \texttt{SensorDataHandler} e \texttt{DataFusionEngine}. A transformação não elimina a herança do ROS~2, mas reduz sua participação como mecanismo de especialização dessas operações, favorecendo composição e delegação.
-\begin{comment}\footnote{ROS~1, fluxo definido em \texttt{Sensor::body()} e métodos virtuais: 
-\url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/src/sa-bsn/target_system/components/component/src/Sensor.cpp} e \url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/src/sa-bsn/target_system/components/component/include/component/Sensor.hpp}. ROS~2: \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/sensor/sensor/sensor.py} e \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/central_hub/central_hub/central_hub.py}.}
-\end{comment}
+
+
 Outra mudança identificável é a utilização de métodos de criação especializados em \texttt{RosComponent}. A classe-base declara \path{_create_config_manager()} e \path{_create_publisher_manager()}, implementados por \texttt{Sensor} e \texttt{CentralHub} para instanciar seus próprios gerenciadores. No recorte examinado, essa estrutura corresponde ao padrão \textit{Factory Method}. Em conjunto com os gerenciadores compartilhados, ela possibilita reutilizar a infraestrutura comum sem impor os mesmos colaboradores concretos aos dois componentes. 
-\begin{comment}
-\footnote{Declaração dos métodos de criação em \texttt{RosComponent}: \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/shared_components/shared_components/core/ros_component.py}. Implementações especializadas: \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/sensor/sensor/sensor.py} e \url{https://github.com/rdinizcal/bsn2/blob/e06541e63788439303ec6e5aa3ed03178f06dda4/central_hub/central_hub/central_hub.py}.}
-\end{comment}
+
 \paragraph{Coesão, acoplamento e limites de comparação.}
 
 Os repositórios também preservam medições de LCOM4 e CBO. Na amostra de T3, o cpplcom reporta LCOM4 bruto de 3 para \texttt{G3T1\_3} e 2 para \texttt{G4T1} no ROS~1. No ROS~2, o pyscn reporta LCOM4 igual a 1 para as classes \texttt{DataProcessor} e \texttt{RiskManager}, assim como para \texttt{RiskEvaluator} e \texttt{SensorDataHandler}.\footnote{Resultados nativos de LCOM4: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/native/cpplcom-native.txt}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/lcom4/pyscn.json}.} Esses resultados descrevem agrupamentos de métodos reconhecidos por cada ferramenta mas não é possível compará-los diretamente, pois cpplcom e pyscn utilizam critérios distintos para inclusão de métodos. A mesma restrição se aplica ao CBO, calculado pelo CCCC no ROS~1 e pelo pyscn no ROS~2, cujas definições operacionais de acoplamento diferem.\footnote{Resultados nativos de acoplamento: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/native/cccc/cccc.xml}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/class_modularity/pyscn.json}.}
-
-\begin{comment}\footnote{Condições da coleta ROS~1: \url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/reports/ros1_static/metadata.json} e \url{https://github.com/gabrielbfranca/bsn/blob/95d332166ce0e8d87ea84fd898395a1d17796938/reports/ros1_static/report.md}.} Além disso, a inspeção estática e as métricas não medem diretamente os custos de manutenção, a testabilidade ou a satisfação dos contratos BDD. A contribuição desta avaliação consiste em caracterizar a reorganização do projeto, enquanto a preservação comportamental é examinada na RQ2.
-\end{comment}
 
 \paragraph{Síntese da RQ3.}
 
@@ -330,6 +385,121 @@ A associação dessas transformações aos contratos BDD permitiu situar as muda
 
 Assim, a RQ3 foi respondida pela caracterização das responsabilidades mantidas, adaptadas, ampliadas ou redistribuídas entre ROS~1 e ROS~2, considerando suas associações com os contratos comportamentais selecionados. Os resultados descrevem as transformações efetivamente identificadas no estudo de caso, sem estabelecer que a abordagem proposta tenha orientado as decisões originais de migração.
 
+\end{comment}
+
+\section{RQ3 -- Caracterização das Transformações de Migração}
+\label{sec:avaliacao-rq3}
+
+A RQ3 examina como as responsabilidades de implementação associadas aos contratos comportamentais selecionados foram transformadas durante a migração da BSN do ROS~1 para o ROS~2. A análise parte das responsabilidades delimitadas na Tabela~\ref{tab:res-escopo-identificado} e das transformações T1--T3 apresentadas na Seção~\ref{sec:resultados-planejamento-transformacoes}, examinando a distribuição das responsabilidades, os mecanismos de organização e as características estruturais das classes envolvidas.
+
+\paragraph{Delimitação das responsabilidades analisadas.}
+
+A análise de T1 considera o controle da execução e da atividade dos nós, envolvendo a classe-base \texttt{Component}, \texttt{Sensor} e \texttt{CentralHub} no ROS~1 e a infraestrutura \texttt{RosComponent} e \texttt{LifecycleManager} no ROS~2. Em T2, a responsabilidade de coleta e encaminhamento de informações exercida por \texttt{Probe}, instanciada pelo executável \texttt{collector}, foi relacionada à implementação de \texttt{SystemMonitor} no ROS~2.\footnote{Ponto de entrada de \texttt{collector} no ROS~1: \url{https://github.com/gabrielbfranca/bsn/blob/metrics/src/sa-bsn/target_system/probes/collector/apps/collector.cpp}. Implementação de \texttt{Probe}: \url{https://github.com/gabrielbfranca/bsn/blob/metrics/src/archlib/src/target_system/Probe.cpp}. Implementação de \texttt{SystemMonitor}: \url{https://github.com/rdinizcal/bsn2/blob/metrics/system_monitor/system_monitor/node_monitor.py}.}
+
+Em T3, foram examinadas as responsabilidades de coleta, processamento, comunicação e avaliação de risco dos sensores e do \texttt{CentralHub}. A classe \texttt{ParamAdapter} foi incluída como recorte complementar da reconfiguração, relacionada aos contratos BDD17, BDD18 e BDD23, sem constituir uma quarta transformação selecionada.
+
+As associações aos contratos BDD, registradas na Tabela~\ref{tab:res-migration-record}, fornecem o contexto comportamental para examinar essas responsabilidades. Entretanto, essas relações não demonstram que os contratos tenham orientado as decisões originais de migração nem que as transformações identificadas assegurem a preservação dos comportamentos.
+
+\paragraph{Métricas estruturais das classes selecionadas.}
+
+As Tabelas~\ref{tab:rq3-metricas-target-system-ros1} e~\ref{tab:rq3-metricas-target-system-ros2} apresentam as métricas estruturais das classes examinadas. A complexidade ciclomática (CC) dos métodos foi medida com Lizard~1.26.0 nas duas implementações.\footnote{Saídas nativas do Lizard: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/native/lizard-native.csv}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/class_modularity/lizard-native.csv}.}
+
+O WMC corresponde à soma das complexidades ciclomáticas dos métodos definidos diretamente em cada classe, enquanto a ``CC máx.'' representa a maior complexidade ciclomática entre esses métodos. Os métodos herdados não são incluídos no WMC da classe derivada. Os valores foram consolidados por scripts a partir das medições, conforme os procedimentos documentados nos repositórios.\footnote{Tabelas consolidadas: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/classes.csv}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/class_modularity/classes.csv}. Procedimentos: \url{https://github.com/gabrielbfranca/bsn/blob/metrics/tools/ros1_metrics/README.md} e \url{https://github.com/rdinizcal/bsn2/blob/metrics/tools/CLASS_MODULARITY.md}.}
+
+\begin{table}[htbp]
+\centering
+\caption{Complexidade das classes selecionadas na implementação ROS~1}
+\label{tab:rq3-metricas-target-system-ros1}
+\small
+\begin{tabularx}{\textwidth}{@{}Xrr@{}}
+\toprule
+\textbf{Classe} & \textbf{WMC} & \textbf{CC máx.} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Infraestrutura de execução (T1)}} \\
+\texttt{arch::target\_system::Component} & 22 & 5 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Sensor: coleta e avaliação de risco (T3)}} \\
+\texttt{Sensor} & 31 & 7 \\
+\texttt{G3T1\_3} & 17 & 4 \\
+\texttt{SensorConfiguration} & 33 & 6 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{CentralHub: recepção e processamento (T3)}} \\
+\texttt{CentralHub} & 21 & 7 \\
+\texttt{G4T1} & 51 & 14 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Monitoramento (T2)}} \\
+\texttt{arch::target\_system::Probe} & 8 & 1 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Reconfiguração (recorte complementar)}} \\
+\texttt{ParamAdapter} & 10 & 3 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Complexidade das classes selecionadas na implementação ROS~2}
+\label{tab:rq3-metricas-target-system-ros2}
+\small
+\begin{tabularx}{\textwidth}{@{}Xrr@{}}
+\toprule
+\textbf{Classe} & \textbf{WMC} & \textbf{CC máx.} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Infraestrutura compartilhada e ciclo de vida (T1)}} \\
+\texttt{RosComponent} & 8 & 2 \\
+\texttt{LifecycleManager} & 57 & 7 \\
+\texttt{BatteryManager} (compartilhado) & 17 & 8 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Sensor: coleta e avaliação de risco (T3)}} \\
+\texttt{Sensor} & 29 & 7 \\
+\texttt{DataProcessor} & 18 & 6 \\
+\texttt{RiskManager} & 13 & 4 \\
+\texttt{RiskEvaluator} & 25 & 7 \\
+\texttt{ConfigManager} (sensor) & 3 & 1 \\
+\texttt{PublisherManager} (sensor) & 5 & 2 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{CentralHub: recepção e processamento (T3)}} \\
+\texttt{CentralHub} & 31 & 7 \\
+\texttt{SensorDataHandler} & 10 & 7 \\
+\texttt{DataFusionEngine} & 22 & 13 \\
+\texttt{PublisherManager} (central) & 6 & 3 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Monitoramento (T2)}} \\
+\texttt{SystemMonitor} & 33 & 8 \\
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Reconfiguração (recorte complementar)}} \\
+\texttt{ParamAdapter} & 15 & 5 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Interpretação das transformações.}
+
+Em T1, o controle da execução e da atividade dos componentes, anteriormente realizado por mecanismos internos de \texttt{Component}, \texttt{Sensor} e \texttt{CentralHub}, passou a utilizar uma infraestrutura compartilhada baseada no ciclo de vida do ROS~2. A classe \texttt{RosComponent} herda de \texttt{LifecycleNode}, enquanto \texttt{LifecycleManager} complementa o gerenciamento dos estados operacionais. Essa mudança caracteriza a adaptação da responsabilidade aos mecanismos da plataforma de destino. As métricas de \texttt{RosComponent} (WMC 8; CC máxima 2) e \texttt{LifecycleManager} (57; 7) descrevem a complexidade das classes, mas não permitem concluir que houve redução da complexidade dessa responsabilidade em relação ao ROS~1, pois sua realização foi distribuída entre diferentes entidades.
+
+Em T2, a responsabilidade anteriormente associada a \texttt{Probe} foi mantida e ampliada em \texttt{SystemMonitor}. Além do encaminhamento de eventos, estados e informações de energia, a implementação ROS~2 incorpora a supervisão da atividade dos nós. O WMC de \texttt{Probe} é 8, com CC máxima de 1, enquanto \texttt{SystemMonitor} apresenta WMC de 33 e CC máxima de 8. Entretanto, esses valores não representam uma comparação de funcionalidades equivalentes, pois o componente migrado possui responsabilidades adicionais e o WMC de \texttt{Probe} não inclui os métodos herdados de \texttt{ROSComponent}.
+
+Em T3, a transformação caracteriza-se pela redistribuição das responsabilidades de coleta, processamento, comunicação e avaliação de risco. No ROS~1, \texttt{Sensor::body()} coordena essas operações por meio de métodos virtuais implementados pelas subclasses, como \texttt{G3T1\_3}, caracterizando o padrão \textit{Template Method}. No ROS~2, \texttt{Sensor} mantém a coordenação da execução, mas delega operações a \texttt{DataProcessor}, \texttt{RiskManager} e outros componentes especializados. Da mesma forma, \texttt{CentralHub} utiliza \texttt{SensorDataHandler} e \texttt{DataFusionEngine} para recepção e processamento dos dados. Essa reorganização amplia a utilização de composição e delegação na realização das responsabilidades selecionadas.
+
+As métricas complementam essa caracterização. Nas classes homônimas, o WMC de \texttt{Sensor} passa de 31 para 29 e o de \texttt{CentralHub} de 21 para 31, enquanto a CC máxima permanece em 7. Entretanto, essas diferenças não correspondem à variação da complexidade funcional completa, uma vez que parte das operações passou a ser realizada por classes auxiliares. A comparação entre \texttt{G3T1\_3} e \texttt{G4T1} e seus componentes correspondentes no ROS~2 apresenta a mesma limitação, devido à alteração na distribuição das responsabilidades.
+
+Outro mecanismo identificado na organização do ROS~2 é a utilização dos métodos \path{_create_config_manager()} e \path{_create_publisher_manager()}, declarados em \texttt{RosComponent} e especializados por \texttt{Sensor} e \texttt{CentralHub}. Essa estrutura corresponde ao padrão \textit{Factory Method}, permitindo a criação de gerenciadores específicos a partir de uma infraestrutura compartilhada.
+
+O recorte complementar de \texttt{ParamAdapter} apresenta WMC de 10 no ROS~1 e 15 no ROS~2, com CC máxima de 3 e 5, respectivamente. Esses valores registram características estruturais da implementação de reconfiguração, mas não constituem evidência de uma quarta transformação formalmente caracterizada neste estudo.
+
+\paragraph{Limites da comparação estrutural.}
+
+As medições de WMC e CC descrevem características das classes selecionadas, mas não representam diretamente a complexidade das responsabilidades completas. A alteração na distribuição das operações e a exclusão dos métodos herdados impedem interpretar as diferenças como uma medida de melhoria ou deterioração da modularidade.
+
+Também foram examinadas medições de coesão e acoplamento disponíveis nos repositórios. Na amostra de T3, o LCOM4 bruto reportado pelo \texttt{cpplcom} foi 3 para \texttt{G3T1\_3} e 2 para \texttt{G4T1}, enquanto o \texttt{pyscn} reportou LCOM4 igual a 1 para \texttt{DataProcessor}, \texttt{RiskManager}, \texttt{RiskEvaluator} e \texttt{SensorDataHandler}.\footnote{Resultados nativos de LCOM4: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/native/cpplcom-native.txt}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/lcom4/pyscn.json}.} Entretanto, esses valores não são diretamente comparáveis devido às diferenças nos critérios utilizados pelas ferramentas. A mesma restrição se aplica ao CBO, calculado pelo CCCC no ROS~1 e pelo \texttt{pyscn} no ROS~2.\footnote{Resultados nativos de acoplamento: ROS~1, \url{https://github.com/gabrielbfranca/bsn/blob/metrics/reports/ros1_static/native/cccc/cccc.xml}; ROS~2, \url{https://github.com/rdinizcal/bsn2/blob/metrics/reports/class_modularity/pyscn.json}.}
+
+Dessa forma, a avaliação estrutural permite caracterizar a distribuição das responsabilidades e os mecanismos utilizados nas implementações, mas não demonstrar uma melhoria quantitativa global da qualidade estrutural do sistema.
+
+\paragraph{Síntese da RQ3.}
+
+Em resposta à RQ3, a análise permitiu caracterizar três formas de transformação das responsabilidades associadas aos contratos comportamentais selecionados: adaptação tecnológica do controle de execução ao modelo de ciclo de vida do ROS~2 (T1), manutenção e ampliação funcional do monitoramento (T2) e redistribuição das operações de processamento, comunicação e avaliação de risco entre componentes especializados (T3).
+
+A inspeção das implementações e as métricas estruturais complementaram a caracterização dessas mudanças, enquanto as relações com os contratos BDD permitiram situá-las em relação aos comportamentos investigados. Os resultados descrevem as transformações identificadas retrospectivamente, sem demonstrar que a abordagem proposta tenha orientado as decisões originais da migração ou que as mudanças estruturais impliquem, por si só, preservação comportamental.
 
 \section{Ameaças à Validade}
 

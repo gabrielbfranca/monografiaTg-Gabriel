@@ -145,6 +145,7 @@ O que diferencia a nossa abordagem é a integração entre especificações BDD,
 \section{Identificação das Realizações dos Comportamentos}
 \label{sec:identificacao-realizacoes-comportamentos}
 
+
 A identificação das realizações dos comportamentos busca relacionar os cenários BDD às entidades da implementação legada responsáveis por sua realização. A etapa parte da compreensão da implementação de origem, característica das abordagens \textit{white-box} de migração discutidas por Bragagnolo et al.~\cite{BragagnoloMigration}. A ideia é estabelecer relações rastreáveis entre os comportamentos especificados anteriormente, as entidades de implementação e suas respectivas responsabilidades, entendidas como atribuições funcionais ou operacionais desempenhadas por essas entidades, a fim de orientar a delimitação do escopo de investigação para o planejamento das transformações.
 
 A análise do código legado como apoio à migração também é observada em Buchgeher et al.~\cite{BUCHGEHER2022276}, que utilizam análise estática para identificar variáveis, funções e instâncias relevantes à construção de modelos de informação para uma nova infraestrutura de comunicação. Nesta proposta, a investigação é orientada pelos requisitos e cenários BDD estabelecidos anteriormente, buscando identificar as entidades de implementação envolvidas na realização dos comportamentos selecionados.
@@ -193,12 +194,6 @@ O procedimento compreende quatro atividades:
 
 \end{enumerate}
 
-A etapa produz o \textit{Scenario Realization
-Mapping}, um registro das responsabilidades
-selecionadas para investigação no planejamento
-da migração. 
-
-
 \section{Planejamento das Transformações de Migração}
 \label{sec:plan-migration-transformations}
 
@@ -211,7 +206,7 @@ descrevem a migração de uma infraestrutura proprietária de comunicação para
 podem manter sua lógica funcional e quais mecanismos precisam ser adaptados, reorganizados
 ou ampliados diante das características do ROS 2.
 
-Nesse contexto, é possível avaliar três perspectivas de transformação, a adaptação do \textit{System context} relacionado a mudança de framework, a refatoração interna motivada por melhorias de qualidade como modularidade e testabilidade. E evolução funcional que amplia a capacidade do sistema. Na BSN, por exemplo, a reorganização do processamento e da classificação de risco pode ser analisada como refatoração interna, enquanto a adoção de nós com ciclo de vida gerenciado envolve diretamente recursos do ROS 2. A ampliação do monitoramento por eventos e \textit{heartbeats}, por sua vez, deve ser examinada como uma evolução das responsabilidades de observação, e não como consequência obrigatória da plataforma.
+Nesse contexto, é possível avaliar três perspectivas de transformação, a adaptação do \textit{System context} relacionado a mudança de framework, a refatoração interna motivada por melhorias de qualidade como modularidade e testabilidade. E evolução funcional que amplia a capacidade do sistema. Na BSN, por exemplo, a reorganização do processamento e da classificação de risco pode ser analisada como refatoração interna, enquanto a adoção de nós com ciclo de vida gerenciado envolve diretamente recursos do ROS 2. A ampliação do monitoramento por eventos, por sua vez, deve ser examinada como uma evolução das responsabilidades de observação, e não como consequência obrigatória da plataforma.
 
 O procedimento consiste em:
 
@@ -220,37 +215,12 @@ O procedimento consiste em:
     \item \textbf{Examinar as diferenças entre os
     contextos de implementação:}
 
-    Comparar os mecanismos utilizados no ROS~1
-    com os recursos e modelos de execução
-    disponíveis no ROS~2, considerando as
-    responsabilidades delimitadas na etapa
-    anterior.
-
-    A análise busca distinguir adaptações
-    necessárias à substituição do
-    \textit{framework} de possibilidades
-    de reorganização ou ampliação das
-    responsabilidades existentes.
+    Comparar os mecanismos utilizados no ROS~1 com os recursos e modelos de execução disponíveis ROS~2, considerando as responsabilidades delimitadas na etapa anterior. A análise busca distinguir adaptações necessárias à substituição do \textit{framework} de possibilidades de reorganização ampliação das responsabilidades existentes.
 
     \item \textbf{Identificar e caracterizar
     as transformações de migração:}
 
-    Relacionar as entidades da implementação
-    legada às estruturas correspondentes
-    no ROS~2, identificando as transformações
-    realizadas ou previstas.
-
-    As transformações podem envolver adaptação
-    à plataforma, preservação da lógica
-    funcional, reorganização interna ou
-    evolução de comportamento, sendo essas
-    classificações não mutuamente exclusivas.
-
-    No estudo retrospectivo, a caracterização
-    considera o código-fonte e a documentação
-    disponível, distinguindo as motivações
-    documentadas das interpretações
-    decorrentes da análise.
+    Relacionar as entidades da implementação legada às correspondentes no ROS~2, identificando as transformações realizadas ou previstas. transformações podem envolver adaptação à plataforma, preservação lógica funcional, reorganização interna ou evolução de comportamento sendo essas classificações não mutuamente exclusivas. No estudo retrospectivo, a caracterização considera o código-fonte documentação disponível, distinguindo as motivações documentadas das interpretações decorrentes da análise.
 
     \item \textbf{Relacionar as transformações
     aos contratos comportamentais e
@@ -261,9 +231,7 @@ O procedimento consiste em:
     associados às responsabilidades
     transformadas e examinar possíveis
     repercussões sobre seus comportamentos
-    observáveis.
-
-    A análise distingue contratos cuja
+    observáveis. A análise distingue contratos cuja
     preservação deve ser verificada de
     comportamentos adicionais introduzidos
     durante a migração.
@@ -309,13 +277,6 @@ das transformações selecionadas, partes do
 sistema podem ser reutilizadas, modificadas
 ou reescritas para atender às características
 do ambiente de destino.
-
-Testes unitários, de componentes e de
-integração podem apoiar a identificação de
-defeitos durante o desenvolvimento. Contudo,
-a investigação sistemática da preservação
-dos comportamentos selecionados pertence
-à etapa posterior de Validação Comportamental.
 
 A etapa visa produzir a implementação do sistema
 migrado, composta pelo código-fonte,
@@ -381,4 +342,12 @@ estímulos, observações e versões investigadas.
 A etapa produz uma suíte de testes comportamentais adaptada à implementação migrada, incluindo as definições de passos, as asserções e a infraestrutura necessária à execução dos cenários BDD selecionados. Sua aplicação fornece evidências sobre a satisfação dos requisitos e a preservação de contratos comportamentais, acompanhadas das discrepâncias e limitações da comparação. Em estudos retrospectivos, a suíte e suas evidências podem ser recuperadas a partir dos artefatos existentes.
 
 
+\section{Especificação da Avaliação}
+\label{sec:delineamento-avaliacao}
+
+A avaliação considera as três questões de pesquisa apresentadas na Introdução e utiliza documentação, código-fonte, especificações BDD, registros de execução e relatórios de cobertura, além das análises retrospectivas realizadas neste trabalho.
+
+Para a RQ1, foram adotados três critérios qualitativos: C1 -- viabilidade das atividades, considerando quais procedimentos puderam ser realizados ou reconstruídos. C2 -- utilidade dos artefatos e resultados, examinando sua contribuição para as etapas posteriores e C3 -- limitações identificadas durante a aplicação ou reconstrução das atividades.
+
+A RQ2 foi examinada pela comparação dos contratos comportamentais, das asserções implementadas e das evidências de execução disponíveis nas duas plataformas. Para a RQ3, foram analisadas as responsabilidades de implementação associadas aos comportamentos selecionados e suas transformações entre ROS~1 e ROS~2, complementadas por métricas estruturais das classes examinadas. Os resultados são apresentados no Capítulo~5, enquanto sua interpretação em relação às questões de pesquisa é desenvolvida no Capítulo~6.
 
