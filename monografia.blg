@@ -5,6 +5,9 @@ Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: babunsrt.bst
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 Database file #1: bibliografia.bib
+Warning--I didn't find a database entry for "OpenRoboticsMetrics2025"
+Warning--I didn't find a database entry for "Portugal2025ROS2Adoption"
+Warning--I didn't find a database entry for "BSN_TRACES"
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Warning--empty language in ros2
 Warning--empty language in ros1
@@ -14,43 +17,43 @@ Warning--can't use both author and editor fields in Foehr2017
 Warning--empty booktitle in BarbosaFeatureTrace
 You've used 39 entries,
             2465 wiz_defined-function locations,
-            861 strings with 15022 characters,
-and the built_in function-call counts, 14173 in all, are:
-= -- 1075
-> -- 468
+            869 strings with 15238 characters,
+and the built_in function-call counts, 14133 in all, are:
+= -- 1071
+> -- 465
 < -- 16
-+ -- 172
-- -- 133
-* -- 1772
-:= -- 1713
++ -- 171
+- -- 132
+* -- 1766
+:= -- 1704
 add.period$ -- 102
 call.type$ -- 39
 change.case$ -- 37
 chr.to.int$ -- 0
 cite$ -- 45
-duplicate$ -- 881
-empty$ -- 1582
-format.name$ -- 388
-if$ -- 3142
+duplicate$ -- 879
+empty$ -- 1580
+format.name$ -- 386
+if$ -- 3135
 int.to.chr$ -- 0
 int.to.str$ -- 39
 missing$ -- 53
 newline$ -- 192
-num.names$ -- 41
-pop$ -- 216
+num.names$ -- 40
+pop$ -- 217
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 339
+skip$ -- 340
 stack$ -- 0
 substring$ -- 644
-swap$ -- 475
+swap$ -- 473
 text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 6
-while$ -- 92
+while$ -- 91
 width$ -- 41
-write$ -- 453
-(There were 6 warnings)
+write$ -- 452
+(There were 9 warnings)

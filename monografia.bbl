@@ -402,22 +402,22 @@
 \newblock {\latintext \btxurlfont{http://dx.doi.org/10.1145/3194133.3194147}}.
 
 \bibitem {Viana}
-\btxnamefont {\btxlastnamefont {Viana}, Richard}\btxauthorcolon\ \btxtitlefont
-  {\btxifchangecase {estudo de regressão}{estudo de regressão}}.
-\newblock Undergraduate thesis, Department of Computer Science, University of
-  Brasilia, 2021.
-\newblock {\latintext \btxurlfont{https://bdm.unb.br/handle/10483/33490}},
-  Bachelor's degree in Computer Science.
+\btxtitlefont {\btxifchangecase {Bsn traces: registros e evidências de testes
+  da body sensor network}{BSN Traces: registros e evidências de testes da Body
+  Sensor Network}}.
+\newblock Repositório de artefatos de pesquisa no GitHub, 2026.
+\newblock {\latintext \btxurlfont{https://github.com/richardjlv/bsn_traces}},
+  Acesso em: 24 nov. 2026.
 
 \bibitem {BSN_ROS1_BDD}
-\btxnamefont {\btxlastnamefont {VIANA}, Richard\btxfnamespacelong
-  Junio\btxfnamespacelong Lima\btxfnamespacelong et\btxfnamespacelong
-  al.}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Sa-bsn: cenários bdd
-  da implementação ros 1}{SA-BSN: cenários BDD da implementação ROS 1}}.
+\btxnamefont {\btxlastnamefont {Gabriel~França}, Richard\btxfnamespacelong
+  Junio\btxfnamespacelong Lima~e}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Fork da sa-bsn: implementação de cenários bdd da
+  implementação ros 1}{Fork da SA-BSN: implementação de cenários BDD da
+  implementação ROS 1}}.
 \newblock Repositório de código-fonte no GitHub, 2026.
 \newblock {\latintext \btxurlfont{https://github.com/richardjlv/bsn_}}, Branch
-  pytest-bdd. Commit a414186b8dae12547d89dde49f0bd5c357240bd2. Acesso em: 29
-  out. 2026.
+  pytest-bdd.
 
 \bibitem {Li2013CIA}
 \btxnamefont {\btxlastnamefont {Li}, Bixin}, \btxnamefont {Xiaobing

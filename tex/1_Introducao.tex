@@ -1,26 +1,101 @@
-O Robot Operating System (ROS) é um dos frameworks mais difundido para implementação de sistemas robóticos e ciber-físicos~\cite{ros1}. Utilizado amplamente em ambientes acadêmicos e industriais, o ROS movimenta um mercado estimado em 47,8 bilhões de dólares até 2025.\footnote{\href{https://www.thebusinessresearchcompany.com/market-insights/ros-based-robot-market-insights-2025}{https://www.thebusinessresearchcompany.com/market-insights/ros-based-robot-market-insights-2025}}
- Entretanto, com o fim do suporte ao ROS 1 em 2025,\footnote{\href{https://www.ros.org/blog/noetic-eol/}{https://www.ros.org/blog/noetic-eol/}}
- diversos sistemas correm risco de obsolescência. A migração para o ROS 2~\cite{ros2}, que incorpora avanços em segurança, gerenciamento de qualidade de serviço (QoS) e ciclo de vida dos nós é necessário mas carece de suporte estável ou documentação consolidada ou uma sistematização coerente para a transição.
+\label{sec:introducao}
 
-Apesar de esforços recentes que aplicam princípios de Engenharia de Software ao projeto~\cite{malavolta2020} e à verificação e validação~\cite{caldas2024runtime,santos2021high} de sistemas ROS, a migração de sistemas legados envolve desafios relacionados à compreensão dos comportamentos existentes, à identificação de suas realizações na implementação e à avaliação de sua preservação na plataforma de destino. Assim, a migração de sistemas legados permanece um processo custoso, sujeito a erros e sem garantias de preservação das propriedades críticas originais.
+% =====================================================================
+% Legenda dos comentários:
+%   % TODO  -> ponto que o aluno precisa preencher, confirmar ou citar
+%   % NOTA  -> explicação da alteração feita em relação à versão original
+% =====================================================================
 
-Para investigar esse desafio, adotamos como estudo de caso a Body Sensor Network (BSN)~\cite{Gil2021BodySN}, um sistema auto-adaptativo de monitoramento médico desenvolvido pela equipe do LADECIC. Originalmente implementada em ROS 1, a BSN integra sensores como termômetro, oxímetro e eletrocardiograma em um bodyhub central, classificando o estado de saúde do paciente em níveis de risco. Sendo um sistema crítico, sua modernização deve preservar confiabilidade e adaptabilidade, ao mesmo tempo em que explora os benefícios introduzidos pelo ROS 2.
+\section{Contexto e problema}
 
-Este trabalho propõe uma abordagem sistemática para a migração de sistemas robóticos orientada pelo estabelecimento de uma \textit{Ground Truth} comportamental do sistema legado. O objetivo geral é propor e examinar essa abordagem por meio de um estudo de caso parcialmente retrospectivo da migração da BSN do ROS 1 para o ROS 2, investigando como a referência comportamental recuperada pode apoiar a análise das transformações realizadas e a avaliação da preservação dos comportamentos selecionados.
+O \textit{Robot Operating System} (ROS) é um dos \textit{frameworks} mais difundidos para o desenvolvimento de sistemas robóticos e ciber-físicos~\cite{ros1}, com ampla adoção em ambientes acadêmicos e industriais. Segundo o relatório de métricas da Open Robotics mais recente, mais de 1.500 empresas utilizam o ROS no desenvolvimento de produtos e serviços~\cite{OpenRoboticsMetrics2025}.
+% NOTA: é o relatório mais recente, não achei um de 2026
+Entretanto, a última distribuição Noetic do ROS1 teve seu suporte oficial encerrado em maio de 2025,\footnote{\href{https://www.ros.org/blog/noetic-eol/}{https://www.ros.org/blog/noetic-eol/}} expondo os sistemas que ainda dependem dessa geração ao risco de obsolescência. Apesar do encerramento do suporte, aproximadamente 11,6 milhões de downloads de pacotes ROS~1 foram registrados em outubro de 2025~\cite{OpenRoboticsMetrics2025}, indicando a continuidade da utilização dessa plataforma e reforçando a relevância da migração dos sistemas legados.
 
-A abordagem é organizada a partir da fase de \textit{Ground Truth} Comportamental que contém a (i)obtenção de conhecimento sobre o sistema legado, (ii)a especificação de requisitos comportamentais por meio de cenários \textit{Behavior-Driven Development} (BDD) e o (iii)estabelecimento de uma \textit{Ground Truth} comportamental a partir da execução desses cenários no ROS 1. A fase de Migração utiliza esse \textit{Ground Truth} para orientar a (i) identificação das realizações dos comportamentos na implementação legada, o (ii)planejamento das transformações, a (iii)implementação no ambiente de destino e a (iv)validação comportamental no ROS 2. A integração dessas atividades busca relacionar os comportamentos especificados às responsabilidades de implementação e às transformações realizadas, considerando tanto as características da plataforma de origem quanto as do ambiente de destino.
+A migração para o ROS~2~\cite{ros2} é, portanto, necessária. Essa nova geração incorpora avanços em segurança, gerenciamento de qualidade de serviço (\textit{Quality of Service}, QoS) e ciclo de vida dos nós.
+% NOTA: frase original dividida em duas; a alegação de falta de documentação
+% precisa de respaldo. Citar fonte ou reformular como observação do autor. (feito)
+Contudo, o processo de transição ainda apresenta dificuldades relacionadas adaptação das aplicações existentes e insuficiência de documentação e tutoriais específicos para a migração~\cite{Portugal2025ROS2Adoption}.
 
-A abordagem é examinada por meio de um estudo de caso empírico e retrospectivo, fundamentado na análise de documentação, código-fonte, cenários BDD, registros de execução e artefatos da migração da BSN. A avaliação é orientada por três questões de pesquisa: 
+% NOTA: exemplo concreto adicionado para ilustrar o risco de perda de comportamento.
+% TODO: confirmar/ajustar o exemplo com um caso real observado na BSN.  (feito)
+A migração de sistemas legados é difícil porque a mudança de plataforma pode alterar comportamentos de forma silenciosa. Na BSN, por exemplo, a execução de testes comportamentais identificou dificuldades na recuperação da adaptação na implementação ROS~2, em que os comandos de redução da frequência dos sensores não eram observados após a recuperação das condições de confiabilidade. A investigação desse comportamento revelou defeitos nas interações entre os componentes responsáveis pela adaptação do sistema. Esse tipo de divergência evidencia a importância de investigar os comportamentos do sistema legado e estabelecer uma referência para a validação da implementação migrada.
+
+\section{Lacuna de pesquisa}
+
+% NOTA: parágrafo novo. Torna explícita a lacuna que justifica a contribuição.
+Esforços recentes aplicam princípios de Engenharia de Software a arquitetura de sistemas ROS~\cite{malavolta2020}, verificação em tempo de execução e aos testes em campo~\cite{caldas2024runtime}, bem como análise estática e verificação de propriedades desses sistemas~\cite{santos2021high}.
+% TODO: ajustar conforme o que esses trabalhos de fato tratam. (feito)
+Embora essas contribuições auxiliem no desenvolvimento e na verificação de sistemas robóticos, elas não têm como foco a migração de sistemas legados. Nesse contexto, este trabalho investiga a integração de atividades de compreensão dos comportamentos existentes, identificação de suas realizações na implementação legada e verificação de sua preservação na plataforma de destino.
+
+\section{Estudo de caso}
+
+Para esse desafio, adotamos como estudo de caso a \textit{Body Sensor Network} (BSN)~\cite{Gil2021BodySN}, um sistema auto-adaptativo de monitoramento médico desenvolvido pela equipe do Laboratório de Dependabilidade do Departamento de Ciência de Computação (LADECIC).
+% TODO: expandir a sigla LADECIC na primeira ocorrência. (feito)
+Originalmente implementada em ROS~1, a BSN integra sensores como termômetro, oxímetro e eletrocardiograma em um \textit{bodyhub} central, que classifica o estado de saúde do paciente em níveis de risco.
+% TODO: justificar em 1-2 frases por que a BSN é representativa (criticidade,
+% auto-adaptação, multiplicidade de nós, etc.) e quais características
+% a tornam desafiadora para a migração.
+A escolha da BSN decorre de sua arquitetura distribuída e da necessidade de coordenar atividades de sensoriamento, processamento, comunicação e adaptação. Essas características tornam sua migração particularmente desafiadora, uma vez que a preservação dos comportamentos depende tanto das responsabilidades individuais dos componentes quanto de suas interações. Por ser um sistema crítico, sua modernização deve preservar confiabilidade e adaptabilidade, ao mesmo tempo em que aproveita os benefícios do ROS~2.
+
+\section{Objetivos}
+
+% NOTA: objetivo geral e específicos separados; natureza do estudo explicitada.
+O objetivo geral deste trabalho é propor e examinar uma abordagem sistemática para a migração de sistemas robóticos, orientada pelo estabelecimento de uma \textit{Ground Truth} comportamental do sistema legado, por meio de um estudo de caso parcialmente retrospectivo da migração da BSN do ROS~1 para o ROS~2. 
+% TODO: explicar em uma frase o que foi retrospectivo e o que foi prospectivo. (feito)
+O caráter parcialmente retrospectivo decorre da reconstrução das atividades e transformações realizadas durante a migração original, complementada por análises das implementações e dos testes comportamentais realizadas neste trabalho. Neste texto, \textit{Ground Truth} comportamental designa a referência do comportamento do sistema legado, constituída pelos cenários especificados segundo o \textit{Behavior-Driven Development} (BDD) e pelas evidências de sua execução no ROS~1. Os cenários BDD representam contratos comportamentais, entendidos como especificações dos comportamentos esperados sob determinadas condições e estímulos. Os oráculos de teste correspondem aos mecanismos utilizados para avaliar se os resultados observados satisfazem os critérios de aceitação desses contratos.
+% TODO: definir aqui, uma única vez, "contratos comportamentais" e "oráculos"
+% e usar os termos de forma consistente no restante do texto. (feito)
+
+
+Os objetivos específicos são:
 \begin{itemize}
-    \item \textbf{RQ1 -- Aplicabilidade e limitações:} Como a abordagem proposta viabiliza a migração de sistemas robóticos? 
-    \item \textbf{RQ2 -- Preservação comportamental:} Quais evidências recuperadas permitem avaliar a preservação dos cenários BDD selecionados durante a migração?
-    \item \textbf{RQ3 -- Caracterização das transformações de migração:} Como as responsabilidades de implementação associadas aos contratos comportamentais selecionados foram transformadas durante a migração da BSN do ROS 1 para o ROS 2?    
+    \item obter conhecimento sobre o sistema legado e especificar seus requisitos comportamentais como cenários BDD;
+    \item estabelecer a \textit{Ground Truth} comportamental pela execução desses cenários no ROS~1;
+    \item identificar as realizações dos comportamentos na implementação legada e caracterizar as transformações realizadas na implementação em ROS~2;
+    \item avaliar, com base nos cenários e nas evidências de execução, a preservação dos comportamentos selecionados.
 \end{itemize}
- A investigação considera a exequibilidade das atividades propostas, a utilidade dos artefatos recuperados ou produzidos, as evidências de preservação comportamental e as transformações identificadas nas implementações.
 
+\section{Visão geral da abordagem}
 
-Como resultados, o estudo apresenta a sistematização parcialmente retrospectiva do processo de migração da BSN, relacionando os contratos comportamentais selecionados às entidades e responsabilidades da implementação ROS 1. A partir dessas relações, foram caracterizadas três transformações identificadas na implementação ROS 2: a adoção de mecanismos de gerenciamento do ciclo de vida dos nós, a ampliação das responsabilidades de monitoramento e a reorganização das operações de processamento, comunicação e avaliação de risco entre componentes especializados. Essa análise permitiu examinar como responsabilidades associadas aos comportamentos selecionados foram mantidas, adaptadas ou redistribuídas na plataforma de destino. Complementarmente, a comparação dos cenários BDD, de seus oráculos e das evidências de execução permitiu identificar correspondências e discrepâncias comportamentais, delimitando o alcance das verificações realizadas. Os resultados demonstram a possibilidade de integrar essas evidências na análise retrospectiva da migração, sem estabelecer que a abordagem tenha orientado as decisões originais ou que sua eficácia tenha sido demonstrada em outros sistemas.
+% NOTA: descrição condensada; o detalhamento deve ir para o capítulo de metodologia.
+A abordagem organiza-se em duas fases. A fase de \textit{Ground Truth} Comportamental abrange a obtenção de conhecimento sobre o sistema, a especificação de requisitos comportamentais em cenários BDD e a execução desses cenários no ROS~1. A fase de Migração usa essa referência para orientar a identificação das realizações dos comportamentos na implementação legada, o planejamento das transformações, a implementação no ambiente de destino e a validação comportamental no ROS~2.
+A integração dessas atividades busca relacionar os comportamentos especificados às responsabilidades de implementação e às transformações realizadas, considerando as características das plataformas de origem e de destino. 
+% TODO: incluir uma figura com as duas fases e suas atividades
+% (e.g., \autoref{fig:abordagem}), detalhada no Capítulo~\ref{cap:metodologia}.
+A Figura~\ref{fig:abordagem-geral} apresenta uma visão simplificada das duas fases da abordagem e suas respectivas atividades, detalhadas no Capítulo~\ref{cap:metodologia}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/metodologiasimplificada.drawio.png}
+    \caption{Visão geral da abordagem proposta.}
+    \label{fig:abordagem-geral}
+\end{figure}
 
+\subsection{Questões de pesquisa}
 
+A abordagem é examinada por meio de um estudo de caso empírico e parcialmente retrospectivo, fundamentado na análise de documentação, código-fonte, cenários BDD, registros de execução e artefatos da migração da BSN.
+A avaliação é orientada por três questões de pesquisa:
+\begin{itemize}
+    % NOTA: RQ1 reformulada para não pressupor sucesso da abordagem.
+    \item \textbf{RQ1 -- Aplicabilidade e limitações:} em que medida a abordagem proposta é aplicável à migração de sistemas robóticos e quais limitações apresenta?
+    \item \textbf{RQ2 -- Preservação comportamental:} quais evidências recuperadas permitem avaliar a preservação dos cenários BDD selecionados durante a migração?
+    \item \textbf{RQ3 -- Caracterização das transformações de migração:} como as responsabilidades de implementação associadas aos comportamentos selecionados foram transformadas na migração da BSN do ROS~1 para o ROS~2?
+\end{itemize}
+% NOTA: mapeamento RQ x aspecto investigado, que antes estava diluído em um parágrafo.
+A RQ1 trata da exequibilidade das atividades e da utilidade dos artefatos recuperados ou produzidos, a RQ2 das evidências de preservação comportamental e a RQ3 das transformações identificadas nas implementações.
 
+\subsection{Contribuições e limitações}
+
+% NOTA: resultados resumidos; os detalhes pertencem aos capítulos de resultados.
+Como principais contribuições, o trabalho apresenta a sistematização parcialmente retrospectiva da migração da BSN, que relaciona os comportamentos selecionados às entidades e responsabilidades da implementação em ROS~1. Com base nessa relação, caracterizamos três transformações na implementação em ROS~2: a adoção do gerenciamento do ciclo de vida dos nós, a ampliação das responsabilidades de monitoramento e a reorganização das operações de processamento, comunicação e avaliação de risco entre componentes especializados.
+A comparação entre cenários BDD, oráculos e evidências de execução também permitiu identificar correspondências e discrepâncias comportamentais, delimitando o alcance das verificações realizadas.
+
+% NOTA: limitações movidas para um parágrafo próprio e organizadas por tipo.
+Por se tratar de um estudo parcialmente retrospectivo de um único sistema, os resultados não permitem afirmar que a abordagem tenha orientado as decisões originais de migração, nem que sua eficácia se estenda a outros sistemas. Além disso, a avaliação está restrita a uma amostra de comportamentos e responsabilidades de implementação, e suas conclusões dependem do alcance dos oráculos e da comparabilidade das condições de execução dos testes.
+% TODO: se aplicável, acrescentar outras ameaças à validade (e.g., seleção dos
+% cenários, ausência de comparação com outra abordagem). (feito)
+\subsection{Organização do documento}
+
+% NOTA: seção nova; ajustar os capítulos à estrutura real da monografia.
+O restante deste trabalho está organizado como segue. O Capítulo~\ref{cap:fundamentação} apresenta a fundamentação teórica sobre ROS, BDD e migração de sistemas. O Capítulo~\ref{cap:metodologia} descreve a abordagem proposta e o estudo de caso. O Capítulo~\ref{cap:resultados} apresenta e discute os resultados, e o Capítulo~\ref{cap:conclusao} traz as conclusões e os trabalhos futuros.

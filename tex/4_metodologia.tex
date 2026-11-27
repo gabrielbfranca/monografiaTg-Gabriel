@@ -1,3 +1,4 @@
+\label{cap:metodologia}
 \section{Visão geral da abordagem}
 \label{sec:visão-geral}
 
@@ -7,18 +8,13 @@ Assim, busca-se reconstruir o processo a partir das evidências disponíveis, id
 
 A sistematização do processo toma como referência uma abordagem orientada à preservação de comportamento no estabelecimento de um \textit{ground truth} comportamental do sistema legado e migração para ROS 2. A primeira fase começa com obtenção de conhecimento descrito sobre o sistema, a especificação dos comportamentos relevantes e o \textit{ground truth} comportamental. A segunda fase abrange a identificação das realizações desses comportamentos, a análise das transformações necessárias, a implementação no ambiente de destino e a validação dos comportamentos.
 
-A Figura ~\ref{fig:metodologia} apresenta a
-organização geral da abordagem e suas etapas.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{img/metodologia.png}
     \caption{pipeline da metodologia}
     \label{fig:metodologia}
 \end{figure}
-
-Entretanto, a organização apresentada não pressupõe que todas essas atividades tenham sido executadas de maneira sistemática durante a migração original. Algumas etapas representam
-práticas realizadas, enquanto outras correspondem a procedimentos refinados posteriormente para investigar ou complementar o processo. 
+A Figura ~\ref{fig:metodologia} apresenta a organização geral da abordagem e suas etapas.
 
 
 \section{Fase de \textit{Ground Truth} Comportamental}
@@ -44,9 +40,10 @@ Por fim, a etapa do \textit{Ground Truth} Comportamental implementa e executa os
 
 A metodologia torna essa atividade preliminar de compreensão uma etapa explícita. Antes que as propriedades comportamentais possam ser identificadas para migração e que sua realização na implementação possa ser analisada, o \textit{recoverer} deve adquirir conhecimento suficiente sobre a organização e a execução do sistema legado. A Compreensão de Programas combina, portanto, conhecimento existente sobre o sistema com observações estruturais e de execução, apoiando a compreensão progressiva da implementação pelo \textit{Recoverer}.
 
-Nesse sentido, é importante que um sistema possua ferramentas de documentação disponíveis que possam ajudar a formar esses modelos de conhecimento como o \textit{program model} e \textit{situation model} a partir de abordagens conhecidas como \textit{top-down}, como diagramas de arquitetura, diagramas de execução e ,para o nosso caso, artigos e abordagens \textit{bottom-up} que abrange código fonte, grafo de chamadas e grafo de dependência.
+Nesse sentido, é importante que um sistema possua ferramentas de documentação disponíveis que possam ajudar a formar esses modelos de conhecimento como o \textit{program model} e \textit{situation model} a partir de abordagens conhecidas como \textit{top-down}, como diagramas de arquitetura, diagramas de execução e ,para o nosso caso, artigos e abordagens \textit{bottom-up} que abrange código fonte, grafo de chamadas e grafo de dependência. Para auxiliar esse processo, podem ser utilizadas ferramentas como Doxygen e Graphviz para a obtenção de visões estáticas da implementação, além do \texttt{rqt\_graph} e dos mecanismos de observação disponíveis no ROS CLI para investigar a comunicação entre os componentes durante a execução do sistema.
 
-O objetivo desta etapa, é estabelecer o conhecimento contextual necessário para interpretar as evidências das etapas posteriores da migração. As informações estruturais ajudam a explicar como a implementação está organizada, enquanto as informações de execução revelam como os elementos do sistema se comunicam durante sua operação. Em conjunto com a documentação e o conhecimento do domínio, essas observações apoiam a especificação do comportamento legado e permanecem disponíveis para a interpretação posterior das entidades e dos componentes de implementação associados a esse comportamento.
+O objetivo desta etapa, é estabelecer o conhecimento contextual necessário para interpretar as evidências das etapas posteriores da migração. As informações estruturais ajudam a explicar como a implementação está organizada, enquanto as informações de execução revelam como os elementos do sistema se comunicam durante sua operação. Em conjunto com a documentação e o conhecimento do domínio, essas observações apoiam a especificação do comportamento legado e permanecem disponíveis para a interpretação posterior das entidades e dos componentes de implementação associados a esse comportamento. Os artefatos esperados desta etapa compreendem
+visões estáticas e dinâmicas da implementação legada, complementadas pelas informações recuperadas da documentação do sistema. Esses artefatos são necessários para a especificação comportamental e para a posterior identificação das realizações dos comportamentos.
 
 
 \subsection{Especificação Comportamental}
@@ -57,11 +54,11 @@ Seguindo os papéis de \textit{recoverer} e \textit{certifier} adaptada de Garci
 
 Os requisitos podem ter origem em propriedades formais, documentação do sistema, estudos anteriores mas é principalmente formulada pelo conhecimento da aplicação do próprio \textit{certifier} que descreve o comportamento geral do sistema. A Compreensão de Programas apoia a interpretação dessas fontes para o \textit{recoverer} que adapta o comportamento para linguagem \textit{Gerkhin} seguindo as boas práticas \cite{Binamungu}.
 
-A metodologia proposta não prescreve um procedimento fixo para derivar cenários BDD a partir dos requisitos. Em vez disso, adota os princípios de especificação colaborativa do BDD, nos quais os comportamentos esperados são esclarecidos por meio de exemplos e da participação dos \textit{stakeholders}~\cite{Farooq2023BDD}. No nosso caso, o \textit{certifier} atua como \textit{stakeholder} que prioriza os comportamentos mais relevantes para migração além de diretamente informar esses requisitos. 
+A metodologia proposta não prescreve um procedimento fixo para derivar cenários BDD a partir dos requisitos. Em vez disso, adota os princípios de especificação colaborativa do BDD, nos quais os comportamentos esperados são esclarecidos por meio de exemplos e da participação dos \textit{stakeholders}~\cite{Farooq2023BDD}. O \textit{certifier} atua como \textit{stakeholder}, auxiliando na identificação e priorização dos requisitos comportamentais relevantes para a migração. Essa seleção deve considerar a importância dos comportamentos para o funcionamento do sistema, a necessidade de sua preservação e a possibilidade de serem afetados pelas mudanças decorrentes da migração. A especificação em BDD deve considerar também a possibilidade de estabelecer condições iniciais, estímulos e critérios de aceitação observáveis.
 
 Diferentemente de uma especificação limitada à perspectiva de um usuário final, os cenários desta abordagem também podem descrever contratos comportamentais observáveis nas interfaces entre componentes, como a recepção de dados, a publicação de resultados ou o tratamento de indisponibilidade. O conhecimento técnico do \textit{certifier} pode auxiliar nessa delimitação sem desde que não haja uma imposição rígida em chamadas de métodos, classes ou decisões internas de arquitetura, que podem mudar durante a migração. A especificação registra o comportamento requerido e sua fronteira de observação, não uma implementação obrigatória.
 
-A etapa produz cenários BDD revisado. Esse artefato fornece a expectativa comportamental necessária para o Estabelecimento do \textit{Ground truth} Comportamental, etapa na qual são executadas os testes para verificar se o comportamento prescrito condiz com a implementação do sistema. A figura \ref{fig:processobdd} demonstra esse procedimento.
+O artefato esperado desta etapa é um conjunto de cenários BDD revisados. Esses cenários fornecem a expectativa comportamental necessária para o Estabelecimento da \textit{Ground Truth} Comportamental, etapa na qual os testes devem verificar se o comportamento prescrito corresponde ao comportamento observado na implementação do sistema. A figura \ref{fig:processobdd} demonstra o procedimento de especificação.
 
 
 \begin{figure}[H]
@@ -100,9 +97,7 @@ O procedimento consiste em:
 
     \item \textbf{Preparar e executar os testes comportamentais:}
 
-    Implementar as definições de \textit{steps} dos cenários BDD, incluindo as condições iniciais, os estímulos e as asserções necessárias para verificar os critérios de aceitação. A execução deve considerar as interfaces e os mecanismos disponíveis no ROS 1, podendo utilizar dados simulados, configurações de inicialização e registros de execução.
-
-    Testes unitários, de integração e de caracterização podem complementar os cenários BDD na investigação de comportamentos específicos da implementação legada. Nesse trabalho foi feito a versão analisada, as condições de execução e os resultados dos testes.
+    Implementar as definições de \textit{steps} dos cenários BDD, incluindo as condições iniciais, os estímulos e as asserções necessárias para verificar os critérios de aceitação. A execução deve considerar as interfaces e os mecanismos disponíveis no ROS 1, podendo utilizar dados simulados, configurações de inicialização e registros de execução. Testes unitários, de integração e de caracterização podem complementar os cenários BDD na investigação de comportamentos específicos da implementação legada. A automação dos cenários BDD pode utilizar ferramentas como \texttt{behave} e \texttt{pytest-bdd}, associadas aos mecanismos de inicialização, execução e observação disponíveis no ROS~1.
 
     \item \textbf{Interpretar as evidências comportamentais:}
 
@@ -142,7 +137,7 @@ O que diferencia a nossa abordagem é a integração entre especificações BDD,
 
 
 
-\section{Identificação das Realizações dos Comportamentos}
+\subsection{Identificação das Realizações dos Comportamentos}
 \label{sec:identificacao-realizacoes-comportamentos}
 
 
@@ -160,11 +155,11 @@ O procedimento compreende quatro atividades:
 \begin{enumerate}
 
 
-    \item \textbf{Delimitar os comportamentos e suas interfaces:} A partir dos requisitos e cenários BDD estabelecidos na Especificação Comportamental, delimitar os contratos relevantes para a investigação de suas realizações, examinando suas condições iniciais, estímulos, resultados observáveis e implementações de teste. Identificar as interfaces ROS utilizadas para acionar ou observar esses comportamentos, incluindo tópicos, serviços, ações e parâmetros, e registrar as configurações de execução correspondentes.
+    \item \textbf{Delimitar os comportamentos e suas interfaces:} A partir dos requisitos e cenários BDD estabelecidos na Especificação Comportamental, delimitar os contratos relevantes para a investigação de suas realizações. A seleção deve considerar a relevância dos comportamentos para a migração, as interações entre componentes e a disponibilidade de evidências que permitam localizar suas realizações na implementação legada. Examinar as condições iniciais, os estímulos, os resultados observáveis e as implementações de teste dos cenários selecionados. Identificar as interfaces ROS utilizadas para acionar ou observar esses comportamentos, incluindo tópicos, serviços, ações e parâmetros, e registrar as configurações de execução correspondentes.
 
 
     
-    \item \textbf{Localizar as realizações na implementação legada:} Relacionar as interfaces identificadas ao grafo computacional ROS, aos arquivos de inicialização e ao código-fonte, identificando os nós e as entidades envolvidas na realização dos comportamentos. Quando disponíveis, utilizar evidências de execução e cobertura para complementar a localização de métodos e regiões de código candidatos, distinguindo a participação observada em execuções de testes das associações específicas entre cenários e entidades de implementação. Examinar as responsabilidades dos elementos identificados por meio da inspeção do código.
+    \item \textbf{Localizar as realizações na implementação legada:} Relacionar as interfaces identificadas ao grafo computacional ROS, aos arquivos de inicialização e ao código-fonte, identificando os nós e as entidades envolvidas na realização dos comportamentos. Quando disponíveis, utilizar evidências de execução e cobertura para complementar a localização de métodos e regiões de código candidatos, distinguindo a participação observada em execuções de testes das associações específicas entre cenários e entidades de implementação. Examinar as responsabilidades dos elementos identificados por meio da inspeção do código. A análise da participação dos métodos pode ser auxiliada por relatórios de cobertura gerados com ferramentas como \texttt{llvm-cov}. A identificação dos métodos exercitados deve considerar as contagens de execução nas linhas correspondentes às suas entradas. As associações obtidas devem respeitar a granularidade dos relatórios, distinguindo a participação observada em execuções de cenários individuais daquela observada em grupos de testes.
 
 
     \item \textbf{Caracterizar as responsabilidades
@@ -181,30 +176,18 @@ O procedimento compreende quatro atividades:
     tecnológico. 
 
     \item \textbf{Consolidar o mapeamento e
-    delimitar o escopo de transformação:}
-    construir um \textit{Scenario Realization
-    Mapping}, uma documentação que relacione os cenários BDD às
-    entidades de código, aos componentes ROS,
-    às interfaces de comunicação e às
-    responsabilidades identificadas. A partir do mapeamento,
-    selecionar as responsabilidades a serem
-    aprofundadas no planejamento das
-    transformações, justificando a seleção e
-    registrando suas dependências de contexto.
+    delimitar o escopo de transformação:} construir um \textit{Scenario Realization Mapping}, uma documentação que relacione os cenários BDD às entidades de código aos componentes ROS, às interfaces de comunicação e às responsabilidades identificadas. A partir do mapeamento, selecionar as responsabilidades a serem aprofundadas no planejamento das transformações, considerando sua contribuição para a realização dos comportamentos selecionados e suas dependências em relação ao contexto tecnológico da implementação legada.
 
 \end{enumerate}
 
-\section{Planejamento das Transformações de Migração}
+\subsection{Planejamento das Transformações de Migração}
 \label{sec:plan-migration-transformations}
 
 O Planejamento das Transformações de Migração utiliza as responsabilidades delimitadas na etapa anterior para examinar como suas realizações devem ser tratadas diante da substituição do \textit{framework} ROS 1 pelo ROS 2. O procedimento sistematiza a relação entre o conhecimento recuperado da implementação legada e as características da plataforma de destino, em consonância com a compreensão do sistema de origem e o planejamento de mudanças discutidos por Bragagnolo et al.~\cite{BragagnoloMigration}.
 
 
-A análise considera os princípios associados ao \textit{system context} discutidos por Garcia et al.~\cite{GarciaKMD12}, examinando como serviços de comunicação, gerenciamento de nós, configuração e execução influenciam a realização das responsabilidades identificadas. A relevância
-dessas dependências também é observada em Buchgeher et al.~\cite{BUCHGEHER2022276}, que
-descrevem a migração de uma infraestrutura proprietária de comunicação para OPC UA, preservando grande parte da camada de controle e adaptando os componentes necessários à sua integração com a nova arquitetura. Nesta etapa, busca-se examinar quais responsabilidades
-podem manter sua lógica funcional e quais mecanismos precisam ser adaptados, reorganizados
-ou ampliados diante das características do ROS 2.
+A análise considera os princípios associados ao \textit{system context} discutidos por Garcia et al.~\cite{GarciaKMD12}, examinando como serviços de comunicação, gerenciamento de nós, configuração e execução influenciam a realização das responsabilidades identificadas. A relevância dessas dependências também é observada em Buchgeher et al.~\cite{BUCHGEHER2022276}, que descrevem a migração de uma infraestrutura proprietária de comunicação para OPC UA, preservando grande parte da camada de controle e adaptando os componentes necessários à sua integração com a nova arquitetura. Nesta etapa, busca-se examinar quais responsabilidades
+podem manter sua lógica funcional e quais mecanismos precisam ser adaptados, reorganizados ou ampliados diante das características do ROS 2.
 
 Nesse contexto, é possível avaliar três perspectivas de transformação, a adaptação do \textit{System context} relacionado a mudança de framework, a refatoração interna motivada por melhorias de qualidade como modularidade e testabilidade. E evolução funcional que amplia a capacidade do sistema. Na BSN, por exemplo, a reorganização do processamento e da classificação de risco pode ser analisada como refatoração interna, enquanto a adoção de nós com ciclo de vida gerenciado envolve diretamente recursos do ROS 2. A ampliação do monitoramento por eventos, por sua vez, deve ser examinada como uma evolução das responsabilidades de observação, e não como consequência obrigatória da plataforma.
 
@@ -246,11 +229,9 @@ O procedimento consiste em:
 \end{enumerate}
 
 
-A caracterização das transformações pode ser complementada pela análise de métricas estruturais das entidades envolvidas. Medidas de complexidade ciclomática, complexidade das classes, coesão e acoplamento permitem examinar características da organização interna da implementação e complementar a interpretação das responsabilidades identificadas \cite{McCabe1976,ChidamberKemerer1994}. A análise deve considerar a correspondência entre as entidades examinadas e as definições operacionais das métricas utilizadas, especialmente quando a migração envolve mudanças de linguagem e de decomposição dos componentes. Essas medidas são utilizadas como evidências complementares para caracterizar as transformações, sem pressupor que diferenças numéricas demonstrem, isoladamente, melhorias de qualidade estrutural.
+A caracterização das transformações pode ser complementada pela análise de métricas estruturais das entidades envolvidas. Medidas de complexidade ciclomática, complexidade das classes, coesão e acoplamento permitem examinar características da organização interna da implementação e complementar a interpretação das responsabilidades identificadas \cite{McCabe1976,ChidamberKemerer1994}. A análise deve considerar a correspondência entre as entidades examinadas e as definições operacionais das métricas utilizadas, especialmente quando a migração envolve mudanças de linguagem e de decomposição dos componentes. Essas medidas são utilizadas como evidências complementares para caracterizar as transformações, sem pressupor que diferenças numéricas demonstrem, isoladamente, melhorias de qualidade estrutural. Para a análise da complexidade estrutural, pode ser utilizada a ferramenta Lizard, considerando a complexidade ciclomática dos métodos. A complexidade das classes pode ser caracterizada pela métrica \textit{Weighted Methods per Class} (WMC), definida como a soma das complexidades ciclomáticas dos métodos definidos diretamente em cada classe, e pela complexidade ciclomática máxima desses métodos.
 
-
-
-O resultado da etapa é o \textit{Migration Transformation Record}, que sintetiza as correspondências entre responsabilidades da implementação legada, transformações previstas ou identificadas na implementação de destino e contratos comportamentais associados. As evidências e justificativas são complementadas pela análise de cada transformação. No estudo retrospectivo, esse registro permite caracterizar as mudanças observadas nas implementações, sem pressupor que tenham sido planejadas conforme a abordagem proposta.
+O artefato esperado desta etapa é o \textit{Migration Transformation Record}, que sintetiza as correspondências entre responsabilidades da implementação legada, transformações previstas ou identificadas na implementação de destino e contratos comportamentais associados. As evidências e justificativas são complementadas pela análise de cada transformação. No estudo retrospectivo, esse registro permite caracterizar as mudanças observadas nas implementações, sem pressupor que tenham sido planejadas conforme a abordagem proposta.
 
 
 \subsection{Implementação}
@@ -301,17 +282,7 @@ O procedimento consiste em:
 
 \item \textbf{Estabelecer correspondências
 comportamentais:}
-Identificar cenários e critérios de aceitação
-relacionados nas duas implementações,
-considerando seu significado e não apenas
-a identidade de nomes ou arquivos.
-Essa atividade considera o princípio de
-comparação entre observações correspondentes
-de diferentes versões, explorado por
-Insa et al.~\cite{Insa2018}.
-Identificar os cenários reutilizados,
-adaptados, introduzidos ou sem contraparte,
-considerando as versões investigadas.
+Identificar cenários e critérios de aceitação relacionados nas duas implementações, considerando seu significado e não apenas a identidade de nomes ou arquivos. Essa atividade considera o princípio de comparação entre observações correspondentes de diferentes versões, explorado por Insa et al.~\cite{Insa2018}. Identificar os cenários reutilizados, adaptados, introduzidos ou sem contraparte, considerando as versões investigadas. A seleção dos cenários para a comparação deve considerar a relevância dos comportamentos para a migração, a existência de critérios de aceitação correspondentes nas duas implementações e a disponibilidade de evidências sobre a instrumentação e a execução dos testes. As limitações que impeçam a comparação de determinados cenários devem ser registradas.
 
 \item \textbf{Adaptar os testes e examinar
 a instrumentação:}
@@ -327,27 +298,26 @@ dos estímulos, dos mecanismos de observação,
 das asserções e da infraestrutura de inicialização
 e execução dos testes para o ambiente do ROS 2 e examinar a correspondência entre as duas implementações, considerando diferenças de interfaces, configurações, mecanismos de inicialização e janelas de observação.
 
-\item \textbf{Interpretar discrepâncias
-e consolidar os resultados:}
-Investigar candidatos a regressão, correções intencionais, mudanças de contrato, falhas de instrumentação e resultados inconclusivos. Considerar a produção efetiva dos estímulos, a validade das asserções e a compatibilidade das condições de execução antes de atribuir uma divergência à migração.
+
+\item \textbf{Interpretar divergências e consolidar os resultados:}
+
+A interpretação dos resultados deve considerar a correspondência entre os contratos comportamentais, as condições de execução, os estímulos e os oráculos de teste. A satisfação de critérios de aceitação correspondentes nas duas implementações, sob condições comparáveis, constitui evidência de preservação comportamental.
+
+As divergências devem ser investigadas e classificadas como regressões comportamentais, quando representam alterações não intencionais de comportamentos anteriormente verificados, ou como mudanças intencionais, quando decorrem de correções de defeitos ou modificações dos requisitos. Essa investigação deve também considerar possíveis falhas de instrumentação, relacionadas à preparação dos testes, à aplicação dos estímulos, aos mecanismos de observação ou às asserções implementadas. Quando as evidências forem insuficientes para determinar a preservação do comportamento ou a natureza da divergência, o resultado deve ser considerado inconclusivo.
+
+As divergências já presentes na implementação legada não devem ser classificadas como regressões introduzidas durante a migração. Os comportamentos adicionais da implementação migrada devem ser examinados em relação aos seus próprios critérios de aceitação.
 
 \end{enumerate}
 
-A aprovação de testes nas duas implementações
-não demonstra, por si só, equivalência
-comportamental. As conclusões dependem da
-correspondência entre os critérios de aceitação,
-estímulos, observações e versões investigadas.
-
-A etapa produz uma suíte de testes comportamentais adaptada à implementação migrada, incluindo as definições de passos, as asserções e a infraestrutura necessária à execução dos cenários BDD selecionados. Sua aplicação fornece evidências sobre a satisfação dos requisitos e a preservação de contratos comportamentais, acompanhadas das discrepâncias e limitações da comparação. Em estudos retrospectivos, a suíte e suas evidências podem ser recuperadas a partir dos artefatos existentes.
+A aprovação de testes nas duas implementações não demonstra, por si só, equivalência comportamental. As conclusões dependem da correspondência entre os critérios de aceitação, estímulos, observações e versões investigadas. O artefato esperado desta etapa é resultados de uma suíte de testes comportamentais adaptada para implementação migrada, incluindo as definições de passos, as asserções e a infraestrutura necessária à execução dos cenários BDD selecionados. Sua aplicação fornece evidências sobre a satisfação dos requisitos e a preservação de contratos comportamentais, acompanhadas das discrepâncias e limitações da comparação. Em estudos retrospectivos, a suíte e suas evidências podem ser recuperadas a partir dos artefatos existentes. A automação dos cenários BDD na plataforma de destino pode utilizar ferramentas como \texttt{pytest-bdd}, associadas aos mecanismos de inicialização, comunicação e observação disponíveis no ROS~2.
 
 
 \section{Especificação da Avaliação}
 \label{sec:delineamento-avaliacao}
 
-A avaliação considera as três questões de pesquisa apresentadas na Introdução e utiliza documentação, código-fonte, especificações BDD, registros de execução e relatórios de cobertura, além das análises retrospectivas realizadas neste trabalho.
+A avaliação considera as três questões de pesquisa apresentadas na Introdução e utiliza documentação, código-fonte, especificações BDD, registros de execução e relatórios de cobertura, além das análises retrospectivas previstas no estudo de caso.
 
-Para a RQ1, foram adotados três critérios qualitativos: C1 -- viabilidade das atividades, considerando quais procedimentos puderam ser realizados ou reconstruídos. C2 -- utilidade dos artefatos e resultados, examinando sua contribuição para as etapas posteriores e C3 -- limitações identificadas durante a aplicação ou reconstrução das atividades.
+Para a RQ1, a avaliação considera três critérios qualitativos: C1 -- viabilidade das atividades, considerando a possibilidade de realização ou reconstrução dos procedimentos. C2 -- utilidade dos artefatos e resultados, examinando sua contribuição para as etapas posteriores e C3 -- limitações identificadas durante a aplicação ou reconstrução das atividades.
 
-A RQ2 foi examinada pela comparação dos contratos comportamentais, das asserções implementadas e das evidências de execução disponíveis nas duas plataformas. Para a RQ3, foram analisadas as responsabilidades de implementação associadas aos comportamentos selecionados e suas transformações entre ROS~1 e ROS~2, complementadas por métricas estruturais das classes examinadas. Os resultados são apresentados no Capítulo~5, enquanto sua interpretação em relação às questões de pesquisa é desenvolvida no Capítulo~6.
+A RQ2 deve ser examinada pela comparação dos contratos comportamentais, das asserções implementadas e das evidências de execução disponíveis nas duas plataformas. Para a RQ3, devem ser analisadas as responsabilidades as responsabilidades de implementação associadas aos comportamentos selecionados e suas transformações entre ROS~1 e ROS~2, complementadas por métricas estruturais das classes examinadas. Os resultados são apresentados no Capítulo~5, enquanto sua interpretação em relação às questões de pesquisa é desenvolvida no Capítulo~6.
 
