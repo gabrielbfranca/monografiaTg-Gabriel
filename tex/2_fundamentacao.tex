@@ -162,17 +162,11 @@ Embora a refatoração seja caracterizada pela modificação da estrutura intern
 
 \section{Rastreabilidade entre Comportamentos e Implementação}
 
-A identificação das entidades de implementação responsáveis por determinadas funcionalidades constitui um problema investigado pela área de localização de funcionalidades (\textit{feature location}). Wilde e Scully~\cite{WildeScully1995} propõem a técnica de \textit{Software Reconnaissance}, que utiliza informações de cobertura obtidas durante a execução de diferentes casos de teste para identificar regiões de código associadas a funcionalidades específicas.
+A identificação das entidades de implementação associadas a determinadas funcionalidades constitui um problema investigado pela área de localização de funcionalidades (\textit{feature location}). Dit et al.~\cite{Dit2013} apresentam diferentes abordagens para a localização de funcionalidades no código-fonte, incluindo técnicas baseadas em análise estática e dinâmica. A identificação dessas entidades auxilia a compreensão de programas e fornece informações para atividades de manutenção e evolução de software.
 
-A técnica compara a participação dos elementos de implementação em execuções que exercitam ou não determinada funcionalidade, permitindo identificar componentes candidatos à sua realização. 
+Em sistemas baseados em ROS, as relações entre componentes também podem ser examinadas por meio de suas interfaces de comunicação. O grafo computacional, visualizado por ferramentas como \texttt{rqt\_graph}, apresenta nós, tópicos e relações entre publicadores e assinantes. Essa representação permite investigar a organização da comunicação, mas não demonstra, isoladamente, quais mensagens são transmitidas durante a execução de determinado comportamento. A observação do fluxo de dados pode ser complementada pelos mecanismos disponíveis na interface de linha de comando do ROS (\texttt{ROS CLI}).
 
-A relação entre especificações comportamentais e informações de execução também é explorada por Fazzolino e Rodrigues~\cite{Barbosa2020FeatureTrace}, por meio da abordagem \textit{Feature-Trace}. Os autores utilizam especificações BDD como fonte para a geração semiautomática de perfis operacionais e o apoio à priorização de testes, explorando relações de rastreabilidade entre requisitos, cenários e elementos do software.
-
-Além da localização de entidades de implementação, a compreensão de uma funcionalidade pode exigir sua interpretação em níveis mais altos de abstração. Walker et al.~\cite{Walker2000} investigam o mapeamento de informações de execução, originalmente expressas em termos de métodos e procedimentos, para visões arquiteturais do sistema. Essa perspectiva permite analisar informações de baixo nível em relação a componentes e subsistemas.
-
-Em sistemas baseados em ROS, as relações entre componentes também podem ser examinadas por meio de suas interfaces de comunicação. O grafo computacional, visualizado por ferramentas como \texttt{rqt\_graph}, apresenta nós, tópicos e relações entre publicadores e assinantes. Essa representação permite investigar a organização da comunicação, mas não demonstra, isoladamente, quais mensagens foram efetivamente transmitidas durante a execução de um cenário específico, para esse caso, é possível utilizar o \texttt{ROS CLI} para verificar o fluxo de dados em tempo real.
-
-A interpretação dessas relações pode ser complementada pela inspeção do código-fonte, das configurações de inicialização e das responsabilidades das entidades identificadas. Assim, informações estruturais e de execução oferecem perspectivas distintas para relacionar comportamentos a elementos da implementação, sem que a participação observada de um componente implique, necessariamente, sua exclusividade ou indispensabilidade para determinada funcionalidade.
+A interpretação dessas relações, em conjunto com a inspeção do código-fonte, dos grafos de chamadas e dos arquivos de inicialização, permite investigar as entidades de implementação associadas aos comportamentos do sistema e caracterizar suas respectivas responsabilidades.
 
 \section{Testes de Regressão e Preservação Comportamental}
 
