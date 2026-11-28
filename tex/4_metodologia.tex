@@ -145,10 +145,7 @@ A identificação das realizações dos comportamentos busca relacionar os cená
 
 A análise do código legado como apoio à migração também é observada em Buchgeher et al.~\cite{BUCHGEHER2022276}, que utilizam análise estática para identificar variáveis, funções e instâncias relevantes à construção de modelos de informação para uma nova infraestrutura de comunicação. Nesta proposta, a investigação é orientada pelos requisitos e cenários BDD estabelecidos anteriormente, buscando identificar as entidades de implementação envolvidas na realização dos comportamentos selecionados.
 
-Essa identificação é auxiliada por técnicas de
-\textit{feature location}. Uma abordagem \textit{FeatureTrace}
-\cite{BarbosaFeatureTrace} indica a possibilidade de estabelecer relações de rastreabilidade entre cenários BDD e métodos
-exercitados durante a execução dos testes. Complementarmente, a técnica de \textit{Software Reconnaissance} \cite{WildeScully1995} fundamenta a análise comparativa da participação de elementos de código em diferentes funcionalidades. Em sistemas ROS, essas associações podem ser complementadas também pela \textit{RQT\_GRAPH} e documentações já disponíveis como as \textit{call graphs}.
+A identificação das realizações dos comportamentos relaciona-se ao problema de localização de funcionalidades (\textit{feature location}) discutido por Dit et al.~\cite{Dit2013}. Essa identificação pode ser auxiliada pelas visões estáticas e dinâmicas obtidas na etapa de Compreensão de Programas, pela inspeção das interfaces de comunicação e pela análise do código-fonte.
 
 O procedimento compreende quatro atividades:
 

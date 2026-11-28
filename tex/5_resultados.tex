@@ -1047,7 +1047,7 @@ BDD15 / BSN-C07 & Verifica as inscrições e conexões de entrada do nó \texttt
 \end{table}
 \FloatBarrier
 
-Em BDD03, o ROS~1 considera uma restrição temporal na comparação de valores que não está presente na asserção examinada do ROS~2. Em BDD04, as duas implementações verificam a presença de valores de risco alto, mas utilizam mecanismos distintos para estabelecer essa condição. Os cenários BDD08 e BDD09 possuem critérios de observação correspondentes nas versões revisadas dos testes, embora existam diferenças nos estímulos e nas janelas de captura. Em BDD15, os oráculos verificam as relações de comunicação entre os componentes de monitoramento e registro. A verificação no ROS~2 consulta os publicadores e subscritores de cada tópico, enquanto a verificação no ROS~1 considera as inscrições e conexões de entrada do sistema de registro. As asserções desse cenário verificam o estabelecimento dessas relações de comunicação, sem verificar diretamente a transmissão dos registros.
+As diferenças identificadas entre os oráculos delimitam os critérios comportamentais comparáveis entre as implementações e devem ser consideradas na interpretação dos resultados de execução.
 
 \begin{comment}
 Versão anterior da subseção de oráculos.
