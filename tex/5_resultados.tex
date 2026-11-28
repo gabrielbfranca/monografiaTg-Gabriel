@@ -162,6 +162,278 @@ No recorte da BSN legada, os produtos identificáveis da Especificação Comport
 \section{Resultados da Identificação das Realizações dos Comportamentos}
 \label{sec:resultados-identificacao-realizacoes}
 
+A identificação das realizações dos comportamentos na BSN foi orientada pelos cenários BDD selecionados, pelas interfaces ROS utilizadas nos testes e pela inspeção do código-fonte da implementação legada. Os grafos apresentados na Seção~\ref{sec:compreensao-res} auxiliaram a localização das entidades de implementação. O resultado consiste no mapeamento entre os comportamentos, as entidades identificadas e suas responsabilidades, utilizado para delimitar o escopo de investigação das transformações de migração.
+
+% TODO: Registrar a versão (commit) da implementação legada efetivamente investigada. Os métodos citados foram conferidos no branch revisao/pytest-bdd-agrupado-20261126 de https://github.com/richardjlv/bsn_. Conferir a correspondência com a versão utilizada nas execuções próprias. O mapeamento é retrospectivo, baseado em inspeção de código e interfaces; não constitui rastreamento individual de chamadas.
+
+\subsection{Comportamentos e interfaces selecionadas}
+\label{subsec:res-identificacao-contratos}
+
+Foram selecionados os cenários BDD03, BDD04, BDD05, BDD08, BDD09 e BDD15, também utilizados na validação comportamental. O recorte abrange a comunicação entre sensores e CentralHub, a avaliação de risco, a disponibilização do estado de saúde e o encaminhamento de registros. A seleção permite investigar responsabilidades relacionadas ao controle operacional, à comunicação, ao processamento de dados e ao monitoramento, sem abranger todas as funcionalidades da BSN. A inspeção das definições de passos dos testes permitiu identificar as interfaces apresentadas na Tabela~\ref{tab:res-identificacao-bdd}.
+
+\begin{table}[htbp]
+\centering
+\caption{Interfaces associadas aos comportamentos selecionados no ROS~1}
+\label{tab:res-identificacao-bdd}
+\scriptsize
+\begin{tabularx}{\linewidth}{@{}p{0.20\linewidth}XX@{}}
+\toprule
+\textbf{Cenário} & \textbf{Comportamento investigado} & \textbf{Interfaces e elementos observados nos testes} \\
+\midrule
+BDD03 / BSN-C01 & Transmissão e recepção de leituras. & Tópicos de dados dos sensores e campos de leitura de \texttt{/TargetSystemData}. \\
+BDD04 / BSN-P09 & Propagação de risco alto. & \texttt{/oximeter\_data} e campo \texttt{oxi\_risk} de \texttt{/TargetSystemData}. \\
+BDD05 / BSN-C02 & Ausência de saída durante a indisponibilidade do CentralHub. & Nó \texttt{/g4t1}, \texttt{/oximeter\_data} e \texttt{/TargetSystemData}. \\
+BDD08--09 / BSN-P10 e BSN-C04 & Disponibilização do estado de saúde e ausência de saída durante a indisponibilidade do CentralHub. & \texttt{/thermometer\_data}, campo \texttt{patient\_status} de \texttt{/TargetSystemData} e nó \texttt{/g4t1} no caso negativo. \\
+BDD15 / BSN-C07 & Comunicação entre o coletor de registros e o sistema de registro. & Subscrições do \texttt{/logger} nos tópicos \texttt{/log\_event}, \texttt{/log\_status} e \texttt{/log\_energy\_status}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Localização das realizações no ROS~1}
+\label{subsec:res-identificacao-localizacao}
+
+O cenário BDD03 foi utilizado para exemplificar a localização das entidades associadas a um comportamento, considerando a instância do termômetro. A partir das interfaces identificadas, foram examinadas as classes \texttt{Sensor}, \texttt{G3T1\_3}, \texttt{CentralHub} e \texttt{G4T1}, com o apoio dos grafos de chamadas apresentados nas Figuras~\ref{fig:sensor} e~\ref{fig:bodyhub} e do grafo computacional da Figura~\ref{fig:graviz}.
+
+O método \texttt{Sensor::body()} coordena as operações de coleta, processamento e transferência. Na instância do termômetro, \texttt{G3T1\_3::collect()} obtém a leitura por meio de um serviço ROS, \texttt{G3T1\_3::process()} realiza a filtragem e \texttt{G3T1\_3::transfer()} publica a leitura e o risco associado em \texttt{/thermometer\_data}. O método \texttt{CentralHub::run()} estabelece a subscrição nesse tópico, enquanto \texttt{G4T1::collect()} recebe os dados. As operações \texttt{G4T1::process()} e \texttt{G4T1::transfer()} realizam o processamento dos dados e a publicação das informações consolidadas em \texttt{/TargetSystemData}. A Figura~\ref{fig:res-bdd03-sequencia} representa as relações identificadas entre os componentes e métodos associados ao cenário.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.97\linewidth]{img/feature ROS1.png}
+\caption{Mapeamento da realização de BDD03/BSN-C01 no ROS~1, obtido pela inspeção das interfaces e do código-fonte.}
+\label{fig:res-bdd03-sequencia}
+\end{figure}
+
+% TODO: Conferir a figura com o código e a versão utilizada. A sequência representa relações reconstruídas por inspeção, não uma sequência de chamadas registrada durante a execução de BDD03.
+% Fontes consultadas no branch revisao/pytest-bdd-agrupado-20261126 de https://github.com/richardjlv/bsn_:
+% src/sa-bsn/target_system/components/component/src/Sensor.cpp
+% src/sa-bsn/target_system/components/component/src/g3t1_3/G3T1_3.cpp
+% src/sa-bsn/target_system/components/component/src/CentralHub.cpp
+% src/sa-bsn/target_system/components/component/src/g4t1/G4T1.cpp
+% src/sa-bsn/target_system/components/component/src/g3t1_1/G3T1_1.cpp
+% src/libbsn/src/configuration/SensorConfiguration.cpp
+% src/archlib/src/target_system/Probe.cpp
+% src/sa-bsn/logging_infrastructure/logger/src/Logger.cpp
+% Definições de passos e cenários: src/sa-bsn/target_system/components/component/test/test_bdd/
+
+O mesmo procedimento de inspeção permitiu identificar entidades associadas aos demais comportamentos. A Tabela~\ref{tab:res-mapeamento-bdd} relaciona os cenários às entidades identificadas e às responsabilidades desempenhadas. Essas associações decorrem da análise das interfaces e do código-fonte, não da observação individual dos métodos executados pelos testes.
+
+\begin{table}[htbp]
+\centering
+\caption{Mapeamento entre cenários BDD, entidades e responsabilidades no ROS~1}
+\label{tab:res-mapeamento-bdd}
+\scriptsize
+\begin{tabularx}{\linewidth}{@{}p{0.19\linewidth}X p{0.30\linewidth}@{}}
+\toprule
+\textbf{Cenário} & \textbf{Entidades identificadas} & \textbf{Responsabilidade} \\
+\midrule
+BDD03 / BSN-C01 & \texttt{Sensor::body()}, métodos \texttt{collect()}, \texttt{process()} e \texttt{transfer()} de \texttt{G3T1\_3}; \texttt{CentralHub::run()} e métodos \texttt{collect()}, \texttt{process()} e \texttt{transfer()} de \texttt{G4T1}. & Coleta, processamento, transmissão e recepção de leituras (instância do termômetro). \\
+\addlinespace
+BDD04 / BSN-P09 & \texttt{SensorConfiguration::evaluateNumber()}, \texttt{G3T1\_1::transfer()}, \texttt{G3T1\_1::label()}, \texttt{G4T1::collect()}, \texttt{G4T1::getPatientStatus()} e \texttt{G4T1::transfer()}. & Avaliação, classificação e propagação do risco do oxímetro. \\
+\addlinespace
+BDD05 / BSN-C02 & \texttt{CentralHub::run()}, \texttt{CentralHub::body()} e \texttt{G4T1::transfer()}. & Execução do CentralHub e publicação de sua saída. \\
+\addlinespace
+BDD08--09 / BSN-P10 e BSN-C04 & \texttt{CentralHub::body()}, \texttt{G4T1::collect()}, \texttt{G4T1::process()} e \texttt{G4T1::transfer()}. & Recepção de dados, cálculo e publicação do estado de saúde, condicionados à execução do CentralHub. \\
+\addlinespace
+BDD15 / BSN-C07 & \texttt{Probe::setUp()}, \texttt{Probe::body()}, \texttt{Probe::collectEvent()}, \texttt{Probe::collectStatus()}, \texttt{Probe::collectEnergyStatus()} e \texttt{Logger::body()}. & Coleta e encaminhamento de registros; subscrição do sistema de registro. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% BDD05 e BDD09 utilizam a indisponibilidade do nó como condição de teste. A associação com run/body e as operações internas decorre da inspeção do código; os cenários não verificam diretamente os mecanismos de ativação, bateria ou ciclo de vida.
+% BDD15 verifica as interfaces de comunicação; os callbacks de Probe são localizados pela inspeção de código e não são diretamente verificados pelo oráculo.
+
+\begin{comment}
+Versão anterior das tabelas de seleção e mapeamento, preservada para consulta. Os cenários de adaptação foram retirados do recorte principal para manter a correspondência com a amostra da validação comportamental.
+\begin{table}[htbp]
+\centering
+\caption{Cenários BDD utilizados para localizar e delimitar responsabilidades na BSN}
+\label{tab:res-identificacao-bdd}
+\scriptsize
+\begin{tabularx}{\linewidth}{@{}p{0.17\linewidth}p{0.39\linewidth}X@{}}
+\toprule
+\textbf{ID} & \textbf{Observação definida no cenário} & \textbf{Interfaces ou elementos de interesse} \\
+\midrule
+BDD03 / BSN-C01 & A leitura informada pelo sensor deve ser recebida pelo CentralHub com o valor correspondente. & Tópicos de dados dos sensores e \texttt{/TargetSystemData}; sensor e CentralHub. \\
+BDD04 / BSN-P09 & Uma leitura de oxigenação em faixa de alto risco deve resultar em risco alto observável na saída do CentralHub. & Avaliação e rótulo do risco no sensor; campos de risco na saída do CentralHub. \\
+BDD05 / BSN-C02 & Não deve ser publicado novo risco para a leitura quando o CentralHub estiver indisponível. & Presença operacional do nó \texttt{/g4t1} e publicação da saída. \\
+BDD15 / BSN-C07 & O registro do sistema deve receber os tópicos encaminhados pelo coletor de eventos, estados e energia. & \texttt{collect\_*}, \texttt{log\_*}; \textit{probe}/coletor e \textit{logger}. \\
+BDD17--18 / BSN-C08--C09 e BDD23 / BSN-C14 & O sistema deve emitir comandos de adaptação e manter a comunicação do adaptador com seus destinatários. & Comandos \texttt{freq}, adaptador de parâmetros e subscrição de reconfiguração. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Mapeamento entre cenários  BDD e
+entidades da implementação ROS~1}
+\label{tab:res-mapeamento-bdd}
+\scriptsize
+\begin{tabularx}{\linewidth}
+{@{}p{0.19\linewidth}X p{0.31\linewidth}@{}}
+\toprule
+\textbf{Contrato} &
+\textbf{Entidades identificadas} &
+\textbf{Responsabilidade} \\
+\midrule
+
+BDD03 / BSN-C01 &
+\texttt{Sensor::body()},
+\texttt{G3T1\_3::transfer()},
+\texttt{G4T1::collect()} &
+Transmissão e recepção de leituras \\
+
+BDD04 / BSN-P09 &
+\texttt{SensorConfiguration::evaluateNumber()},
+\texttt{G3T1\_3::transfer()} &
+Avaliação e propagação do risco \\
+
+BDD05 / BSN-C02 &
+\texttt{CentralHub::run()},
+\texttt{CentralHub::body()} &
+Disponibilidade e processamento do CentralHub \\
+
+BDD15 / BSN-C07 &
+\texttt{Probe},
+\texttt{Logger} &
+Coleta e encaminhamento de eventos,
+estados e informações de energia \\
+
+BDD17--18 / BSN-C08--C09 &
+\texttt{Controller},
+\texttt{ParamAdapter},
+\texttt{Sensor::reconfigure()} &
+Adaptação da frequência dos sensores \\
+
+BDD23 / BSN-C14 &
+\texttt{ParamAdapter},
+\texttt{Sensor::reconfigure()},
+\texttt{CentralHub::reconfigure()} &
+Encaminhamento e recepção de comandos
+de reconfiguração \\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+\end{comment}
+
+\begin{comment}
+Análise anterior de participação dos métodos, preservada para eventual reincorporação. Esta análise não integra os resultados ativos da versão baseada em inspeção do código e das interfaces.
+\subsection{Participação dos métodos nos grupos de testes BDD}
+\label{subsec:res-identificacao-caracterizacao}
+
+Os relatórios HTML de cobertura LLVM preservam contagens de execução por linha de código. Para os cinco arquivos examinados (\path{Component.cpp}, \path{Sensor.cpp}, \path{G3T1_3.cpp}, \path{CentralHub.cpp} e \path{G4T1.cpp}), foram verificadas as linhas de entrada de onze métodos selecionados. Considerou-se que um método participou de uma campanha quando a linha correspondente apresentou contagem de execução. Cada campanha corresponde à execução isolada de uma família de cenários BDD, como \texttt{check\_bsn}, relacionada à transmissão de leituras e à classificação de risco, \texttt{health\_status}, à disponibilização do estado de saúde do paciente, e \texttt{managing\_system}, ao monitoramento e à adaptação do sistema. A identificação dos métodos exercitados foi realizada mediante a inspeção dos relatórios HTML de cobertura LLVM de cada campanha, que registram as contagens de execução por linha de código. A Tabela~\ref{tab:res-metodos-campanhas} apresenta os resultados dessa investigação.
+
+
+\begin{table}[htbp]
+\centering
+\caption{Participação de métodos da implementação ROS~1
+em oito grupos de testes de testes BDD}
+\label{tab:res-metodos-campanhas}
+\scriptsize
+\begin{tabularx}{\linewidth}{@{}X c p{0.34\linewidth}@{}}
+\toprule
+\textbf{Método} &
+\textbf{Grupos de Teste} &
+\textbf{Leitura da participação} \\
+\midrule
+
+\texttt{Component::setUp()}
+& 8/8
+& Inicialização comum às oito campanhas analisados \\
+
+\texttt{CentralHub::run()}
+& 8/8
+& Execução comum do CentralHub \\
+
+\texttt{Sensor::body()}
+& 7/8
+& Coordenação compartilhada das operações e da atividade
+dos sensores \\
+
+\texttt{G3T1\_3::collect()}
+& 7/8
+& Coleta do termômetro exercitada em diferentes campanhas \\
+
+\texttt{G3T1\_3::transfer()}
+& 7/8
+& Publicação dos dados do termômetro exercitada em
+diferentes campanhas \\
+
+\texttt{G4T1::collect()}
+& 7/8
+& Recepção compartilhada de leituras dos sensores \\
+
+\texttt{G4T1::process()}
+& 7/8
+& Processamento dos dados recebidos e do estado do paciente \\
+
+\texttt{G4T1::transfer()}
+& 7/8
+& Publicação dos dados consolidados pelo CentralHub \\
+
+\texttt{Sensor::injectUncertainty()}
+& 3/8
+& Tratamento de incerteza observado em três campanhas \\
+
+\texttt{Sensor::reconfigure()}
+& 2/8
+& Reconfiguração observada na campanha
+\texttt{bsn\_p03} e \texttt{managing\_system} \\
+
+\texttt{CentralHub::reconfigure()}
+& 1/8
+& Reconfiguração observada apenas na campanha
+\texttt{managing\_system} \\
+
+\bottomrule
+\end{tabularx}
+
+\par\smallskip
+\begin{minipage}{\linewidth}
+\footnotesize
+
+\textbf{Fonte:} relatórios de cobertura de oito execuções dos testes BDD no ROS~1 no repositório \texttt{bsn\_traces}~\cite{BSN_TRACES}. O indicador $k/8$ representa o número de execuções em que o método foi observado, e não a quantidade de cenários BDD individuais ou de chamadas realizadas. A identificação das responsabilidades foi complementada pela inspeção do código-fonte.
+
+\end{minipage}
+
+\end{table}
+
+
+Os resultados indicam uma participação recorrente dos métodos associados à inicialização, coleta, processamento e transferência de dados, em contraste com a participação mais restrita das operações de reconfiguração.
+
+A análise teve como referência o princípio de comparação das entidades de código exercitadas em diferentes execuções de testes conhecida como \textit{Software Reconnaissance}. Entretanto, a análise foi realizada no nível das campanhas BDD, sem aplicar as classificações de entidades propostas pelos autores devido a limitações de granularidade. O arquivo \texttt{trace.jsonl} registra eventos dos testes BDD, enquanto os relatórios de cobertura LLVM permitem identificar a participação dos métodos C++ nas campanhas.
+\end{comment}
+
+\subsection{Delimitação das responsabilidades para o planejamento}
+\label{subsec:res-identificacao-delimitacao}
+
+A partir das responsabilidades identificadas, foram examinadas suas dependências em relação ao ROS~1. A análise distinguiu a lógica de avaliação de risco e de processamento dos dados dos mecanismos de comunicação, inicialização e controle da execução dos componentes. A Tabela~\ref{tab:res-escopo-identificado} apresenta a delimitação das responsabilidades investigadas no planejamento das transformações.
+
+\begin{table}[htbp]
+\centering
+\caption{Delimitação retrospectiva das responsabilidades de implementação}
+\label{tab:res-escopo-identificado}
+\scriptsize
+\begin{tabularx}{\linewidth}{@{}p{0.23\linewidth}XX@{}}
+\toprule
+\textbf{Responsabilidade} & \textbf{Dependência ou característica da implementação legada} & \textbf{Relação com a transformação analisada} \\
+\midrule
+Controlar a execução e o estado operacional dos componentes. & \texttt{Sensor} e \texttt{CentralHub}: laços de execução ROS, controle de atividade e gerenciamento de bateria. & T1 -- Adaptação do controle da execução ao gerenciamento de ciclo de vida do ROS~2. \\
+\addlinespace
+Coletar e encaminhar informações de monitoramento. & \texttt{Probe} e \texttt{Logger}: publicação, subscrição e encaminhamento de eventos, estados e informações de energia por tópicos ROS. & T2 -- Preservação da responsabilidade de encaminhamento e ampliação do monitoramento. \\
+\addlinespace
+Avaliar e classificar risco. & \texttt{SensorConfiguration::evaluateNumber()} e \texttt{G3T1\_1::label()}: lógica de cálculo por faixas e percentuais, distinta dos mecanismos de comunicação ROS. & T3 -- Reorganização das operações de avaliação e classificação de risco. \\
+\addlinespace
+Coletar, processar e comunicar dados. & \texttt{Sensor}, \texttt{G3T1\_3}, \texttt{CentralHub} e \texttt{G4T1}: serviços, publicadores, subscritores e operações de processamento das leituras e do estado de saúde. & T3 -- Adaptação da comunicação e redistribuição das operações de processamento, recepção e publicação. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A delimitação relaciona as responsabilidades identificadas no legado às transformações examinadas na etapa seguinte. Essa relação foi estabelecida retrospectivamente, considerando a implementação ROS~2 disponível, e não representa necessariamente o escopo definido pelos desenvolvedores antes da migração original.
+\begin{comment}
+\section{Resultados da Identificação das Realizações dos Comportamentos}
+\label{sec:resultados-identificacao-realizacoes}
+
 A aplicação desta etapa teve como objetivo a delimitação das responsabilidades da BSN relevantes à mudança do contexto ROS~1 para ROS~2. A investigação combinou (i)~cenários BDD preservados na implementação legada, (ii)~relações de comunicação e entidades identificadas no código C++, e (iii)~relatórios de cobertura de oito campanhas executadas disponibilizado no repositório \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces/blob/main/INDICE_FEATURES_ROS1.md}}. O resultado consistiu em uma relação entre comportamentos, entidades de implementação e responsabilidades, seguido da delimitação das responsabilidades relevantes para o planejamento das transformações de migração. A sistematização desse material é retrospectiva não replica fielmente as técnicas de \textit{FeatureTrace} ou de \textit{Software Reconnaissance} durante a migração original.
 
 \subsection{Comportamentos e interfaces selecionadas}
@@ -397,7 +669,7 @@ T2 -- Preservação do encaminhamento de informações e ampliação das respons
 
 As responsabilidades selecionadas apresentam diferentes relações com as transformações. A avaliação de risco envolve lógica funcional associada ao domínio da aplicação, enquanto o controle da execução, a comunicação e o monitoramento utilizam mecanismos vinculados à implementação ROS~1. Essas características são consideradas na análise das transformações T1--T3, apresentada na seção seguinte.
 
-
+\end{comment}
 
 \section{Reconstrução das Transformações de Migração
 e Implementação em ROS~2}
@@ -543,21 +815,89 @@ observável na saída do sistema. \\
 A Tabela~\ref{tab:res-migration-record} constitui o \textit{Migration Transformation Record} reconstruído para a BSN, relacionando as responsabilidades identificadas no ROS~1 às transformações observadas no ROS~2 e aos contratos comportamentais associados.
 
 
+
+
 \section{Estabelecimento da \textit{Ground Truth} e Validação Comportamental da BSN}
 \label{sec:resultados-ground-truth-validacao-bsn}
 \label{sec:aplicacao-ground-truth-bsn}
 \label{sec:resultados-validacao-bsn}
 
+Esta seção reúne os resultados do Estabelecimento da \textit{Ground Truth} Comportamental e da Validação Comportamental. A primeira etapa estabelece uma referência a partir dos critérios de aceitação dos cenários BDD e dos resultados de sua execução no ROS~1, enquanto a segunda confronta essa referência com os comportamentos observados na implementação em ROS~2. A análise considera as asserções implementadas, as condições de execução e as observações disponíveis para cada cenário.
+
+% TODO: Os resultados de execução utilizados nesta seção são provenientes do repositório bsn_traces de Viana. Substituir pelos resultados das execuções próprias no ROS 1 e no ROS 2, conferir os oráculos nas versões executadas e atualizar as fontes e interpretações.
+
+\begin{comment}
 Esta seção reúne os resultados do Estabelecimento da \textit{Ground Truth} Comportamental e da Validação Comportamental. A primeira etapa estabelece uma referência a partir dos critérios BDD, dos testes e das observações do ROS~1 enquanto a segunda confronta essa referência com a implementação migrada em ROS~2
 A reconstrução utiliza os resultados os resultados preservados no repositório~\cite{Viana}, os testes do legado e da implementação migrada\footnote{\url{https://github.com/richardjlv/bsn_} e \url{https://github.com/richardjlv/bsn2}.} e os registros de campanhas e testes complementares arquivados em \texttt{bsn\_traces}\footnote{\url{https://github.com/richardjlv/bsn_traces}.}.
+\end{comment}
 
 \subsection{Preparação dos testes e delimitação dos comportamentos}
 \label{subsec:gt-validacao-preparacao}
 
-Os cenários Gherkin recuperados na etapa de Especificação Comportamental foram implementados no legado por definições de passos e mecanismos de observação das interfaces ROS. A infraestrutura histórica empregava \textit{behave} e observação de tópicos pelo ROS CLI mas, posteriormente, parte dos testes ROS~1 foi adaptada para \texttt{pytest-bdd} com \texttt{rostest}. No ROS~2, os passos e a preparação foram adaptados para implementação em Python.
+Os cenários BDD apresentados na etapa de Especificação Comportamental possuem definições de passos que preparam as condições de execução e observam o comportamento da BSN por meio das interfaces ROS. Na infraestrutura de testes examinada, o ROS~1 utiliza \texttt{pytest-bdd} integrado ao \texttt{rostest}, enquanto o ROS~2 utiliza \texttt{pytest-bdd} integrado ao \texttt{launch\_testing}. Os arquivos de inicialização do ROS~1 e os executores de teste do ROS~2 permitem executar os grupos de cenários separadamente, com a inicialização dos componentes necessários a cada grupo.\footnote{Infraestrutura de testes consultada: \url{https://github.com/richardjlv/bsn_} e \url{https://github.com/richardjlv/bsn2}.}
 
-A Tabela~\ref{tab:cenarios-amostra-comportamental} reúne os cenários BDD selecionados para o Estabelecimento da \textit{Ground Truth} Comportamental e a Validação Comportamental, sintetizando condições iniciais, estímulos e resultados esperados dos comportamentos investigados nas duas implementações.
+% TODO: Registrar os branches, commits, comandos, configurações e caminhos dos relatórios efetivamente produzidos nas duas plataformas. A infraestrutura examinada não constitui evidência de uma nova execução.
 
+A amostra foi delimitada aos grupos \texttt{check\_bsn} e \texttt{health\_status} e ao cenário BDD15 do grupo \texttt{managing\_system}. Os cenários selecionados abrangem a transmissão de leituras, a propagação de risco, a disponibilização do estado de saúde do paciente, a indisponibilidade do CentralHub e a comunicação entre os componentes de monitoramento e registro. A seleção considera as responsabilidades de implementação associadas às transformações T1, T2 e T3. Em particular, BDD15 investiga as interfaces de encaminhamento dos registros de eventos, estados operacionais e energia, associadas ao \texttt{Probe} no ROS~1 e ao \texttt{SystemMonitor} no ROS~2. A Tabela~\ref{tab:cenarios-amostra-comportamental} apresenta os contratos selecionados.
+
+\begin{table}[htbp]
+\centering
+\caption{Cenários BDD selecionados para a análise comportamental da BSN}
+\label{tab:cenarios-amostra-comportamental}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}p{2.45cm}XXX@{}}
+\toprule
+\textbf{Cenário e contrato} & \textbf{Condição inicial} & \textbf{Estímulo} & \textbf{Resultado esperado} \\
+\midrule
+BDD03 / BSN-C01 & Paciente monitorado por um dos seis sensores. & O sensor informa uma nova leitura de sinal vital. & O CentralHub recebe a leitura com o valor informado pelo sensor. \\
+\addlinespace
+BDD04 / BSN-P09 & Paciente monitorado pelo oxímetro. & O oxímetro informa uma leitura fora da faixa normal. & O risco associado à leitura é classificado como alto na saída do CentralHub. \\
+\addlinespace
+BDD05 / BSN-C02 & CentralHub indisponível. & O oxímetro informa uma nova leitura. & Não é reportado um nível de risco para essa leitura. \\
+\addlinespace
+BDD08 / BSN-P10 & Paciente monitorado pelo termômetro, com o CentralHub disponível. & O termômetro informa uma nova leitura. & São observados valores válidos e distintos do estado de saúde do paciente. \\
+\addlinespace
+BDD09 / BSN-C04 & CentralHub indisponível. & O termômetro continua produzindo leituras. & Não são observados valores do estado de saúde do paciente. \\
+\addlinespace
+BDD15 / BSN-C07 & Sistema de registro em execução. & Consulta às interfaces de comunicação (sem estímulo explícito no cenário). & O sistema de registro está inscrito nos tópicos de eventos, estados e energia publicados pelo coletor. \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+{\footnotesize\textbf{Fonte:} elaboração própria a partir dos cenários BDD da BSN e de seus identificadores documentados~\cite{Viana}.}
+\end{table}
+
+Como exemplo da preparação dos testes no ROS~1, o cenário BDD03, apresentado na Listagem~\ref{lst:bsn-c01-ros1}, foi relacionado ao arquivo \texttt{check\_bsn.feature} e às definições de passos em \texttt{test\_check\_bsn.py}. A verificação utiliza valores capturados nos tópicos do sensor e do CentralHub, comparados pela função \path{count_and_get_matching_elements_with_time}. A Figura~\ref{fig:gt-instrumentacao-bdd03} apresenta a relação entre os artefatos de teste identificados na inspeção. No ROS~2, os executores em \texttt{features/test} inicializam o sistema, verificam a disponibilidade operacional dos nós e acionam as definições de passos em \texttt{features/steps}. Os relatórios internos JUnit/XML registram os resultados por caso BDD, independentemente do resultado do executor externo. O cenário BDD15 é especificado em \texttt{managing\_system.feature} nas duas plataformas e possui três casos parametrizados, correspondentes aos tópicos \texttt{/log\_event}, \texttt{/log\_status} e \texttt{/log\_energy\_status}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  >=Stealth,
+  node distance=4mm,
+  artefato/.style={draw,rounded corners,align=center,
+    text width=0.82\linewidth,minimum height=8mm,font=\small,inner sep=3pt}
+]
+\node[artefato] (gherkin) {\texttt{check\_bsn.feature}: cenário BDD03};
+\node[artefato,below=of gherkin] (steps) {\texttt{test\_check\_bsn.py}: definições
+de passos};
+\node[artefato,below=of steps] (capture) {\texttt{conftest.py}: preparação e captura
+compartilhadas};
+\node[artefato,below=of capture] (oracle) {\texttt{test\_check\_bsn.py}: comparação
+de valores e asserção};
+\node[artefato,below=of oracle] (result) {Relatório de execução JUnit/XML};
+\draw[->] (gherkin) -- (steps);
+\draw[->] (steps) -- (capture);
+\draw[->] (capture) -- (oracle);
+\draw[->] (oracle) -- (result);
+\end{tikzpicture}
+\caption{Instrumentação de BDD03 no ROS~1 reconstruída a partir dos
+artefatos de teste.}
+\label{fig:gt-instrumentacao-bdd03}
+\end{figure}
+\FloatBarrier
+
+\begin{comment}
+Tabela original da amostra, incluindo persistência e adaptação (fora do recorte atual).
 \begin{table}[htbp]
 \centering
 \caption{Cenários BDD selecionados para a análise
@@ -671,36 +1011,46 @@ cenários BDD da BSN e na rastreabilidade
 no repositório~\cite{Viana}.
 \end{minipage}
 \end{table}
+\end{comment}
 
-Como exemplo da construção da referência no ROS~1, o cenário BDD03, apresentado na Listagem~\ref{lst:bsn-c01-ros1}, foi relacionado ao arquivo \texttt{check\_bsn.feature} e às definições de passos em \texttt{test\_check\_bsn.py}. A verificação compara valores capturados nos tópicos do sensor e do CentralHub por meio de \path{count_and_get_matching_elements_with_time}. A Figura~\ref{fig:gt-instrumentacao-bdd03} sintetiza os artefatos identificados na inspeção.
+\subsection{Interpretação dos oráculos e correspondência entre as versões}
+\label{subsec:gt-validacao-oraculos}
 
-\begin{figure}[h]
+A interpretação dos resultados considera os critérios efetivamente verificados pelos testes nas duas implementações. A Tabela~\ref{tab:gt-validacao-oraculos} apresenta as asserções identificadas e os mecanismos utilizados para observar os comportamentos especificados. A comparação é necessária porque a correspondência entre cenários não implica que suas implementações de teste verifiquem exatamente as mesmas propriedades.
+
+% TODO: Conferir as asserções e a preparação dos testes nos commits utilizados nas novas execuções. A descrição abaixo considera as versões examinadas dos testes, não necessariamente todos os registros históricos.
+
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[
-  >=Stealth,
-  node distance=4mm,
-  artefato/.style={draw,rounded corners,align=center,
-    text width=0.82\linewidth,minimum height=8mm,font=\small,inner sep=3pt}
-]
-\node[artefato] (gherkin) {\texttt{check\_bsn.feature}: cenário BDD03};
-\node[artefato,below=of gherkin] (steps) {\texttt{test\_check\_bsn.py}: definições
-de passos};
-\node[artefato,below=of steps] (capture) {\texttt{conftest.py}: preparação e captura
-compartilhadas};
-\node[artefato,below=of capture] (oracle) {\texttt{test\_check\_bsn.py}: comparação
-de valores e asserção};
-\node[artefato,below=of oracle] (result) {Relatório de execução JUnit/XML};
-\draw[->] (gherkin) -- (steps);
-\draw[->] (steps) -- (capture);
-\draw[->] (capture) -- (oracle);
-\draw[->] (oracle) -- (result);
-\end{tikzpicture}
-\caption{Instrumentação de BDD03 no ROS~1 reconstruída a partir dos
-artefatos de teste.}
-\label{fig:gt-instrumentacao-bdd03}
-\end{figure}
+\footnotesize
+\caption{Comparação dos oráculos da amostra no ROS~1 e no ROS~2}
+\label{tab:gt-validacao-oraculos}
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}XX@{}}
+\toprule
+\textbf{Cenário} & \textbf{Oráculo no ROS~1} & \textbf{Oráculo no ROS~2} \\
+\midrule
+BDD03 / BSN-C01 & Busca pelo menos uma correspondência entre valores capturados no tópico do sensor e no campo correspondente da saída do CentralHub, considerando uma diferença temporal inferior a 2~s na comparação implementada. & Busca valores coincidentes nas capturas do sensor e do CentralHub, sem a mesma restrição temporal na asserção examinada. \\
+\addlinespace
+BDD04 / BSN-P09 & Verifica a correspondência entre valores de risco e a presença de risco na faixa de 66 a 100. A condição de alto risco é preparada na inicialização do simulador. & Verifica a correspondência entre valores de risco e a presença de risco na faixa de 66 a 100. A condição de alto risco é estabelecida durante o teste por meio da configuração do simulador. \\
+\addlinespace
+BDD05 / BSN-C02 & Verifica a ausência de dados capturados na saída do CentralHub após sua interrupção. & Verifica a ausência de valores nos campos de risco capturados durante a indisponibilidade do CentralHub. \\
+\addlinespace
+BDD08 / BSN-P10 & Verifica a presença de leituras válidas do termômetro e de valores distintos de \texttt{patient\_status} entre 0 e 100. & Verifica os mesmos critérios na versão com oráculo revisado, utilizando as interfaces de captura do ROS~2. \\
+\addlinespace
+BDD09 / BSN-C04 & Verifica a presença de leituras válidas do termômetro e a ausência de valores de \texttt{patient\_status}. & Verifica os mesmos critérios na versão com oráculo revisado, utilizando uma janela de captura limitada para observar a atividade do termômetro sem saída do CentralHub. \\
+\addlinespace
+BDD15 / BSN-C07 & Verifica as inscrições e conexões de entrada do nó \texttt{/logger} nos três tópicos de registro. & Verifica a presença de publicadores no nó \texttt{/node\_monitor} e de assinaturas no nó \texttt{/logger} para os mesmos três tópicos. \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+{\footnotesize\textbf{Fonte:} elaboração própria a partir da inspeção dos testes da BSN e da documentação dos oráculos~\cite{Viana}.}
+\end{table}
 \FloatBarrier
 
+Em BDD03, o ROS~1 considera uma restrição temporal na comparação de valores que não está presente na asserção examinada do ROS~2. Em BDD04, as duas implementações verificam a presença de valores de risco alto, mas utilizam mecanismos distintos para estabelecer essa condição. Os cenários BDD08 e BDD09 possuem critérios de observação correspondentes nas versões revisadas dos testes, embora existam diferenças nos estímulos e nas janelas de captura. Em BDD15, os oráculos verificam as relações de comunicação entre os componentes de monitoramento e registro. A verificação no ROS~2 consulta os publicadores e subscritores de cada tópico, enquanto a verificação no ROS~1 considera as inscrições e conexões de entrada do sistema de registro. As asserções desse cenário verificam o estabelecimento dessas relações de comunicação, sem verificar diretamente a transmissão dos registros.
+
+\begin{comment}
+Versão anterior da subseção de oráculos.
 \subsection{Interpretação dos oráculos e correspondência entre as versões}
 \label{subsec:gt-validacao-oraculos}
 
@@ -754,7 +1104,120 @@ testes e da análise de oráculos~\cite{Viana}.}
 \FloatBarrier
 
 A comparação evidencia que a correspondência entre cenários das duas implementações não implica equivalência do alcance de seus oráculos. A interpretação das aprovações depende das propriedades efetivamente verificadas pelas asserções, dos estímulos e das condições de observação.
+\end{comment}
 
+\subsection{Confronto das evidências de execução}
+\label{subsec:gt-validacao-execucoes}
+
+% TODO: Os resultados apresentados nesta subseção são provenientes do bsn_traces de Viana. Substituir pelas execuções próprias de check_bsn, health_status e dos três casos de BDD15 de managing_system em cada plataforma. Preservar os relatórios internos JUnit/XML e os valores capturados, incluindo eventuais falhas.
+% TODO: Os resultados apresentados a seguir são históricos, provenientes do bsn_traces de Viana. Substituir pelas execuções próprias de check_bsn, health_status e dos três casos de BDD15 de managing_system em cada plataforma. Registrar os resultados internos por caso, inclusive falhas, erros e casos não executados, e preservar os relatórios e logs em seus respectivos repositórios.
+
+A referência comportamental é constituída pelos resultados observados no ROS~1 para os cenários selecionados. A comparação com o ROS~2 considera as especificações comportamentais e os critérios de verificação apresentados na Tabela~\ref{tab:gt-validacao-oraculos}. Os relatórios internos JUnit/XML registram os resultados das asserções e, quando disponíveis, os valores capturados nas interfaces ROS.
+
+A Tabela~\ref{tab:gt-validacao-amostra} reúne as evidências de execução dos seis cenários selecionados. BDD03 é parametrizado pelos seis sensores da BSN e BDD15 pelos três canais de registro, totalizando treze casos de teste em cada plataforma. A tabela apresenta exemplos dos valores observados, a presença ou ausência das saídas investigadas e os resultados das verificações das interfaces de comunicação.
+
+\begin{comment}
+Fontes dos resultados apresentados na tabela (caminhos relativos à raiz de https://github.com/richardjlv/bsn_traces):
+
+BDD03, BDD04 e BDD05 — ROS 1 (26/10/2026):
+campanhas_traces/ros1_20261026T123929Z_check_bsn__zoxo9tz/test_results/component/rosunit-test_check_bsn.xml
+BDD03: testcase test_the_central_hub_receives_the_vital_sign_reading_reported_by_a_body_sensor_bsnp08[the thermometer], elemento system-out. Buscar 36.5492899047 e 37.3526083319. A mensagem de depuração usa SENSOR RISK/TARGET RISK também para comparar leituras em BDD03.
+BDD04: testcase test_the_central_hub_classifies_a_vital_sign_reading_outside_the_normal_range_as_high_risk_bsnp08, elemento system-out. Buscar SENSOR RISK of /oximeter_data: 88.7180332266 TARGET RISK: 88.7180332266.
+BDD05: testcase test_no_patient_risk_level_is_reported_while_the_central_hub_is_unavailable_bsnp08, elemento system-out. A captura do oxímetro contém dez valores no campo data; buscar 'target_system_data': {} (aspas codificadas como &apos; no XML).
+
+BDD03, BDD04 e BDD05 — ROS 2 (02/11/2026):
+diagnosticos/revalidacao_features_2026-11-02/ros2_20261102T010219Z_ftsgif7l/check_bsn/internal_junit/test_check_bsn.xml
+diagnosticos/revalidacao_features_2026-11-02/ros2_20261102T010219Z_ftsgif7l/check_bsn/trace.jsonl
+O XML registra oito aprovações; o trace registra passos, resultados e consultas de lifecycle, sem os valores capturados. A coleta anterior de 25/10 registrou falha no caso do oxímetro; a tabela utiliza a revalidação, sem somar as duas execuções.
+
+BDD08 e BDD09 — ROS 1 (26/10/2026):
+campanhas_traces/ros1_20261026T123423Z_health_status_w_m1hgvp/test_results/component/rosunit-test_health_status.xml
+BDD08: testcase test_a_patient_health_status_is_available_after_a_sensor_reports_a_reading_bsnp10, elemento system-out, campo patient_status. Os dez valores de estado de saúde são:
+13.4003435998, 18.754710845, 11.1586382807, 7.67331797972, 1.88882385471, 12.4647209581, 19.7152520767, 19.8584530219, 18.7077974804, 9.03355852848.
+A captura do termômetro contém dez leituras no campo data.
+BDD09: testcase test_no_patient_health_status_is_produced_when_the_central_hub_cannot_process_a_reading_bsnp10, elemento system-out. Dez leituras no campo data e 'target_system_data': {}.
+
+BDD08 e BDD09 — ROS 2 (25/10/2026):
+campanhas_traces/ros2_20261025T133922Z_qom_1chl/health_status/internal_junit/test_health_status.xml
+campanhas_traces/ros2_20261025T133922Z_qom_1chl/health_status/trace.jsonl
+O XML registra dois casos aprovados, sem valores capturados. Esses registros e o XML ROS 1 acima são anteriores às reexecuções com oráculo comum mencionadas na versão anterior do texto. Os identificadores anteriores eram ros1_20261026T222148Z_health_status_t2w8_ul0 e ros2_20261026T221156Z_uowmc6al. Não localizei seus relatórios nos caminhos consultados do repositório. Não atribuir os valores acima às reexecuções com oráculo comum. Conferir a versão do oráculo antes de substituir os resultados.
+
+BDD15 — ROS 1 (26/10/2026):
+campanhas_traces/ros1_20261026T125800Z_managing_system_bwq2wgl1/test_results/component/rosunit-test_managing_system.xml
+Buscar os três testcase test_the_system_log_receives_each_topic_collected_by_the_log_collector parametrizados por sensor event, sensor status e sensor energy status. Em system-out constam as subscriptions, inbound_connections, missing_topics: [] e is_receiving: True para cada tópico.
+
+BDD15 — ROS 2 (25/10/2026):
+campanhas_traces/ros2_20261025T054442Z_l7kfhjkk/managing_system/internal_junit/test_managing_system_topology.xml
+campanhas_traces/ros2_20261025T054442Z_l7kfhjkk/manifest.json
+Os três casos parametrizados acima são aprovados. Os outros três casos do XML não pertencem à amostra de BDD15. A interpretação das aprovações considera a implementação do passo system_log_subscribes_to_collector_topic, em features/steps/test_managing_system.py, no branch campanhas/traces-features-2026-10-21 de https://github.com/richardjlv/bsn2.
+\end{comment}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Comparação dos resultados comportamentais no ROS~1 e no ROS~2}
+\label{tab:gt-validacao-amostra}
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}XX@{}}
+\toprule
+\textbf{Cenário} & \textbf{Resultado observado no ROS~1} & \textbf{Resultado observado no ROS~2} \\
+\midrule
+BDD03 / BSN-C01 & Correspondência de leituras dos seis sensores com as saídas do CentralHub (6/6). & Correspondência de leituras nas interfaces dos seis sensores e do CentralHub, segundo as asserções (6/6). \\
+\addlinespace
+BDD04 / BSN-P09 & Correspondência de riscos do oxímetro e do CentralHub (\texttt{PASS}). & Correspondência de riscos e presença de risco na faixa de 66 a 100, segundo as asserções (\texttt{PASS}). \\
+\addlinespace
+BDD05 / BSN-C02 & Dez leituras do oxímetro e captura vazia da saída do CentralHub indisponível (\texttt{PASS}). & Ausência de valores nos campos de risco do CentralHub, segundo a asserção (\texttt{PASS}). \\
+\addlinespace
+BDD08 / BSN-P10 & Dez leituras do termômetro e dez valores distintos de \texttt{patient\_status} (\texttt{PASS}). & Verificação da disponibilização do estado de saúde aprovada (\texttt{PASS}); os valores capturados não constam do XML consultado. \\
+\addlinespace
+BDD09 / BSN-C04 & Dez leituras do termômetro e captura vazia da saída do CentralHub indisponível (\texttt{PASS}). & Verificação da ausência de estado de saúde durante a indisponibilidade do CentralHub aprovada (\texttt{PASS}). \\
+\addlinespace
+BDD15 / BSN-C07 & Subscrições e conexões de entrada do \texttt{/logger} em \texttt{/log\_event}, \texttt{/log\_status} e \texttt{/log\_energy\_status}, sem tópicos ausentes (3/3). & Verificação de publicação pelo \texttt{/node\_monitor} e subscrição pelo \texttt{/logger} nos mesmos três tópicos (3/3). \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+{\footnotesize\textbf{Fonte:} elaboração própria a partir dos relatórios de execução documentados no repositório \texttt{bsn\_traces}~\cite{Viana}.}
+\end{table}
+\FloatBarrier
+
+Os relatórios selecionados registraram treze casos aprovados em cada plataforma. Os resultados observados no ROS~1 constituem a referência comportamental utilizada na comparação com o ROS~2, considerando os critérios de aceitação efetivamente verificados e as diferenças entre os oráculos. A avaliação dessas evidências quanto à preservação comportamental é apresentada na Seção~\ref{sec:avaliacao-rq2}.
+
+\begin{comment}
+Registros históricos de BDD15 (somente os três casos parametrizados de managing_system):
+ROS 1: 26/10/2026, campanhas_traces/ros1_20261026T125800Z_managing_system_bwq2wgl1/test_results/component/rosunit-test_managing_system.xml.
+ROS 2: 25/10/2026, campanhas_traces/ros2_20261025T054442Z_l7kfhjkk/manifest.json, features.managing_system.internal_junit, test_managing_system_topology.xml.
+Fontes consultadas: https://github.com/richardjlv/bsn_traces e os arquivos managing_system.feature nos branches revisao/pytest-bdd-agrupado-20261126 (ROS 1) e campanhas/traces-features-2026-10-21 (ROS 2).
+Não contabilizar os demais casos de managing_system no total da amostra. Os três casos de BDD15 referem-se à topologia; não confundir com teste de heartbeat.
+\end{comment}
+
+\begin{comment}
+Tabela anterior de monitoramento, preservada para eventual consulta. O conteúdo foi incorporado à tabela principal.
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Interfaces de comunicação verificadas em BDD15}
+\label{tab:gt-validacao-monitoramento}
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+\toprule
+\textbf{Tópico} & \textbf{ROS~1: sistema de registro} & \textbf{ROS~2: coletor e sistema de registro} \\
+\midrule
+\texttt{/log\_event} & Inscrição e conexão de entrada presentes. & Publicador e assinatura presentes, conforme a asserção. \\
+\addlinespace
+\texttt{/log\_status} & Inscrição e conexão de entrada presentes. & Publicador e assinatura presentes, conforme a asserção. \\
+\addlinespace
+\texttt{/log\_energy\_status} & Inscrição e conexão de entrada presentes. & Publicador e assinatura presentes, conforme a asserção. \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+{\footnotesize\textbf{Fonte:} elaboração própria a partir dos relatórios de execução de BDD15 disponíveis no repositório \texttt{bsn\_traces}~\cite{Viana}.}
+\end{table}
+\end{comment}
+
+\begin{comment}
+Registros históricos e períodos das execuções (preservados para conferência e substituição pelos registros próprios).
+ROS 1 check_bsn: 26/10/2026, ros1_20261026T123929Z_check_bsn__zoxo9tz, test_results/component/rosunit-test_check_bsn.xml.
+ROS 2 check_bsn: 02/11/2026, diagnosticos/revalidacao_features_2026-11-02/ros2_20261102T010219Z_ftsgif7l/check_bsn/internal_junit/test_check_bsn.xml.
+Na execução anterior de 25/10/2026 no ROS 2, o caso do oxímetro falhou por ausência de dados capturados. A tabela ativa utiliza a revalidação; não somar os resultados das duas execuções.
+Os resultados de health_status com oráculo comum de 26/10/2026 constam da seção original abaixo. Os identificadores foram preservados do texto original; conferir os relatórios específicos antes da substituição.
 
 \subsection{Confronto das evidências de execução}
 \label{subsec:gt-validacao-execucoes}
@@ -833,30 +1296,13 @@ resultados por caso, rastros e revalidações no repositório ~\cite{Viana} \tex
 Em BDD06--BDD07, o resultado \texttt{XFAIL} não fornece o mesmo tipo de evidência nas duas plataformas: no legado, a falha esperada foi registrada no passo de verificação, enquanto na coleta ROS~2 de 25/10 ocorreu durante a preparação da falha simulada. Assim, as duas marcações não confirmam a ocorrência de um mesmo defeito de armazenamento.
 
 As execuções com oráculo comum de estado de saúde estão identificadas, respectivamente, como \path{ros1_20261026T222148Z\_health_status_t2w8_ul0} e \path{ros2_20261026T221156Z\_uowmc6al} no repositório~\cite{Viana}. A identificação das campanhas é necessária porque os relatórios mais antigos de \texttt{health\_status} utilizavam critérios diferentes.
+\end{comment}
 
 
-\subsection{Evidências Complementares aos Testes BDD}
-\label{subsec:gt-validacao-complementar}
-
-Além das campanhas BDD, o repositório~\cite{Viana} documenta testes complementares que permitem aprofundar a verificação de comportamentos selecionados. Esses testes utilizam entradas controladas ou testes direcionados a responsabilidades específicas, complementando as observações dos cenários BDD sem constituir novas execuções desses mesmos cenários.
-
-Como verificação complementar do processamento do CentralHub, um testes utilizou mensagens sintéticas com riscos e identificadores conhecidos. Nas duas implementações, foram aprovadas nove fases de verificação, com a sequência esperada de estados de saúde 20, 90 e 20, repetida três vezes. Diferentemente de BDD03, esse testes verifica as respostas do CentralHub a mensagens diretamente injetadas, sem exercitar a aquisição original das leituras pelos sensores.
-
-Na classificação de risco (BDD04), quatro casos foram executados diretamente nas classes responsáveis pela classificação nas implementações C++ e Python, obtendo aprovação em ambas. O defeito B7, documentado no repositório, consistia na utilização incorreta dos intervalos fisiológicos para determinar a categoria de risco, em vez das faixas percentuais correspondentes. Os mesmos casos reprovaram quando esse defeito foi reintroduzido em uma cópia da classe C++. Esse resultado demonstra a capacidade dos testes complementares de detectar o defeito investigado, ampliando a verificação da classificação para além da observação de risco alto realizada pelo cenário BDD04.
-
-Quanto à persistência (BDD06), um testes controlado verificou a gravação e a recuperação de 30 registros no tópico \texttt{Status} em cada implementação, inclusive após o encerramento dos processos. Esse resultado complementa o BDD06, cuja asserção observa o encaminhamento dos registros.
-
-
-
-Por fim, na adaptação (BDD20), no repositório foi~\cite{Viana} documentado testes controlados com valores de confiabilidade fornecidos aos controladores das duas implementações. Inicialmente, foram identificadas diferenças nas condições de erro nulo e de erro dentro da margem de adaptação. Após uma correção no controlador ROS~1, os quatro casos controlados foram aprovados nas duas versões, incluindo a ausência de comandos nessas condições.
-
-Esse resultado sustenta a correspondência das decisões dos controladores para os valores ensaiados, mas não comprova a recuperação da malha completa nem a alteração efetiva da frequência dos sensores.
-
-
-
+\begin{comment}
+Síntese anterior, dependente também das evidências complementares.
 \subsection{Síntese da referência e do alcance da validação}
 \label{subsec:gt-validacao-sintese}
 
 O Estabelecimento da \textit{Ground Truth} Comportamental resultou em uma referência delimitada pelos cenários BDD, pelas asserções e pelos resultados de execução no ROS~1. O confronto com o ROS~2 permitiu identificar correspondências para os critérios efetivamente verificados, além de discrepâncias e limitações dos oráculos e das condições de execução, especialmente na persistência e na adaptação. Os testes complementares ampliaram a investigação de responsabilidades específicas.
-
-
+\end{comment}
