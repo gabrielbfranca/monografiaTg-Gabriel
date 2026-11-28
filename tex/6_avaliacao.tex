@@ -17,9 +17,9 @@ Entretanto, a viabilidade observada não corresponde à execução prospectiva d
 
 \paragraph{C2 -- Utilidade dos artefatos e resultados.}
 
-A principal contribuição observada está nas relações estabelecidas entre os resultados das diferentes etapas. O conhecimento recuperado na Compreensão de Programas forneceu informações sobre a organização e as interfaces da BSN, utilizadas na interpretação dos comportamentos e na identificação de suas realizações. Os cenários BDD, por sua vez, estabeleceram contratos comportamentais que serviram tanto à construção da referência no ROS~1 quanto à delimitação das responsabilidades examinadas na implementação.
+A principal contribuição observada está nas relações estabelecidas entre os resultados das diferentes etapas. O conhecimento recuperado na Compreensão de Programas forneceu informações sobre a organização e as interfaces da BSN, utilizadas na interpretação dos comportamentos e na identificação de suas realizações. Os cenários BDD, por sua vez, estabeleceram contratos comportamentais que serviram tanto para construção da referência no ROS~1 quanto à delimitação das responsabilidades examinadas na implementação.
 
-O cenário BDD03 exemplifica essa relação. A especificação da recepção de leituras permitiu orientar a identificação das entidades envolvidas na comunicação entre sensores e \texttt{CentralHub}. O mapeamento resultante relacionou esse contrato às responsabilidades de transmissão e recepção, posteriormente examinadas na transformação T3. Na análise comportamental, o mesmo contrato forneceu uma referência para comparar os oráculos e os resultados de execução nas duas implementações.
+O cenário BDD03 exemplifica essa relação. A especificação da recepção de leituras permitiu orientar a identificação das entidades envolvidas na comunicação entre sensores e \texttt{CentralHub}. O mapeamento resultante relacionou esse contrato com as responsabilidades de transmissão e recepção, posteriormente examinadas na transformação T3. Na análise comportamental, o mesmo contrato forneceu uma referência para comparar os oráculos e os resultados de execução nas duas implementações.
 
 
 De modo semelhante, a investigação das interfaces associadas a BDD15 permitiu relacionar o contrato à responsabilidade de coleta e encaminhamento de registros exercida por \texttt{Probe}. Esse mapeamento forneceu uma referência para caracterizar T2, na qual \texttt{SystemMonitor} mantém essa responsabilidade e incorpora funcionalidades adicionais de supervisão no ROS~2. As correspondências entre responsabilidades e transformações foram consolidadas no registro apresentado na Tabela~\ref{tab:res-migration-record}.
@@ -31,7 +31,7 @@ Esses resultados mostram que os artefatos recuperados e os mapeamentos reconstru
 A aplicação da abordagem depende da disponibilidade de informações sobre o sistema legado. Na BSN, os trabalhos anteriores forneceram documentação e especificações comportamentais que facilitaram a reconstrução. Entretanto, não foram estabelecidos critérios objetivos para determinar a suficiência do conhecimento recuperado ou a abrangência dos contratos selecionados.
 
 A identificação das realizações dependeu da interpretação do código-fonte, dos grafos de chamadas e das interfaces de comunicação. As associações obtidas permitem localizar entidades relacionadas aos comportamentos, mas não constituem uma verificação dinâmica da participação de cada método na execução dos cenários BDD.
-
+% comentário sobre as limitações: Essa rastreabilidade pode ser feita quando reexecutar os testes. Com o BSN_traces do richard isso foi feito mas a partir do agrupamento de grupo de execução de testes. Se a validade não for suficiente para banca posso tentar inlcuir o feature location a partir dos meu próprios resultados. Na metdologia eu também inclui a ideia de feature location mas decidi remover depois porque na discussão que tive com o ricardo parece que representar os métodos envolvidos pelo diagrama de sequência é suficiente e não queria fugir muito do que foi feito
 Na análise comportamental, os oráculos baseados nas interfaces ROS permitiram examinar comportamentos observáveis nas duas implementações, mas nem sempre estabelecer uma associação inequívoca entre os estímulos e os resultados observados. Essas limitações restringem as conclusões de preservação comportamental, discutidas na RQ2.
 
 Por fim, o caráter retrospectivo impediu a recuperação completa das decisões que orientaram a migração original. Além disso, a ausência de indicadores para avaliar sistematicamente a aplicação do processo limita sua mensurabilidade. 
@@ -51,13 +51,12 @@ Entretanto, os resultados sustentam a aplicabilidade da abordagem como procedime
 
 A RQ2 examina quais evidências recuperadas permitem avaliar a preservação dos contratos comportamentais selecionados durante a migração da BSN. A análise considera a correspondência entre os contratos, os oráculos implementados e os resultados de execução apresentados na Seção~\ref{sec:resultados-validacao-bsn}.
 
-% TODO: Atualizar a avaliação com os resultados das execuções próprias de check_bsn, health_status e dos três casos de BDD15. Enquanto essas execuções não estiverem documentadas, as aprovações aqui discutidas correspondem aos registros históricos selecionados no Capítulo 5.
+
 
 \paragraph{Correspondência entre os contratos.}
 
 A correspondência entre cenários BDD não implica a equivalência de seus oráculos. Em BDD03, a comparação de valores no ROS~1 incorpora uma restrição temporal que não está presente na asserção examinada do ROS~2. Em BDD05, o teste do legado verifica a ausência de dados na saída capturada do CentralHub, enquanto o teste do ROS~2 verifica a ausência de valores nos campos de risco. Essas diferenças delimitam os aspectos comparáveis dos comportamentos e impedem interpretar a aprovação dos testes como demonstração de equivalência integral dos contratos. A revisão dos oráculos de BDD08 e BDD09 estabelece critérios correspondentes, mas os relatórios históricos consultados não permitem confirmar a execução com essas versões revisadas dos testes.
 
-% TODO: Após as novas execuções de health_status, confirmar as versões dos oráculos e atualizar esta ressalva. Não atribuir os resultados históricos aos oráculos harmonizados sem os respectivos relatórios.
 
 \paragraph{Alcance das evidências de preservação.}
 
@@ -156,6 +155,13 @@ Os testes complementares ampliaram a investigação de responsabilidades especí
 
 Além dessas verificações, os relatórios de cobertura permitem examinar a abrangência estrutural das execuções de teste disponíveis. A Tabela~\ref{tab:rq2-cobertura} apresenta os resultados gerais do ROS~1 e os recortes de testes de pacotes, BDD e sua união no ROS~2.
 
+No ROS~2, a união dos testes de pacotes e BDD apresentou cobertura superior à obtida por cada conjunto isoladamente, indicando que as duas suítes exercitaram regiões parcialmente distintas da implementação. Esses resultados consideram conjuntos de testes mais abrangentes do que a amostra de cenários BDD selecionada neste estudo e evidenciam a contribuição da suíte BDD para a cobertura estrutural da implementação migrada.
+\end{comment}
+
+\paragraph{Abrangência estrutural dos testes comportamentais.}
+
+Embora a avaliação da preservação comportamental esteja restrita aos cenários selecionados, os relatórios de cobertura disponibilizados por Viana~\cite{BSN_TRACES} permitem caracterizar a abrangência estrutural de conjuntos mais amplos de testes da BSN. A Tabela~\ref{tab:rq2-cobertura} apresenta a cobertura geral do ROS~1 e a cobertura dos testes de pacotes, dos testes BDD e da união de ambos no ROS~2.
+
 \begin{table}[htbp]
 \centering
 \caption{Cobertura estrutural das execuções de testes da BSN}
@@ -195,8 +201,7 @@ Os resultados correspondem às execuções e aos recortes de código de produç�
 \end{minipage}
 \end{table}
 
-No ROS~2, a união dos testes de pacotes e BDD apresentou cobertura superior à obtida por cada conjunto isoladamente, indicando que as duas suítes exercitaram regiões parcialmente distintas da implementação. Esses resultados consideram conjuntos de testes mais abrangentes do que a amostra de cenários BDD selecionada neste estudo e evidenciam a contribuição da suíte BDD para a cobertura estrutural da implementação migrada.
-\end{comment}
+No ROS~2, a suíte BDD exercitou 75,25\% das linhas de código de produção consideradas na medição. A cobertura obtida pela união das duas suítes indica que os testes BDD exercitaram regiões da implementação não alcançadas pelos testes de pacotes. Esses resultados caracterizam a abrangência estrutural da suíte BDD para além da amostra selecionada neste estudo.
 
 
 \paragraph{Limitações da comparação.}
@@ -313,7 +318,7 @@ O WMC corresponde à soma das complexidades ciclomáticas dos métodos definidos
 
 Em T1, o controle da execução e da atividade dos componentes, anteriormente realizado por mecanismos internos de \texttt{Component}, \texttt{Sensor} e \texttt{CentralHub}, passou a utilizar uma infraestrutura compartilhada baseada no ciclo de vida do ROS~2. A classe \texttt{RosComponent} herda de \texttt{LifecycleNode}, enquanto \texttt{LifecycleManager} complementa o gerenciamento dos estados operacionais. Essa mudança caracteriza a adaptação da responsabilidade aos mecanismos da plataforma de destino. As métricas de \texttt{RosComponent} (WMC 8; CC máxima 2) e \texttt{LifecycleManager} (57; 7) descrevem a complexidade das classes, mas não permitem concluir que houve redução da complexidade dessa responsabilidade em relação ao ROS~1, pois sua realização foi distribuída entre diferentes entidades. Os cenários associados à indisponibilidade do CentralHub examinam resultados observáveis, sem verificar diretamente as transições de ciclo de vida.
 
-Em T2, a responsabilidade anteriormente associada a \texttt{Probe} foi mantida e ampliada em \texttt{SystemMonitor}. Além do encaminhamento de eventos, estados e informações de energia, a implementação ROS~2 incorpora a supervisão da atividade dos nós por \textit{heartbeats}. Essa ampliação funcional não decorre necessariamente da substituição do \textit{framework}. BDD15 verifica a correspondência das interfaces de encaminhamento, mas não a entrega dos registros nem a supervisão acrescentada. O WMC de \texttt{Probe} é 8, com CC máxima de 1, enquanto \texttt{SystemMonitor} apresenta WMC de 33 e CC máxima de 8. Entretanto, esses valores não representam uma comparação de funcionalidades equivalentes, pois o componente migrado possui responsabilidades adicionais e o WMC de \texttt{Probe} não inclui os métodos herdados de \texttt{ROSComponent}.
+Em T2, a responsabilidade anteriormente associada a \texttt{Probe} foi mantida e ampliada em \texttt{SystemMonitor}. Além do encaminhamento de eventos, estados e informações de energia, a implementação ROS~2 incorpora a supervisão da atividade dos nós. Essa ampliação funcional não decorre necessariamente da substituição do \textit{framework}. BDD15 verifica a correspondência das interfaces de encaminhamento, mas não a entrega dos registros nem a supervisão acrescentada. O WMC de \texttt{Probe} é 8, com CC máxima de 1, enquanto \texttt{SystemMonitor} apresenta WMC de 33 e CC máxima de 8. Entretanto, esses valores não representam uma comparação de funcionalidades equivalentes, pois o componente migrado possui responsabilidades adicionais e o WMC de \texttt{Probe} não inclui os métodos herdados de \texttt{ROSComponent}.
 
 Em T3, a transformação caracteriza-se pela redistribuição das responsabilidades de coleta, processamento, comunicação e avaliação de risco. No ROS~1, \texttt{Sensor::body()} coordena essas operações por meio de métodos virtuais implementados pelas subclasses, como \texttt{G3T1\_3}, caracterizando o padrão \textit{Template Method}. No ROS~2, \texttt{Sensor} mantém a coordenação da execução, mas delega operações a \texttt{DataProcessor}, \texttt{RiskManager} e outros componentes especializados. Da mesma forma, \texttt{CentralHub} utiliza \texttt{SensorDataHandler} e \texttt{DataFusionEngine} para recepção e processamento dos dados. Essa reorganização amplia a utilização de composição e delegação na realização das responsabilidades selecionadas.
 
@@ -349,5 +354,5 @@ O caráter retrospectivo do estudo constitui uma limitação para a avaliação 
 
 A avaliação também foi limitada a uma amostra de comportamentos e responsabilidades da BSN. Na análise comportamental, as conclusões dependem dos critérios efetivamente verificados pelos oráculos e da comparabilidade das condições de execução entre ROS~1 e ROS~2. A predominância de testes orientados às interfaces de comunicação permite observar resultados sem depender da organização interna dos componentes, mas nem sempre estabelece uma correspondência inequívoca entre estímulos e respostas. Dessa forma, as evidências obtidas sustentam conclusões sobre os contratos selecionados, sem demonstrar a preservação comportamental integral do sistema. A identificação das realizações, baseada na inspeção do código-fonte, nos grafos de chamadas e nas interfaces, não permite confirmar dinamicamente a participação de cada entidade na execução dos cenários.
 
-Na caracterização das transformações estruturais, as diferenças de linguagem, decomposição das responsabilidades e critérios de medição limitam a comparação quantitativa entre as implementações. Assim, as métricas utilizadas complementam a interpretação das transformações identificadas, mas não demonstram isoladamente uma melhoria global da modularidade.
+Na caracterização das transformações estruturais, as diferenças de linguagem, decomposição das responsabilidades e critérios de medição limitam a comparação quantitativa entre as implementações. Assim, as métricas utilizadas complementam a interpretação das transformações identificadas, mas não demonstram isoladamente uma melhoria global da modularidade. % Também foram feitas métricas relacionadas a coupling e cohesion mas com essa diferença decidir não incluir porque ela não teria nenhum valor comparativo pois a metodologia dessas métricas são distintas
 
